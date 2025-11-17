@@ -50,9 +50,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <!-- masih langsung direct ke index admin  -->
+                        <!-- masih langsung direct ke manage blog  -->
                         <!-- belum ke login  -->
-                        <a class="nav-link" href="admin/index.php">Login Admin</a>
+                        <a class="nav-link" href="admin/manage_blog.php">Login Admin</a>
                     </li>
                 </ul>
             </div>

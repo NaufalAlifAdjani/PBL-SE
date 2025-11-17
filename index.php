@@ -39,19 +39,20 @@
                         Misi kami adalah menjembatani kesenjangan antara teori akademis dan tantangan industri di dunia nyata. Kami menyediakan lingkungan kolaboratif bagi mahasiswa dan peneliti untuk berinovasi, membangun, dan menguji solusi perangkat lunak yang tangguh dan skalabel.
                     </p>
 
-                    <!-- Poin-poin Kunci (Opsional, tapi bagus) -->
                     <ul class="list-unstyled mt-4">
                         <li class="d-flex align-items-start mb-2">
                             <i class="bi bi-check-circle-fill text-primary me-3 mt-1"></i>
-                            <span>Fokus pada metodologi pengembangan modern dan praktik terbaik.</span>
+                            <span>----------.</span>
                         </li>
-                        <li class="d-flex align-items-start mb-2">
-                            <i class="bi bi-check-circle-fill text-primary me-3 mt-1"></i>
-                            <span>Penelitian aktif di bidang AI, Keamanan Perangkat Lunak, dan Big Data.</span>
-                        </li>
+
                         <li class="d-flex align-items-start">
                             <i class="bi bi-check-circle-fill text-primary me-3 mt-1"></i>
-                            <span>Kolaborasi erat dengan mitra industri untuk proyek-proyek dunia nyata.</span>
+                            <span>----------.</span>
+                        </li>
+
+                        <li class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 mt-1"></i>
+                            <span>----------.</span>
                         </li>
                     </ul>
                 </div>
@@ -66,9 +67,54 @@
                 <p class="lead text-muted">Follow the latest developments and research from our lab.</p>
             </div>
 
-            <div class="row">
+            <!-- blog artikel  -->
+            <div class="row g-5"> <?php
+                try {
+                    $sql = "SELECT id_artikel, judul, slug, isi_konten, gambar_artikel, tgl_dibuat
+                            FROM artikel
+                            WHERE status_artikel = 'Published'
+                            ORDER BY tgl_dibuat DESC
+                            LIMIT 4";
+                    $stmt = $conn->query($sql);
+
+                    if ($stmt->rowCount() == 0) {
+                        echo "<div class='col-12'><p class='text-center text-muted'>Belum ada informasi terbaru.</p></div>";
+                    }
+
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                        // deskripsi singkat
+                        $snippet = strip_tags($row['isi_konten']);
+                        if (strlen($snippet) > 100) {
+                            $snippet = substr($snippet, 0, 100) . '...';
+                        }
+
+                        // path gambar
+                        $gambar_path = 'uploads/' . htmlspecialchars($row['gambar_artikel'] ?? '');
+                        if (empty($row['gambar_artikel']) || !file_exists($gambar_path)) {
+                            $gambar_path = "assets/images/dummy1.png";
+                        }
+                ?>
+
+                <div class="col-md-3 d-flex align-items-stretch">
+                    <div class="card shadow-sm rounded-3 border-0 h-100 w-100">
+                        <img src="<?php echo $gambar_path; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['judul']); ?>" style="height: 200px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold h6"><?php echo htmlspecialchars($row['judul']); ?></h5>
+                            <p class="card-text text-muted small flex-grow-1"><?php echo htmlspecialchars($snippet); ?></p>
+
+                            <a href="blog_detail.php?slug=<?php echo htmlspecialchars($row['slug']); ?>" class="btn btn-outline-primary btn-sm rounded-pill align-self-start mt-2">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <?php
-                    // semua card yang sudah dibuat
+                    }
+                } catch (PDOException $e) {
+                    echo "<div class='col-12 alert alert-danger'>Error: " . $e->getMessage() . "</div>";
+                }
                 ?>
             </div>
         </div>
