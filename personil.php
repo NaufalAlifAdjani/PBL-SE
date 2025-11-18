@@ -77,7 +77,7 @@ $all_personil = pg_query($conn, $query_all);
                 $anchor_id = 'personil-' . $row['tipe'] . '-' . $row['id'];
         ?>
         
-        <div class="col-md-6 col-lg-4">
+        <div class="col-12 col-sm-6 col-lg-4">
             <div id="<?php echo $anchor_id; ?>">
                 <div class="card card-personil h-100">
                     <img src="<?php echo $foto_path; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['nama']); ?>">

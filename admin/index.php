@@ -10,7 +10,7 @@ include 'includes/header_admin.php';
 <p class="text-muted">Selamat datang kembali, Admin Lab SE</p>
 
 <div class="row g-4 mb-4">
-    <div class="col-md-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="card-stat card-stat-blue d-flex justify-content-between align-items-center">
             <div>
                 <h5>Total Personil</h5>
@@ -19,7 +19,7 @@ include 'includes/header_admin.php';
             <i class="bi bi-people-fill stat-icon"></i>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="card-stat card-stat-green d-flex justify-content-between align-items-center">
             <div>
                 <h5>Blog Articles</h5>
@@ -28,7 +28,7 @@ include 'includes/header_admin.php';
             <i class="bi bi-file-earmark-text-fill stat-icon"></i>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-12 col-sm-6 col-lg-4">
         <div class="card-stat card-stat-purple d-flex justify-content-between align-items-center">
             <div>
                 <h5>SE Geeks Members</h5>
@@ -43,13 +43,13 @@ include 'includes/header_admin.php';
     <div class="card-body p-4">
         <h4 class="fw-semibold mb-3">Akses Cepat</h4>
         <div class="row g-3">
-            <div class="col-md-6">
+            <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card-admin p-3">
                     <h5 class="fw-semibold">Tambah Blog</h5>
                     <p class="text-muted mb-0">Buat artikel blog baru</p>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card-admin p-3">
                     <h5 class="fw-semibold">Kelola Personil</h5>
                     <p class="text-muted mb-0">Edit data personil lab</p>

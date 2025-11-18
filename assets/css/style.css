@@ -6,53 +6,88 @@ body.admin-body {
     background-color: #f8f9fa;
 }
 
-/* Sidebar */
+/* ... Import Font dan Body tetap sama ... */
+
+/* =========================================
+   SIDEBAR ADMIN RESPONSIVE
+   ========================================= */
+
+/* Tampilan Default (Mobile First Approach) */
+/* Di HP, sidebar disembunyikan dan jadi Offcanvas */
 .sidebar {
-    width: 280px;
-    background-color: #111827; /* Dark blue/black */
+    background-color: #111827;
     color: #fff;
-    display: flex;
-    flex-direction: column;
+    width: 280px;
     flex-shrink: 0;
+    transition: all 0.3s;
 }
 
+/* Sidebar Header */
 .sidebar-header {
-    padding: 24px;
+    padding: 20px;
     border-bottom: 1px solid #374151;
-}
-
-.sidebar .nav-item {
-    padding: 0 16px;
-}
-
-.sidebar .nav-link {
-    color: #d1d5db; /* Gray */
-    font-weight: 500;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin: 4px 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.sidebar .nav-link i {
-    font-size: 1.2rem;
-    margin-right: 12px;
+/* Link Navigasi */
+.sidebar .nav-link {
+    color: #d1d5db;
+    padding: 12px 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    border-radius: 0; /* Flat di mobile biasanya lebih rapi */
 }
 
 .sidebar .nav-link:hover {
-    background-color: #374151; /* Darker gray */
+    background-color: #374151;
     color: #fff;
 }
 
 .sidebar .nav-link.active {
-    background-color: #4f46e5; /* Indigo */
+    background-color: #4f46e5;
     color: #fff;
-    font-weight: 600;
+    border-left: 4px solid #818cf8; /* Aksen aktif */
 }
 
+/* Logout Button di bawah */
 .sidebar-footer {
-    padding: 16px 24px;
+    margin-top: auto;
+    padding: 20px;
+}
+
+/* =========================================
+   MEDIA QUERY (LAPTOP/DESKTOP)
+   ========================================= */
+@media (min-width: 768px) {
+    /* Kembalikan sidebar menjadi kolom tetap di layar besar */
+    .sidebar {
+        height: 100vh; /* Full height */
+        position: sticky;
+        top: 0;
+        display: flex !important; /* Paksa muncul di desktop */
+        flex-direction: column;
+        visibility: visible !important;
+        transform: none !important;
+    }
+    
+    /* Sembunyikan tombol close (X) di desktop */
+    .sidebar-close-btn {
+        display: none;
+    }
+    
+    .main-content {
+        width: calc(100% - 280px); /* Sisanya untuk konten */
+    }
+}
+
+@media (max-width: 767.98px) {
+    /* Di HP, Konten mengambil lebar penuh */
+    .main-content {
+        width: 100%;
+    }
 }
 
 .btn-logout {
@@ -151,4 +186,38 @@ body.admin-body {
     color: #111827;
     border-bottom: 2px solid #111827;
     background-color: transparent;
+}
+
+/* Responsive Admin Tweak */
+@media (max-width: 768px) {
+    /* Ubah layout flex menjadi kolom (atas-bawah) */
+    .d-flex {
+        flex-direction: column;
+    }
+
+    /* Sidebar jadi lebar penuh di atas */
+    .sidebar {
+        width: 100%;
+        height: auto; /* Tinggi otomatis mengikuti isi menu */
+        position: relative;
+    }
+
+    /* Sembunyikan menu biar gak panjang, bikin scroll horizontal */
+    .sidebar .nav {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+    }
+    
+    .sidebar .nav-item {
+        display: inline-block;
+    }
+
+    /* Konten utama */
+    .main-content {
+        height: auto;
+        padding: 15px;
+    }
 }
