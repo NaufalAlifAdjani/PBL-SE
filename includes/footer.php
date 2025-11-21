@@ -1,4 +1,5 @@
-</main> <footer class="text-center p-4 text-muted">
+</main>
+<footer class="text-center p-4 text-muted">
     Copyright &copy; <?php echo date('Y'); ?> Lab SE. All Rights Reserved.
 </footer>
 

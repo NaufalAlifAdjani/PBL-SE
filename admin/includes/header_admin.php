@@ -17,11 +17,11 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title> 
+    <title>Dashboard Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body class="admin-body">
@@ -39,7 +39,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
             </li>
             <li class="nav-item">
                 <a class="nav-link <?php echo ($current_page == 'manage_blog.php') ? 'active' : ''; ?>" href="manage_blog.php">
-                    <i class="bi bi-file-earmark-text-fill"></i> Manage Blog
+                    <i class="bi bi-file-earmark-text-fill"></i> Manage Article
                 </a>
             </li>
             <li class="nav-item">
@@ -64,7 +64,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
             </li>
         </ul>
         <div class="sidebar-footer mt-auto">
-            <a href="#" class="btn btn-logout">
+            <a href="../index.php" class="btn btn-logout">
                 <i class="bi bi-box-arrow-left"></i> Logout
             </a>
         </div>

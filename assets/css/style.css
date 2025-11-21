@@ -80,7 +80,7 @@ body.admin-body {
 .card-admin {
     border: none;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     background-color: #fff;
 }
 
@@ -122,9 +122,15 @@ body.admin-body {
     padding: 24px;
     color: #fff;
 }
-.card-stat-blue { background-color: #2563eb; }
-.card-stat-green { background-color: #16a34a; }
-.card-stat-purple { background-color: #9333ea; }
+.card-stat-blue {
+    background-color: #2563eb;
+}
+.card-stat-green {
+    background-color: #16a34a;
+}
+.card-stat-purple {
+    background-color: #9333ea;
+}
 
 .card-stat h5 {
     font-size: 1.1rem;
@@ -151,4 +157,22 @@ body.admin-body {
     color: #111827;
     border-bottom: 2px solid #111827;
     background-color: transparent;
+}
+
+/* Index */
+banner {
+    background: linear-gradient(rgba(13, 110, 253, 0.8), rgba(5, 44, 101, 0.9)),
+        url('assets/images/bg-banner.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+}
+.card-img-top {
+    transition: transform 0.3s;
+}
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+.card {
+    overflow: hidden;
 }
