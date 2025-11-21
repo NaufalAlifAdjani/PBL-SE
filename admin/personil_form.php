@@ -8,7 +8,7 @@ $type = $_GET['type'] ?? 'dosen'; // Default tipe dosen jika mau tambah baru
 
 // Konfigurasi Judul & Folder Upload
 $page_title = ($type == 'dosen') ? "Form Data Dosen" : "Form Data Mahasiswa";
-$upload_dir = '../uploads/personil/'; 
+$upload_dir = __DIR__ . '../uploads_personil';
 
 // --- 1. LOGIKA GET DATA (EDIT) ---
 $data = null;
@@ -35,15 +35,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Jika mahasiswa ingin punya foto, pastikan tabel pendaftaran_user punya kolom foto_profil
     $foto_profil_name = $_POST['foto_lama'] ?? null;
     
-    if (isset($_FILES['foto_profil']) && $_FILES['foto_profil']['error'] == 0) {
-        $file_tmp = $_FILES['foto_profil']['tmp_name'];
-        $file_name = basename($_FILES['foto_profil']['name']);
-        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $new_file_name = uniqid('p_', true) . '.' . $file_ext;
-        if (move_uploaded_file($file_tmp, $upload_dir . $new_file_name)) {
-            $foto_profil_name = $new_file_name;
-        }
+  if (isset($_FILES['foto_profil']) && $_FILES['foto_profil']['error'] == 0) {
+
+    // Ambil info file
+    $file_tmp = $_FILES['foto_profil']['tmp_name'];
+    $file_ext = strtolower(pathinfo($_FILES['foto_profil']['name'], PATHINFO_EXTENSION));
+
+    // Nama file baru
+    $new_file_name = uniqid('p_', true) . '.' . $file_ext;
+
+    // Simpan file
+    if (move_uploaded_file($file_tmp, $upload_dir . '/' . $new_file_name)) {
+        $foto_profil_name = $new_file_name;
+    } else {
+        echo "<div class='alert alert-danger'>Gagal upload file!</div>";
     }
+}
 
     if ($type_post == 'dosen') {
         // === SIMPAN DOSEN ===
@@ -53,10 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mk = $_POST['mata_kuliah_diampu'];
 
         if ($id_post) { // Update
-            $q = "UPDATE dosen SET nama_dosen=$1, nip=$2, nidn=$3, email_dosen=$4, bid_kemahiran=$5, mata_kuliah_diampu=$6, foto_profil=$7 WHERE id_dosen=$8";
+            $q = "UPDATE dosen SET nama_dosen=$1, nip=$2, nidn=$3, email_dosen=$4, bid_kemahiran=$5, mata_kuliah=$6, foto_profil=$7 WHERE id_dosen=$8";
             $res = pg_query_params($conn, $q, [$nama, $nip, $nidn, $email, $bid_kemahiran, $mk, $foto_profil_name, $id_post]);
         } else { // Insert
-            $q = "INSERT INTO dosen (nama_dosen, nip, nidn, email_dosen, bid_kemahiran, mata_kuliah_diampu, foto_profil) VALUES ($1, $2, $3, $4, $5, $6, $7)";
+            $q = "INSERT INTO dosen (nama_dosen, nip, nidn, email_dosen, bid_kemahiran, mata_kuliah, foto_profil) VALUES ($1, $2, $3, $4, $5, $6, $7)";
             $res = pg_query_params($conn, $q, [$nama, $nip, $nidn, $email, $bid_kemahiran, $mk, $foto_profil_name]);
         }
 
@@ -121,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="text" class="form-control" name="nidn" value="<?php echo htmlspecialchars($data['nidn'] ?? ''); ?>">
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label class="form-label">Bidang Kemahiran / Posisi</label>
+                        <label class="form-label">Posisi</label>
                         <input type="text" class="form-control" name="bid_kemahiran" value="<?php echo htmlspecialchars($data['bid_kemahiran'] ?? ''); ?>" placeholder="Cth: Lab Director">
                     </div>
                     <div class="col-md-12 mb-3">
@@ -131,6 +138,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Foto Profil</label>
                         <input type="file" class="form-control" name="foto_profil">
+
+                          <?php if(!empty($data['foto_profil'])): ?>
+                            <img src="../uploads_personil/<?php echo $data['foto_profil']; ?>" 
+                                alt="Foto Profil" 
+                                style="max-width:150px; margin-top:10px;">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

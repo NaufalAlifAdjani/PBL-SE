@@ -68,9 +68,9 @@ $all_personil = pg_query($conn, $query_all);
                 // 2. Logika Path Gambar (BARU)
                 // Jika ini Dosen & fotonya ada, pakai foto itu.
                 // Jika tidak (misal Mahasiswa), pakai default.
-                $foto_path = 'uploads/personil/default.png'; // Asumsi kamu punya default.png
+                $foto_path = '../uploads_personil/default.png'; // Asumsi kamu punya default.png
                 if ($row['tipe'] == 'dosen' && !empty($row['foto'])) {
-                    $foto_path = 'uploads/personil/' . htmlspecialchars($row['foto']);
+                    $foto_path = '../uploads_personil/' . htmlspecialchars($row['foto']);
                 }
                 
                 // 3. Buat Anchor ID unik

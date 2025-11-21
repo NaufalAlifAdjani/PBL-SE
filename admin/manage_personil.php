@@ -29,7 +29,7 @@ $result = pg_query($conn, $query);
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="fw-bold">Kelola Personil & Anggota</h1>
-    <a href="personil_form.php?type=dosen" class="btn btn-primary-admin"><i class="bi bi-plus-circle"></i> Tambah Dosen</a>
+    <a href="personil_form.php?type=dosen" class="btn-primary-admin"><i class="bi bi-plus-circle"></i> Tambah Data</a>
 </div>
 <p class="text-muted">Kelola data dosen lab dan anggota SE Geeks yang diterima.</p>
 
