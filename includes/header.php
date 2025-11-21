@@ -29,7 +29,7 @@ $personil_items = pg_query($conn, $query_personil);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="/PBL-SE/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/userStyle.css">
 
     <style>
         /* (Style kustom kamu) */
@@ -168,7 +168,7 @@ $personil_items = pg_query($conn, $query_personil);
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="/PBL-SE/index.php">Landing Page</a></li>
+                <li class="nav-item"><a class="nav-link" href="/PBL-SE/index.php">Home</a></li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -222,4 +222,4 @@ $personil_items = pg_query($conn, $query_personil);
     </div>
 </nav>
 
-<main class="container">
+<main class="w-100">

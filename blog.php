@@ -26,7 +26,7 @@ if ($hasil) {
         <div class="row">
             <?php if (count($artikel) > 0): ?>
                 <?php foreach ($artikel as $row): ?>
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-4 mb-4 me-0">
                         <div class="card h-100 shadow-sm border-0 hover-shadow">
                             <?php
                                 // cek apakah ada gambar, jika tidak pakai dummy

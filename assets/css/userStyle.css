@@ -1,0 +1,45 @@
+.banner {
+    color: var(--text-primary);
+    background: linear-gradient(135deg, rgba(15, 12, 27, 0.9) 0%, rgba(26, 22, 38, 0.95) 100%);
+    padding: 100px;
+    border-bottom: 4px solid rgba(139, 92, 246, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #e788ff !important;
+}
+
+/* footer */
+footer {
+    background-color: var(--bg-surface);
+    border-top: 1px solid rgba(139, 92, 246, 0.1);
+    font-size: 15px;
+    color: #eaeaea !important;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block; /* Supaya properti transform/padding jalan */
+}
+
+.footer-link:hover {
+    color: var(--accent-glow); /* Berubah jadi ungu terang */
+    padding-left: 8px; /* Efek geser ke kanan */
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5); /* Efek glowing */
+}
+
+.quick,
+.kontak {
+    margin-left: 10%;
+    text-align: left;
+}
