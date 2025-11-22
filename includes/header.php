@@ -106,8 +106,8 @@ $personil_items = pg_query($conn, $query_personil);
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(0); }
+            to { opacity: 1; transform: translateY(15px); } /* edit dropdown */
         }
 
         .dropdown-item {
@@ -184,6 +184,7 @@ $personil_items = pg_query($conn, $query_personil);
                             echo '<li><a class="dropdown-item" href="#">(Belum ada data)</a></li>';
                         }
                         ?>
+                        <li><hr class="dropdown-divider"></li> <!-- minor changes -->
                     </ul>
                 </li>
 
@@ -213,6 +214,7 @@ $personil_items = pg_query($conn, $query_personil);
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownGeeks">
                         <li><a class="dropdown-item" href="/PBL-SE/se_geeks.php">List Anggota</a></li>
                         <li><a class="dropdown-item" href="/PBL-SE/pendaftaran.php">Pendaftaran Baru</a></li>
+                        <li><hr class="dropdown-divider"></li> <!-- minor change  -->
                     </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="/PBL-SE/blog.php">Blog Artikel</a></li>
