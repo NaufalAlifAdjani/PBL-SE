@@ -12,18 +12,6 @@
                 </p>
             </div>
 
-            <div class="col-md-2 offset-md-1 mb-4">
-                <h5 class="fw-bold text-white mb-3">Quick Links</h5>
-                <div class="quick">
-                    <ul class="list-unstyled d-flex flex-column gap-2">
-                        <li><a href="index.php" class="footer-link">Home</a></li>
-                        <li><a href="#" class="footer-link">Profile</a></li>
-                        <li><a href="personil.php" class="footer-link">Personil</a></li>
-                        <li><a href="blog.php" class="footer-link">Blog Artikel</a></li>
-                    </ul>
-                </div>
-            </div>
-
             <div class="col-md-4 offset-md-1 mb-4">
                 <h5 class="fw-bold text-white mb-3">Hubungi Kami</h5>
 
@@ -49,9 +37,13 @@
                         </div>
                     </div>
                 </div>
+
+
+            </div>
             </div>
         </div>
     </div>
+    <div class="text-end"><a href="/PBL-SE/admin/index.php" class="btn btn-login">Login</a></div>
     <hr>
 
     Copyright &copy; <?php echo date('Y'); ?> Lab SE. All Rights Reserved.

@@ -1,6 +1,5 @@
 <?php
     include 'includes/header.php';
-    include 'includes/db.php';
 
     // ambil slug URL
     $artikel_slug = isset($_GET['slug']) ? $_GET['slug'] : '';
@@ -58,7 +57,7 @@
 
     <section class="py-5">
         <div class="container">
-            <div class="row konten-center">
+            <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-10">
 
                     <h1 class="display-5 fw-bold mb-3"><?php echo $artikel_judul; ?></h1>
@@ -66,7 +65,7 @@
                     <p class="text-muted border-bottom pb-3">
                         <i class="bi bi-person-circle me-1"></i> <strong><?php echo $artikel_pembuat; ?></strong>
                         &nbsp;|&nbsp;
-                        <i class="bi bi-calendar-event me-1"></i> <?php echo $artikel_tgl; ?>
+                        <i class="bi bi-calendar3"></i> <?php echo $artikel_tgl; ?>
                     </p>
 
                     <?php if ($artikel_ada): ?>
@@ -83,11 +82,10 @@
                     </div>
 
                     <div class="mt-5 pt-4 border-top">
-                        <a href="blog.php" class="btn btn-outline-dark rounded-pill px-4">
+                        <a href="blog.php" class="btn rounded-pill px-4">
                             <i class="bi bi-caret-left-fill"></i>Kembali ke Daftar Artikel
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>

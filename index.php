@@ -14,17 +14,18 @@ $data = getProfileSection($conn, $slug);
         </div>
     </section>
 
+    <!-- about us -->
     <section id="about-us" class="py-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 mb-4 mb-md-0">
-                    <img src="assets/images/dummy1.png" class="img-fluid rounded-3 shadow" alt="">
+                    <img src="uploads/dummy.png" class="img-fluid rounded-3 shadow" alt="">
                 </div>
                 <div class="col-md-6" style="text-align: justify;">
                     <h2 class="fw-bold mb-3">About Us</h2>
-                    <p class="lead text-muted">
-                        Website ini dibuat sebagai ruang untuk berbagi informasi dan menghadirkan konten yang bermanfaat bagi pengunjung. Kami berkomitmen untuk terus mengembangkan layanan, memperbaiki kualitas, dan memberikan pengalaman terbaik bagi setiap pengguna. Terima kasih telah mengunjungi situs kami.
-                    </p>
+                        <p class="lead text-muted">
+                            Website ini dibuat sebagai ruang untuk berbagi informasi dan menghadirkan konten yang bermanfaat bagi pengunjung. Kami berkomitmen untuk terus mengembangkan layanan.
+                        </p>
                         <!-- connect ke visi misi? -->
                 </div>
             </div>
@@ -38,7 +39,7 @@ $data = getProfileSection($conn, $slug);
                 <p class="lead text-muted">Follow the latest developments and research from our lab.</p>
             </div>
 
-            <div class="row g-4 mx-3">
+            <div class="row g-4">
                 <?php
                 $sql = "SELECT id_artikel, judul, slug, isi_konten, gambar_artikel, tgl_dibuat
                         FROM artikel
@@ -48,21 +49,14 @@ $data = getProfileSection($conn, $slug);
 
                 $hasil = pg_query($conn, $sql);
 
-                if (!$hasil) {
-                    echo "<div class='col-12 alert alert-danger'>Error Query: " . pg_last_error($conn) . "</div>";
-                } else {
-                    if (pg_num_rows($hasil) == 0) {
-                        echo "<div class='col-12'><p class='text-center text-muted'>Belum ada informasi terbaru.</p></div>";
-                    }
-
+                if ($hasil && pg_num_rows($hasil) > 0) {
                     while ($row = pg_fetch_assoc($hasil)) {
+                        // clean ringkasan
+                        $clean_text = strip_tags($row['isi_konten']);
+                        $snippet = (strlen($clean_text) > 100) ? substr($clean_text, 0, 100) . '...' : $clean_text;
 
-                        $snippet = strip_tags($row['isi_konten']);
-                        if (strlen($snippet) > 100) {
-                            $snippet = substr($snippet, 0, 100) . '...';
-                        }
-
-                        $gambar_path = 'uploads/' . htmlspecialchars($row['gambar_artikel'] ?? '');
+                        // gambar
+                        $gambar_path = 'uploads/' . ($row['gambar_artikel'] ?? '');
                         if (empty($row['gambar_artikel']) || !file_exists($gambar_path)) {
                             $gambar_path = "uploads/dummy.png";
                         }
@@ -75,13 +69,16 @@ $data = getProfileSection($conn, $slug);
                             <h5 class="card-title fw-bold h2"><?php echo htmlspecialchars($row['judul']); ?></h5>
                             <p class="card-text text-muted small flex-grow-1"><?php echo htmlspecialchars($snippet); ?></p>
 
-                            <a href="blog_detail.php?slug=<?php echo htmlspecialchars($row['slug']); ?>" class="btn btn-outline-dark btn-sm rounded-pill align-self-start"> Read More
+                            <a href="blog_detail.php?slug=<?php echo htmlspecialchars($row['slug']); ?>" class="btn btn-sm rounded-pill align-self-start"> Read More
                             </a>
                         </div>
                     </div>
                 </div>
                 <?php
                     }
+                } else {
+                    // jika tidak ada artikel
+                    echo "<div class='col-12'><p class='text-center text-muted'>Belum ada informasi terbaru.</p></div>";
                 }
                 ?>
             </div>

@@ -22,7 +22,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style_admin.css">
 </head>
 <body class="admin-body">
 
@@ -55,11 +55,6 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
             <li class="nav-item">
                 <a class="nav-link <?php echo ($current_page == 'manage_profile.php') ? 'active' : ''; ?>" href="manage_profile.php">
                     <i class="bi bi-person-vcard-fill"></i> Manage Profile
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?php echo ($current_page == 'settings.php') ? 'active' : ''; ?>" href="#">
-                    <i class="bi bi-gear-fill"></i> Settings
                 </a>
             </li>
         </ul>
