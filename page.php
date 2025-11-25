@@ -12,21 +12,25 @@ if ($slug) {
 ?>
 
 <div class="profile-container">
-    
+
     <?php if ($data): ?>
         <h1 class="mb-4 fw-bold"><?php echo htmlspecialchars($data['title']); ?></h1>
-        
+
         <div class="content-container">
             <?php echo $data['content']; ?>
         </div>
-        
+
     <?php else: ?>
         <h1 class="mb-4 fw-bold">Halaman Tidak Ditemukan</h1>
         <div class="alert alert-danger">
             Maaf, konten yang kamu cari tidak dapat ditemukan.
         </div>
+        <br>
+            <div class="btn">
+                <a href="index.php" class="btn btn-primary rounded-pill">Kembali ke Home</a> <!-- kembali ke homepage -->
+            </div>
     <?php endif; ?>
-    
+
 </div>
 
 <?php
