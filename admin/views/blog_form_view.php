@@ -51,6 +51,57 @@
     </div>
 </div>
 
+<!-- styling untuk summernot -->
+<style>
+    .note-editor.note-frame.fullscreen {
+        /* untuk posisi floating */
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+
+        width: 90vw !important;
+        max-width: 1000px !important;
+        height: 85vh !important;
+
+        /* card */
+        background-color: #fff !important;
+        border-radius: 12px !important;
+        border: none !important;
+
+        /* efek backdrop */
+        box-shadow:
+            0 20px 50px rgba(0,0,0,0.3),
+            0 0 0 9999px rgba(0,0,0,0.6) !important;
+
+        z-index: 99999 !important; /* untuk memastikan ada di depan */
+    }
+
+    /* text area */
+    .note-editor.note-frame.fullscreen .note-editing-area {
+        height: calc(100% - 50px) !important;
+        overflow-y: auto !important;
+    }
+
+    /* Memperbaiki Toolbar agar sudut atasnya juga bulat */
+    .note-editor.note-frame.fullscreen .note-toolbar {
+        border-radius: 12px 12px 0 0 !important;
+        background: #f8f9fa !important;
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    /* Menyembunyikan resize bar di bawah saat mode ini */
+    .note-editor.note-frame.fullscreen .note-resizebar {
+        display: none !important;
+    }
+
+    /* Memastikan editable area punya padding enak dibaca */
+    .note-editor.note-frame.fullscreen .note-editable {
+        padding: 40px !important;
+        background-color: #fff !important;
+    }
+</style>
+
 <script>
 $(document).ready(function() {
     $('#summernote').summernote({
