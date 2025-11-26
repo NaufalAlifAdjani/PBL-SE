@@ -102,12 +102,21 @@
     }
 </style>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#summernote').summernote({
-        placeholder: 'Tulis konten artikel...',
-        tabsize: 2,
-        height: 300
+    $(document).ready(function() {
+        $('#editor_content').summernote({
+            height: 350,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen', 'help']]
+            ]
+        });
     });
-});
 </script>
