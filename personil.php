@@ -11,9 +11,9 @@ $query_all = "
          'dosen' AS tipe, -- Penanda bahwa ini adalah Dosen
          1 AS urutan_grup -- Dosen akan di atas
      FROM dosen)
-    
+
     UNION ALL
-    
+
     (SELECT
          id_pendaftaran_user AS id,
          nama AS nama,
@@ -23,11 +23,11 @@ $query_all = "
          2 AS urutan_grup -- Mahasiswa akan di bawah Dosen
      FROM pendaftaran_user
      WHERE status = 'Diterima')
-    
+
     ORDER BY urutan_grup ASC, id ASC; -- Urutkan Dosen dulu, baru Mahasiswa
 ";
 
-$all_personil = pg_query($conn, $query_all);
+// $all_personil = pg_query($conn, $query_all); error jd tak hide
 ?>
 
 <style>
@@ -64,7 +64,7 @@ $all_personil = pg_query($conn, $query_all);
         <?php
         if ($all_personil && pg_num_rows($all_personil) > 0) {
             while($row = pg_fetch_assoc($all_personil)) {
-                
+
                 // 2. Logika Path Gambar (BARU)
                 // Jika ini Dosen & fotonya ada, pakai foto itu.
                 // Jika tidak (misal Mahasiswa), pakai default.
@@ -72,11 +72,11 @@ $all_personil = pg_query($conn, $query_all);
                 if ($row['tipe'] == 'dosen' && !empty($row['foto'])) {
                     $foto_path = 'uploads/personil/' . htmlspecialchars($row['foto']);
                 }
-                
+
                 // 3. Buat Anchor ID unik
                 $anchor_id = 'personil-' . $row['tipe'] . '-' . $row['id'];
         ?>
-        
+
         <div class="col-12 col-sm-6 col-lg-4">
             <div id="<?php echo $anchor_id; ?>">
                 <div class="card card-personil h-100">
@@ -100,4 +100,4 @@ $all_personil = pg_query($conn, $query_all);
 
 <?php
 include 'includes/footer.php';
-?>      
+?>

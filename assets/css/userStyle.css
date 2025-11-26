@@ -5,6 +5,7 @@
     --accent-glow: #a78bfa;
     --text-primary: #ffffff;
     --text-secondary: #9ca3af;
+    --gradient-btn: linear-gradient(135deg, var(--accent-purple) 0%, #d946ef 100%);
 }
 
 body {
@@ -41,6 +42,7 @@ body {
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
+/* animasi garis di navar */
 .navbar-nav .nav-item .nav-link::after {
     content: '';
     position: absolute;
@@ -58,7 +60,7 @@ body {
     width: 30px;
 }
 
-/* navbar toggler */
+/* Toggler */
 .navbar-toggler {
     border: none;
 }
@@ -69,7 +71,7 @@ body {
     box-shadow: none;
 }
 
-/* dropdown animatio */
+/* Dropdown Menu */
 .dropdown-menu {
     background-color: var(--bg-surface);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -78,17 +80,6 @@ body {
     margin-top: 15px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
     animation: slideDown 0.3s ease forwards;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(15px);
-    }
 }
 
 .dropdown-item {
@@ -109,33 +100,38 @@ body {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* buttons  */
+/* dropdown animasi */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(15px);
+    }
+}
+
+/* Button */
 .btn,
 .btn-login {
-    background: linear-gradient(135deg, var(--accent-purple) 0%, #d946ef 100%);
+    background: var(--gradient-btn);
     font-weight: 600;
     border-radius: 50px;
     border: none;
+    color: white; /* Force white text */
     transition: all 0.3s ease;
     box-shadow: 0 2px 10px rgba(139, 92, 246, 0.5);
 }
 
-.btn,
+.btn:hover,
 .btn-login:hover {
     transform: translateY(-2px);
     color: #fff;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.7);
 }
 
-/* banner */
-.banner {
-    color: var(--text-primary);
-    background: rgba(24, 19, 43, 0.9);
-    padding: 100px 0;
-    border-bottom: 4px solid rgba(139, 92, 246, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
+/* Cards */
 .card {
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -146,12 +142,26 @@ body {
     border-color: #e788ff !important;
 }
 
+/* Banner */
+.banner {
+    color: var(--text-primary);
+    background: linear-gradient(rgba(24, 19, 43, 0.9), rgba(63, 41, 95, 0.95));
+    padding: 100px 0;
+    border-bottom: 4px solid rgba(138, 92, 246, 0.461);
+    position: relative;
+    overflow: hidden;
+}
+
 /* footer */
 footer {
     background-color: var(--bg-surface);
     border-top: 1px solid rgba(139, 92, 246, 0.1);
     font-size: 15px;
-    color: #eaeaea !important;
+    color: var(--text-secondary) !important;
+}
+
+footer h5 {
+    color: var(--text-primary) !important;
 }
 
 .footer-link {
@@ -167,8 +177,91 @@ footer {
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
-.quick,
-.kontak {
-    margin-left: 10%;
-    text-align: left;
+/* sosmed icon */
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    color: #fff;
+}
+
+/* warna icon */
+.icon-ig {
+    background: radial-gradient(
+        circle at 30% 107%,
+        #fdf497 0%,
+        #fdf497 5%,
+        #fd5949 45%,
+        #d6249f 60%,
+        #285aeb 90%
+    );
+    border: none;
+}
+.icon-ig:hover {
+    box-shadow: 0 4px 15px rgba(214, 36, 159, 0.4);
+}
+
+.icon-yt {
+    background-color: #ff0000;
+    border: none;
+}
+.icon-yt:hover {
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+}
+
+.icon-tt {
+    background-color: #000;
+    border: none;
+}
+.icon-tt i {
+    text-shadow: 1px 1px 0px #fe2c55, -1px -1px 0px #25f4ee;
+}
+.icon-tt:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.icon-gh {
+    background-color: #333;
+}
+.icon-gh:hover {
+    box-shadow: 0 4px 15px rgba(80, 80, 80, 0.4);
+}
+
+/* saat responsive mobile */
+@media (max-width: 991.98px) {
+    /* Menghilangkan garis animasi bawah sepenuhnya di mobile */
+    .navbar-nav .nav-item .nav-link::after {
+        content: none !important;
+        display: none !important;
+    }
+
+    .dropdown-menu {
+        animation: none;
+        box-shadow: none;
+        background-color: transparent;
+        border: none;
+        margin-top: 0;
+        padding-left: 15px;
+    }
+
+    .dropdown-item {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .dropdown-item:hover {
+        background: transparent;
+        color: var(--accent-glow);
+    }
 }
