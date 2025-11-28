@@ -20,7 +20,11 @@
 
                             <div class="card-body d-flex flex-column">
                                 <div class="mb-2 small text-muted">
-                                    <i class="bi bi-calendar3"></i> <?php echo date('d M Y', strtotime($row['tgl_dibuat'])); ?>
+                                    <i class="bi bi-calendar3"></i>
+                                    <?php echo $row['display_date']; ?>
+                                    <?php if ($row['is_edited']): ?>
+                                        <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7em;">Edited</span>
+                                    <?php endif; ?>
                                     &nbsp;|&nbsp;
                                     <i class="bi bi-person-fill"></i> <?php echo htmlspecialchars($row['username'] ?? 'Admin'); ?>
                                 </div>

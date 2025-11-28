@@ -27,6 +27,18 @@ class HomeController {
                               ? substr($clean_text, 0, 100) . '...'
                               : $clean_text;
 
+        // tgl edited
+        // Jika tgl_diperbarui ada isinya, berarti sudah pernah diedit
+        if (!empty($article['tgl_diperbarui'])) {
+            $article['is_edited'] = true;
+            $article['display_date'] = date('d M Y', strtotime($article['tgl_diperbarui']));
+            // $article['date_label'] = 'Updated';
+        } else {
+            $article['is_edited'] = false;
+            $article['display_date'] = date('d M Y', strtotime($article['tgl_dibuat']));
+            // $article['date_label'] = 'Published';
+        }
+
         return $article;
     }
 

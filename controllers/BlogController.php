@@ -25,11 +25,19 @@ class BlogController {
         $article['image_path'] = (!empty($article['gambar_artikel']) && file_exists($path_gambar))
                                  ? $path_gambar : "uploads/dummy.png";
 
-        // Buat snippet bersih
+
         $clean_text = strip_tags($article['isi_konten']);
         $article['snippet'] = (strlen($clean_text) > 100)
                               ? substr($clean_text, 0, 100) . '...'
                               : $clean_text;
+        //buat snippet bersih
+        $article['display_date'] = date('d M Y', strtotime($article['tgl_dibuat']));
+
+        // Dianggap diedit HANYA JIKA: tgl_diperbarui tidak kosong dan tgl_diperbarui TIDAK SAMA dengan tgl_dibuat
+        $tgl_buat = $article['tgl_dibuat'];
+        $tgl_edit = $article['tgl_diperbarui'];
+
+        $article['is_edited'] = (!empty($tgl_edit) && $tgl_edit !== $tgl_buat);
 
         return $article;
     }
@@ -52,25 +60,29 @@ class BlogController {
     public function detail($slug) {
         $articleRaw = $this->blogModel->getArticleBySlug($slug);
 
-        // Default State 
+        // Default State
         $viewData = [
-            'exists'  => false,
-            'judul'   => "Artikel Tidak Ditemukan",
-            'konten'  => "<div class='alert alert-warning'>Maaf, artikel yang Anda cari tidak ada.</div>",
-            'gambar'  => "https://placehold.co/1200x400/dc3545/white?text=404+Not+Found",
-            'pembuat' => "System",
-            'tgl'     => date('d F Y')
+            'exists'    => false,
+            'judul'     => "Artikel Tidak Ditemukan",
+            'konten'    => "<div class='alert alert-warning'>Maaf, artikel yang Anda cari tidak ada.</div>",
+            'gambar'    => "https://placehold.co/1200x400/dc3545/white?text=404+Not+Found",
+            'pembuat'   => "System",
+            'tgl'       => date('d F Y'),
+            'is_edited' => false // Default false
         ];
 
         if ($articleRaw) {
             $processed = $this->prepareArticleViewData($articleRaw);
             $viewData = [
-                'exists'  => true,
-                'judul'   => htmlspecialchars($processed['judul']),
-                'konten'  => $processed['isi_konten'],
-                'gambar'  => $processed['image_path'],
-                'pembuat' => htmlspecialchars($processed['username']),
-                'tgl'     => date('d F Y', strtotime($processed['tgl_dibuat']))
+                'exists'    => true,
+                'judul'     => htmlspecialchars($processed['judul']),
+                'konten'    => $processed['isi_konten'],
+                'gambar'    => $processed['image_path'],
+                'pembuat'   => htmlspecialchars($processed['username']),
+                // Gunakan display_date yang sudah kita set ke tgl_dibuat
+                'tgl'       => $processed['display_date'],
+                // Pass status edited ke view detail
+                'is_edited' => $processed['is_edited']
             ];
         }
 

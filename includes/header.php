@@ -45,7 +45,7 @@
                         Personil
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownPersonil">
-                        <li><a class="dropdown-item" href="/PBL-SE/personil.php">Lihat Semua Personil</a></li>
+                        <li><a class="dropdown-item" href="/PBL-SE/personil.php">See All Personil</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <?php
                         if (!empty($data['menu_personil'])) {
@@ -62,13 +62,13 @@
                         Recruitment
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownGeeks">
-                        <li><a class="dropdown-item" href="/PBL-SE/se_geeks.php">List Anggota</a></li>
-                        <li><a class="dropdown-item" href="/PBL-SE/pendaftaran.php">Pendaftaran Baru</a></li>
+                        <li><a class="dropdown-item" href="/PBL-SE/se_geeks.php">List Member</a></li>
+                        <li><a class="dropdown-item" href="/PBL-SE/pendaftaran.php">New Reccruit</a></li>
                         <li><hr class="dropdown-divider"></li>
                     </ul>
                 </li>
 
-                <li class="nav-item"><a class="nav-link" href="/PBL-SE/blog.php">Blog Artikel</a></li>
+                <li class="nav-item"><a class="nav-link" href="/PBL-SE/blog.php">Blog</a></li>
             </ul>
         </div>
 

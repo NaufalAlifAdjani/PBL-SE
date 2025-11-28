@@ -11,7 +11,7 @@ class BlogModel {
         $query = "SELECT a.*, ad.username
                   FROM artikel a
                   LEFT JOIN admin ad ON a.id_admin = ad.id_admin
-                  ORDER BY a.tgl_dibuat DESC";
+                  ORDER BY a.tgl_diperbarui DESC"; //agar ketika edit berada di atas
         $result = pg_query($this->conn, $query);
         return pg_fetch_all($result) ?: [];
     }

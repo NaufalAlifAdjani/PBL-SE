@@ -24,7 +24,7 @@ class BlogModel {
                   FROM artikel a
                   LEFT JOIN admin ad ON a.id_admin = ad.id_admin
                   WHERE a.status_artikel = 'Published'
-                  ORDER BY a.tgl_dibuat DESC";
+                  ORDER BY COALESCE(a.tgl_diperbarui, a.tgl_dibuat) DESC";
         return $this->fetchAll($query);
     }
 

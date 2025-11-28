@@ -45,7 +45,7 @@ class HomeModel {
         $query = "SELECT id_artikel, judul, slug, isi_konten, gambar_artikel, tgl_dibuat
                   FROM artikel
                   WHERE status_artikel = 'Published'
-                  ORDER BY tgl_dibuat DESC
+                  ORDER BY COALESCE(tgl_diperbarui, tgl_dibuat) DESC
                   LIMIT $1"; // Menggunakan parameter binding untuk limit agar aman
         return $this->fetchAll($query, [$limit]);
     }
