@@ -4,9 +4,13 @@ include 'includes/db.php';
 require_once __DIR__ . '/uscontrollers/peruser_controller.php';
 
 $controller = new peruser_controller($conn);
-$controller->index();
+$controller->detail();
 
 include 'includes/footer.php';
+
+
+
+
 
 
 
