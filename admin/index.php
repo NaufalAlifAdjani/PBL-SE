@@ -1,62 +1,52 @@
 <?php
 include 'includes/header_admin.php';
-// (Di sini kamu bisa query ke DB untuk mendapat angka 24, 12, 45)
-// $personil_count = pg_num_rows(pg_query($conn, "SELECT 1 FROM tbl_personnel"));
-// $blog_count = pg_num_rows(pg_query($conn, "SELECT 1 FROM tbl_articles"));
-// $geeks_count = pg_num_rows(pg_query($conn, "SELECT 1 FROM tbl_geeks"));
+
+// Data Dummy (Ganti query jika sudah siap)
+$personil_count = 24;
+$blog_count = 12;
+$geeks_count = 45;
 ?>
 
-<h1 class="fw-bold">Dashboard Admin</h1>
-<p class="text-muted">Selamat datang kembali, Admin Lab SE</p>
+<div class="mb-4">
+    <h1 class="fw-bold text-dark">Dashboard Admin</h1>
+    <p class="text-muted">Selamat datang kembali, Admin Lab SE</p>
+</div>
 
-<div class="row g-4 mb-4">
-    <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card-stat card-stat-blue d-flex justify-content-between align-items-center">
-            <div>
-                <h5>Total Personil</h5>
-                <span class="stat-number">24</span>
+<div class="row g-4">
+    
+    <div class="col-12 col-md-4">
+        <div class="dashboard-card bg-primary">
+            <div class="card-content">
+                <h5 class="card-title">Total Personil</h5>
+                <div class="stat-number"><?php echo $personil_count; ?></div>
+                <p class="card-desc">Dosen & Anggota Aktif</p>
             </div>
             <i class="bi bi-people-fill stat-icon"></i>
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card-stat card-stat-green d-flex justify-content-between align-items-center">
-            <div>
-                <h5>Blog Articles</h5>
-                <span class="stat-number">12</span>
+
+    <div class="col-12 col-md-4">
+        <div class="dashboard-card bg-success">
+            <div class="card-content">
+                <h5 class="card-title">Blog Articles</h5>
+                <div class="stat-number"><?php echo $blog_count; ?></div>
+                <p class="card-desc">Artikel Terpublikasi</p>
             </div>
-            <i class="bi bi-file-earmark-text-fill stat-icon"></i>
+            <i class="bi bi-file-text-fill stat-icon"></i>
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card-stat card-stat-purple d-flex justify-content-between align-items-center">
-            <div>
-                <h5>SE Geeks Members</h5>
-                <span class="stat-number">45</span>
+
+    <div class="col-12 col-md-4">
+        <div class="dashboard-card bg-purple">
+            <div class="card-content">
+                <h5 class="card-title">SE Geeks Members</h5>
+                <div class="stat-number"><?php echo $geeks_count; ?></div>
+                <p class="card-desc">Mahasiswa Terdaftar</p>
             </div>
             <i class="bi bi-person-badge-fill stat-icon"></i>
         </div>
     </div>
-</div>
 
-<div class="card card-admin">
-    <div class="card-body p-4">
-        <h4 class="fw-semibold mb-3">Akses Cepat</h4>
-        <div class="row g-3">
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="card-admin p-3">
-                    <h5 class="fw-semibold">Tambah Blog</h5>
-                    <p class="text-muted mb-0">Buat artikel blog baru</p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="card-admin p-3">
-                    <h5 class="fw-semibold">Kelola Personil</h5>
-                    <p class="text-muted mb-0">Edit data personil lab</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <?php include 'includes/footer_admin.php'; ?>

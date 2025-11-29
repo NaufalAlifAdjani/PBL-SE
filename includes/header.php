@@ -32,6 +32,7 @@ $personil_items = pg_query($conn, $query_personil);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="assets/css/userStyle.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
 
 </head>
 <body>

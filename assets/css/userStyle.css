@@ -172,3 +172,118 @@ footer {
     margin-left: 10%;
     text-align: left;
 }
+
+/* ============================================================
+   STYLE KHUSUS HALAMAN PROFIL (FIX DROPDOWN & CARD)
+   ============================================================ */
+
+/* 1. Wrapper Header Gelap */
+.header-wrapper-profile {
+    background-color: #1a1626; 
+    padding-bottom: 3rem; 
+    position: relative;
+    margin-top: -1px;
+    
+    /* PENTING: z-index harus lebih rendah dari navbar, tapi lebih tinggi dari body */
+    z-index: 10; 
+    /* PENTING: overflow harus visible agar dropdown bisa keluar dari kotak header */
+    overflow: visible !important; 
+}
+
+/* 2. Navbar (PAKSA PALING ATAS) */
+.navbar {
+    position: sticky;
+    top: 0;
+    /* Angka keramat bootstrap adalah 1050, kita kasih lebih tinggi biar aman */
+    z-index: 1050; position: relative;
+}
+
+/* 3. Judul Hero (Di bawah Navbar, Di bawah Konten) */
+.hero-title-box {
+    text-align: center;
+    padding-top: 6rem;    
+    padding-bottom: 6rem; 
+    color: #ffffff;
+    position: relative;
+    z-index: 1; 
+}
+
+/* 4. Konten Utama (Overlap) */
+/* Selector spesifik untuk div container yang overlap */
+.container[style*="margin-top: -"] {
+    position: relative;
+    /* Z-index konten harus LEBIH RENDAH dari Navbar (9999) */
+    /* Tapi LEBIH TINGGI dari background Header (10) */
+    z-index: 20 !important; 
+}
+
+/* 5. Kartu Putih (Profile Card) */
+.profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: auto; 
+    position: relative; /* Agar z-index container berpengaruh */
+}
+
+/* 6. Sidebar Wrapper (Sticky) */
+.sidebar-wrapper {
+    position: sticky;      
+    top: 100px;            
+    z-index: 30; /* Sedikit lebih tinggi dari konten biasa biar aman saat scroll */
+}
+
+/* 7. Sidebar Menu Styling */
+.sidebar-header {
+    padding: 15px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #111827;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #4b5563;
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.sidebar-menu a:hover {
+    background-color: #f9fafb;
+    color: #8b5cf6;
+    padding-left: 25px;
+}
+
+.sidebar-menu a.active {
+    background-color: #f3f4f6;
+    color: #8b5cf6;
+    font-weight: 700;
+    border-left: 4px solid #8b5cf6;
+}
+
+/* 8. Konten Styling */
+.content-area {
+    padding: 40px;
+    min-height: 400px; 
+}
+.content-title-line {
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+.content-title-line h2 {
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+}
+.content-body {
+    color: #4b5563;
+    line-height: 1.7;
+}

@@ -1,223 +1,86 @@
-/* Import Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* ============================================================
+   STYLE KHUSUS HALAMAN PROFIL (Clean Version)
+   Digunakan bersama userStyle.css
+   ============================================================ */
 
-body.admin-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f8f9fa;
+/* 1. Wrapper Header Gelap (Background di belakang judul) */
+.header-wrapper-profile {
+    background-color: #1a1626; /* Sesuaikan dengan tema userStyle */
+    padding-bottom: 5rem; /* Ruang lebih di bawah untuk efek overlap */
+    position: relative;
+    margin-top: -1px; /* Fix garis putih tipis jika ada */
 }
 
-/* ... Import Font dan Body tetap sama ... */
-
-/* =========================================
-   SIDEBAR ADMIN RESPONSIVE
-   ========================================= */
-
-/* Tampilan Default (Mobile First Approach) */
-/* Di HP, sidebar disembunyikan dan jadi Offcanvas */
-.sidebar {
-    background-color: #111827;
-    color: #fff;
-    width: 280px;
-    flex-shrink: 0;
-    transition: all 0.3s;
-}
-
-/* Sidebar Header */
-.sidebar-header {
-    padding: 20px;
-    border-bottom: 1px solid #374151;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Link Navigasi */
-.sidebar .nav-link {
-    color: #d1d5db;
-    padding: 12px 20px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    border-radius: 0; /* Flat di mobile biasanya lebih rapi */
-}
-
-.sidebar .nav-link:hover {
-    background-color: #374151;
-    color: #fff;
-}
-
-.sidebar .nav-link.active {
-    background-color: #4f46e5;
-    color: #fff;
-    border-left: 4px solid #818cf8; /* Aksen aktif */
-}
-
-/* Logout Button di bawah */
-.sidebar-footer {
-    margin-top: auto;
-    padding: 20px;
-}
-
-/* =========================================
-   MEDIA QUERY (LAPTOP/DESKTOP)
-   ========================================= */
-@media (min-width: 768px) {
-    /* Kembalikan sidebar menjadi kolom tetap di layar besar */
-    .sidebar {
-        height: 100vh; /* Full height */
-        position: sticky;
-        top: 0;
-        display: flex !important; /* Paksa muncul di desktop */
-        flex-direction: column;
-        visibility: visible !important;
-        transform: none !important;
-    }
-    
-    /* Sembunyikan tombol close (X) di desktop */
-    .sidebar-close-btn {
-        display: none;
-    }
-    
-    .main-content {
-        width: calc(100% - 280px); /* Sisanya untuk konten */
-    }
-}
-
-@media (max-width: 767.98px) {
-    /* Di HP, Konten mengambil lebar penuh */
-    .main-content {
-        width: 100%;
-    }
-}
-
-.btn-logout {
-    background-color: #dc2626; /* Red */
-    color: #fff;
-    font-weight: 600;
-    width: 100%;
+/* 2. Judul Hero di tengah */
+.hero-title-box {
     text-align: center;
-    border-radius: 8px;
-    padding: 12px;
+    padding: 3rem 0;
+    color: #ffffff;
 }
-.btn-logout:hover {
-    background-color: #b91c1c;
-    color: #fff;
-}
-
-/* Konten Utama */
-.main-content {
-    background-color: #f8f9fa;
-    height: 100vh;
-    overflow-y: auto;
-}
-
-/* Card Kustom */
-.card-admin {
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    background-color: #fff;
-}
-
-/* Tombol Aksi */
-.btn-action-edit {
-    background-color: #e0e7ff;
-    color: #4338ca;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-}
-.btn-action-edit:hover {
-    background-color: #c7d2fe;
-}
-.btn-action-delete {
-    background-color: #fee2e2;
-    color: #dc2626;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-}
-.btn-action-delete:hover {
-    background-color: #fecaca;
-}
-.btn-primary-admin {
-    background-color: #111827;
-    border: none;
-    font-weight: 600;
-    border-radius: 8px;
-    padding: 10px 16px;
-}
-.btn-primary-admin:hover {
-    background-color: #374151;
-}
-
-/* Dashboard Cards */
-.card-stat {
-    border-radius: 12px;
-    padding: 24px;
-    color: #fff;
-}
-.card-stat-blue { background-color: #2563eb; }
-.card-stat-green { background-color: #16a34a; }
-.card-stat-purple { background-color: #9333ea; }
-
-.card-stat h5 {
-    font-size: 1.1rem;
-    font-weight: 500;
-    opacity: 0.9;
-}
-.card-stat .stat-number {
-    font-size: 2.5rem;
+.hero-title-box h1 {
     font-weight: 700;
-}
-.card-stat .stat-icon {
     font-size: 2.5rem;
-    opacity: 0.7;
+    letter-spacing: -0.5px;
 }
 
-/* Manage Profile Tabs */
-.nav-tabs .nav-link {
-    color: #6b7280;
-    font-weight: 600;
-    border: none;
-    border-bottom: 2px solid transparent;
+/* 3. Layout Kartu Putih (Sidebar & Konten) */
+.profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: 100%; 
 }
-.nav-tabs .nav-link.active {
+
+/* 4. Sidebar Menu Styling */
+.sidebar-header {
+    padding: 15px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    font-size: 1.1rem;
     color: #111827;
-    border-bottom: 2px solid #111827;
-    background-color: transparent;
 }
 
-/* Responsive Admin Tweak */
-@media (max-width: 768px) {
-    /* Ubah layout flex menjadi kolom (atas-bawah) */
-    .d-flex {
-        flex-direction: column;
-    }
+.sidebar-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #4b5563;
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.2s;
+    font-weight: 500;
+}
 
-    /* Sidebar jadi lebar penuh di atas */
-    .sidebar {
-        width: 100%;
-        height: auto; /* Tinggi otomatis mengikuti isi menu */
-        position: relative;
-    }
+.sidebar-menu a:hover {
+    background-color: #f9fafb;
+    color: #8b5cf6; /* Ungu Aksen */
+    padding-left: 25px;
+}
 
-    /* Sembunyikan menu biar gak panjang, bikin scroll horizontal */
-    .sidebar .nav {
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto;
-        white-space: nowrap;
-        padding-bottom: 10px;
-    }
-    
-    .sidebar .nav-item {
-        display: inline-block;
-    }
+.sidebar-menu a.active {
+    background-color: #f3f4f6;
+    color: #8b5cf6;
+    font-weight: 700;
+    border-left: 4px solid #8b5cf6;
+}
 
-    /* Konten utama */
-    .main-content {
-        height: auto;
-        padding: 15px;
-    }
+/* 5. Konten Styling */
+.content-area {
+    padding: 40px;
+}
+.content-title-line {
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+.content-title-line h2 {
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+}
+.content-body {
+    color: #4b5563;
+    line-height: 1.7;
 }
