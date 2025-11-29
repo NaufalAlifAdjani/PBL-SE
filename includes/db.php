@@ -2,9 +2,9 @@
 // Data koneksi PostgreSQL
 $host = "localhost";
 $port = "5432";
-$dbname = "pbl"; // Ganti dengan nama database-mu
+$dbname = "web_se"; // Ganti dengan nama database-mu
 $user = "postgres"; // User default Postgres
-$password = "awsome"; // Ganti dengan password-mu
+$password = "12345678"; // Ganti dengan password-mu
 
 date_default_timezone_set('Asia/Jakarta'); // menambahkan timezone
 // String koneksi
