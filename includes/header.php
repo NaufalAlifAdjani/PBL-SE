@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Lab SE</title>
+    <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- css -->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="assets/css/userStyle.css">
 </head>
 <body>
@@ -47,13 +51,6 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownPersonil">
                         <li><a class="dropdown-item" href="/PBL-SE/personil.php">See All Personil</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <?php
-                        if (!empty($data['menu_personil'])) {
-                            foreach($data['menu_personil'] as $p_item) {
-                                echo '<li><a class="dropdown-item" href="/PBL-SE/personil.php#personil-dosen-' . $p_item['id_dosen'] . '">' . htmlspecialchars($p_item['nama_dosen']) . '</a></li>';
-                            }
-                        }
-                        ?>
                     </ul>
                 </li>
 

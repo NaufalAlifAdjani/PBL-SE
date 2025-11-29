@@ -2,16 +2,18 @@
 require_once 'models/HomeModel.php';
 
 class HomeController {
-    private $model;
+    private $conn;
+    private $db_raw;
 
     public function __construct($dbConnection) {
-        $this->model = new HomeModel($dbConnection);
+        $this->db_raw = $dbConnection;
+        $this->conn = new HomeModel($dbConnection);
     }
 
     private function getLayoutData() {
         return [
-            'menu_profile'  => $this->model->getProfileDropdown(),
-            'menu_personil' => $this->model->getPersonilDropdown()
+            'menu_profile'  => $this->conn->getProfileDropdown(),
+            'menu_personil' => $this->conn->getPersonilDropdown()
         ];
     }
 
@@ -45,8 +47,8 @@ class HomeController {
     // --- Main Method ---
     public function index() {
         // Ambil Data Raw
-        $aboutData = $this->model->getAboutInfo('tentang-lab');
-        $rawArticles = $this->model->getLatestArticles();
+        $aboutData = $this->conn->getAboutInfo('tentang-lab');
+        $rawArticles = $this->conn->getLatestArticles();
 
         // Proses Data Artikel (Bersihkan logika dari View)
         $processedArticles = array_map([$this, 'prepareArticleViewData'], $rawArticles);
@@ -56,6 +58,17 @@ class HomeController {
             'about'    => $aboutData,
             'articles' => $processedArticles
         ]);
+
+        // Prioritaskan jabatan yang mengandung kata 'kepala', lalu urutkan nama
+        $sql_dosen = "SELECT * FROM v_dosen_list
+                      ORDER BY
+                        CASE WHEN jabatan ILIKE '%kepala%' THEN 0 ELSE 1 END, nama_dosen ASC";
+        $dosen_home = pg_query($this->db_raw, $sql_dosen);
+
+        if (!$dosen_home) {
+            // Error handling simple, biar gak crash fatal
+            error_log("Gagal load dosen home: " . pg_last_error($this->conn));
+        }
 
         // Load View
         require 'views/home_view.php';

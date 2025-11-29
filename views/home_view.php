@@ -8,6 +8,7 @@
     </div>
 </section>
 
+<!-- about us dan visi misi -->
 <section id="about-us" class="py-5">
     <div class="container">
         <div class="row align-items-center">
@@ -29,6 +30,85 @@
     </div>
 </section>
 
+<!-- dosen -->
+<link rel="stylesheet" href="assets/css/dosen.css"> <!-- style utk dosen -->
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center">
+            <h2 class="fw-bold">Tim Pengajar Kami</h2>
+            <p class="text-muted">Dosen dan Tenaga Ahli Laboratorium</p>
+        </div>
+
+        <?php
+        // Cek validasi data di awal
+        $hasData = ($dosen_home && pg_num_rows($dosen_home) > 0);
+        ?>
+
+        <?php if ($hasData): ?>
+            <div class="slide-container swiper">
+                <div class="slide-content">
+                    <div class="card-wrapper swiper-wrapper pb-2">
+                        <?php while ($d = pg_fetch_assoc($dosen_home)):
+                            $nama    = $d['nama_dosen'] ?? $d['nama'] ?? 'Tanpa Nama';
+                            $jabatan = $d['jabatan'] ?? $d['posisi'] ?? 'Dosen';
+                            $foto    = $d['foto_profil'] ?? '';
+                            $slug    = $d['slug'] ?? '#'; ?>
+                            <div class="swiper-slide h-auto">
+                                <div class="card shadow-sm rounded-4">
+                                    <div class="image-content">
+                                        <span class="overlay"></span>
+                                        <div class="card-image shadow-sm">
+                                            <?php if ($foto): ?>
+                                                <img src="uploads/<?= htmlspecialchars($foto) ?>" alt="<?= htmlspecialchars($nama) ?>" class="card-img">
+                                            <?php else: ?>
+                                                <img src="https://ui-avatars.com/api/?name=<?= urlencode($nama) ?>&background=random" alt="" class="card-img">
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body text-center">
+                                        <div class="name-box mb-2">
+                                            <h5 class="fw-semibold"><?= htmlspecialchars($nama) ?></h5>
+                                        </div>
+
+                                        <p class="text-secondary small mb-4">
+                                            <?= htmlspecialchars($jabatan) ?>
+                                        </p>
+
+                                        <a href="personil_detail.php?slug=<?= urlencode($slug) ?>" class="btn rounded-pill">
+                                            Lihat Profil
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
+                </div>
+
+                <div class="swiper-button-next swiper-navBtn d-none d-md-flex"><i class="bi bi-caret-right-fill"></i></div>
+                <div class="swiper-button-prev swiper-navBtn d-none d-md-flex"><i class="bi bi-caret-left-fill"></i></div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+        <?php else: ?>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="text-secondary opacity-25">
+                        <i class="bi bi-inbox-fill" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="fw-semibold text-secondary">Data Belum Tersedia</h4>
+                    <p class="text-muted">Mohon maaf, saat ini data pengajar belum dapat ditampilkan.</p>
+                </div>
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+</section>
+
+<!-- blog -->
 <section id="blog" class="bg-light-subtle py-5">
     <div class="container">
         <div class="text-center mb-5">
