@@ -50,11 +50,11 @@
 }
 
 .swiper-button-next {
-    right: -110px; /* Geser ke kanan luar container */
+    right: -80px; /* Geser ke kanan luar container */
 }
 
 .swiper-button-prev {
-    left: -110px; /* Geser ke kiri luar container */
+    left: -80px; /* Geser ke kiri luar container */
 }
 
 /* button size dan bullet */

@@ -110,7 +110,6 @@ class peruser_controller
         if (!$dosen) {
             echo "<div class='container py-5'>
                     <h3>Data dosen tidak ditemukan.</h3>
-                    <p>Slug: <code>" . htmlspecialchars($slug) . "</code></p>
                   </div>";
             return;
         }

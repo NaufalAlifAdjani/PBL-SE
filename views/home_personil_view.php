@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="assets/css/dosen.css">
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center">
+            <h2 class="fw-bold">Tim Pengajar Kami</h2>
+            <p class="text-muted">Dosen dan Tenaga Ahli Laboratorium</p>
+        </div>
+
+        <?php if (!empty($dosen_list)): ?>
+            <div class="slide-container swiper">
+                <div class="slide-content">
+                    <div class="card-wrapper swiper-wrapper pb-2">
+                        <?php foreach ($dosen_list as $dosen): ?>
+                            <div class="swiper-slide h-auto">
+                                <div class="card shadow-sm rounded-4">
+                                    <div class="image-content">
+                                        <span class="overlay"></span>
+                                        <div class="card-image shadow-sm">
+                                            <img src="<?= $dosen['foto'] ?>"
+                                                 alt="<?= htmlspecialchars($dosen['nama']) ?>"
+                                                 class="card-img">
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body text-center">
+                                        <div class="name-box mb-2">
+                                            <h5 class="fw-semibold"><?= htmlspecialchars($dosen['nama']) ?></h5>
+                                        </div>
+
+                                        <p class="text-secondary small mb-4">
+                                            <?= htmlspecialchars($dosen['jabatan']) ?>
+                                        </p>
+
+                                        <a href="personil_detail.php?slug=<?= urlencode($dosen['slug']) ?>" class="btn rounded-pill">
+                                            Lihat Profil
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <div class="swiper-button-next swiper-navBtn d-none d-md-flex"><i class="bi bi-caret-right-fill"></i></div>
+                <div class="swiper-button-prev swiper-navBtn d-none d-md-flex"><i class="bi bi-caret-left-fill"></i></div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+        <?php else: ?>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="text-secondary opacity-25">
+                        <i class="bi bi-inbox-fill" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="fw-semibold text-secondary">Data Belum Tersedia</h4>
+                    <p class="text-muted">Mohon maaf, saat ini data pengajar belum dapat ditampilkan.</p>
+                </div>
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+</section>

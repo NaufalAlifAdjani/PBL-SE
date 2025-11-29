@@ -20,12 +20,26 @@ class HomeModel {
         return ($result && pg_num_rows($result) > 0) ? pg_fetch_assoc($result) : null;
     }
 
-    public function getProfileDropdown() {
-        return $this->fetchAll(
-            "SELECT title, slug FROM Profile
-             WHERE menu_group = 'profile_dropdown' AND is_published = TRUE
-             ORDER BY display_order ASC"
+    public function getVisiMisi() {
+        // PERBAIKAN: Menggunakan fetchOne dan parameter binding agar aman
+        return $this->fetchOne(
+            "SELECT title, content FROM Profile WHERE slug = 'visi-misi' AND is_published = TRUE LIMIT 1"
         );
+    }
+
+    public function getProfileDropdown() {
+        $query = "SELECT title, slug FROM Profile
+                  WHERE menu_group = 'profile_dropdown' AND is_published = TRUE
+                  ORDER BY display_order ASC";
+        $result = pg_query($this->db, $query);
+
+        $data = [];
+        if ($result && pg_num_rows($result) > 0) {
+            while ($row = pg_fetch_assoc($result)) {
+                $data[] = $row;
+            }
+        }
+        return $data;
     }
 
     public function getPersonilDropdown() {
@@ -42,11 +56,11 @@ class HomeModel {
     }
 
     public function getLatestArticles($limit = 3) {
-        $query = "SELECT id_artikel, judul, slug, isi_konten, gambar_artikel, tgl_dibuat
+        $query = "SELECT id_artikel, judul, slug, isi_konten, gambar_artikel, tgl_dibuat, tgl_diperbarui
                   FROM artikel
                   WHERE status_artikel = 'Published'
                   ORDER BY COALESCE(tgl_diperbarui, tgl_dibuat) DESC
-                  LIMIT $1"; // Menggunakan parameter binding untuk limit agar aman
+                  LIMIT $1";
         return $this->fetchAll($query, [$limit]);
     }
 }

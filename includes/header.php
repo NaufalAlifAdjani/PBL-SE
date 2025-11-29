@@ -26,14 +26,17 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link" href="/PBL-SE/index.php">Home</a></li>
 
+                <!-- profile navbar -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="/PBL-SE/page.php" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Profile
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
                         <?php
-                        if (!empty($data['menu_profile'])) {
-                            foreach($data['menu_profile'] as $item) {
+                        // DATA SOURCE: Controller ($menu_profile)
+                        // Kita cek apakah $menu_profile ada dan berupa array
+                        if (!empty($menu_profile) && is_array($menu_profile)) {
+                            foreach ($menu_profile as $item) {
                                 echo '<li><a class="dropdown-item" href="/PBL-SE/page.php?slug=' . htmlspecialchars($item['slug']) . '">' . htmlspecialchars($item['title']) . '</a></li>';
                             }
                         } else {
@@ -44,6 +47,7 @@
                     </ul>
                 </li>
 
+                <!-- personil navbar -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/PBL-SE/personil.php" id="navbarDropdownPersonil" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Personil
@@ -54,6 +58,7 @@
                     </ul>
                 </li>
 
+                <!-- recruit navbar -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGeeks" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Recruitment
