@@ -27,10 +27,17 @@
 .profile-card {
     background: #ffffff;
     border-radius: 12px;
+<<<<<<< HEAD
     border: 1px solid #e5e7eb; 
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     overflow: hidden;
     height: 100%; 
+=======
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: 100%;
+>>>>>>> origin/landingpage
 }
 
 /* 4. Sidebar Menu Styling */
@@ -51,6 +58,41 @@
     border-bottom: 1px solid #f3f4f6;
     transition: all 0.2s;
     font-weight: 500;
+<<<<<<< HEAD
+=======
+}
+
+.sidebar-menu a:hover {
+    background-color: #f9fafb;
+    color: #8b5cf6; /* Ungu Aksen */
+    padding-left: 25px;
+}
+
+.sidebar-menu a.active {
+    background-color: #f3f4f6;
+    color: #8b5cf6;
+    font-weight: 700;
+    border-left: 4px solid #8b5cf6;
+}
+
+/* 5. Konten Styling */
+.content-area {
+    padding: 40px;
+}
+.content-title-line {
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+.content-title-line h2 {
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+}
+.content-body {
+    color: #4b5563;
+    line-height: 1.7;
+>>>>>>> origin/landingpage
 }
 
 .sidebar-menu a:hover {

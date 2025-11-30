@@ -20,13 +20,20 @@ class PageController {
         // 2. Ambil data sidebar
         $sidebar_items = $this->model->getSidebarItems();
 
+
         // 3. PENYELAMAT: Definisikan variabel $conn di sini
         // Karena 'header.php' butuh variabel bernama $conn, kita buat lokal di sini.
         // Saat view di-include, dia akan mewarisi variabel lokal ini.
         $conn = $this->db_connection; 
+
+        // dibutuhkan untuk header
+        $menu_profile = $sidebar_items;
+
+
 
         // 4. Panggil View
         include __DIR__ . '/../views/page_view.php';
     }
 }
 ?>
+

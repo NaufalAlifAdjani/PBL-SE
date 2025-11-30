@@ -19,18 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($user) {
 
-        // Jika password di DB tidak di-hash, gunakan perbandingan biasa:
         if ($password === $user['password']) {
 
-            // ====== SESSION WAJIB (cocok dengan header_admin.php) ======
+            // ====== SESSION WAJIB ======
             $_SESSION['user_id'] = $user['id_admin'];
             $_SESSION['username'] = $user['username'];
+            
+            // --- TAMBAHAN PENTING (Agar tidak ditendang dashboard) ---
+            $_SESSION['status'] = 'login'; 
+            // ---------------------------------------------------------
 
             // Ingat saya
             if (isset($_POST['ingat_saya'])) {
-                setcookie("ingat_username", $username, time() + (86400 * 30), "/");
-            } else {
-                setcookie("ingat_username", "", time() - 3600, "/");
+                // ... (kode cookie kamu)
             }
 
             header("Location:../index.php");

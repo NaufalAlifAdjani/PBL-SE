@@ -1,0 +1,70 @@
+/* --- Quick Access --- */
+.q-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: #fff;
+    border: 1px solid #f3f4f6;
+    border-radius: 12px;
+    color: #1f2937;
+    text-decoration: none;
+    transition: 0.25s;
+    position: relative;
+    overflow: hidden;
+}
+
+.q-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+    border-color: #e5e7eb;
+}
+
+/* Icon */
+.q-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    transition: 0.25s;
+}
+
+/* Warna */
+.q-icon.green {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.q-link:hover .q-icon.green {
+    background: #16a34a;
+    color: #fff;
+}
+
+/* Text */
+.q-txt h6 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.q-txt span {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-top: 2px;
+    display: block;
+}
+
+/* Arrow */
+.q-arrow {
+    margin-left: auto;
+    color: #d1d5db;
+    transition: 0.25s;
+}
+
+.q-link:hover .q-arrow {
+    color: #111827;
+    transform: translateX(3px);
+}
