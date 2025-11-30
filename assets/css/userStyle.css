@@ -172,3 +172,280 @@ footer {
     margin-left: 10%;
     text-align: left;
 }
+
+/*  */
+        .body-login {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Mencegah scroll */
+        }
+
+        .login-container {
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* --- SISI KIRI (FORM) --- */
+        .left-side {
+            width: 50%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 80px;
+            position: relative;
+        }
+
+        /* Navbar Back Button */
+        .nav-back {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+        .nav-back:hover {
+            color: #28a745;
+        }
+
+        .brand-logo {
+            font-weight: 700;
+            font-size: 24px;
+            color: #000;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 30px;
+            right: 40px; /* Logo di kanan atas section kiri, atau sesuaikan */
+        }
+        .brand-logo span { color: #9333ea; }
+
+        .login-content {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .login-content h1 {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .login-content p.subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        /* Styling Input Custom */
+        .custom-input {
+            background-color: #f5f7fa; /* Abu-abu muda */
+            border: none;
+            border-radius: 12px; /* Rounded corners */
+            padding: 15px 20px;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+        .custom-input:focus {
+            outline: 2px solid #e0e0e0;
+            background-color: #fff;
+        }
+
+        .forgot-pass {
+            color: #28a745;
+            font-size: 13px;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .btn-black {
+            background-color: #000;
+            color: #fff;
+            border-radius: 30px; /* Pill shape */
+            padding: 15px;
+            width: 100%;
+            font-weight: 500;
+            border: none;
+            transition: background 0.3s;
+        }
+        .btn-black:hover {
+            background-color: #333;
+        }
+
+        .footer-contact {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #666;
+        }
+        .footer-contact a {
+            color: #28a745;
+            text-decoration: none;
+        }
+
+        /* --- SISI KANAN (GAMBAR) --- */
+        .right-side {
+            width: 50%;
+            /* Ganti URL ini dengan gambar tanaman/estetik Anda */
+            background: url('https://i.pinimg.com/736x/63/2b/80/632b80cca4fbc8ba249392ee473236ea.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Efek Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 450px;
+            color: #fff;
+            margin: 20px;
+        }
+        
+        .glass-card h3 {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .glass-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .left-side { width: 100%; padding: 20px; }
+            .right-side { display: none; } /* Sembunyikan gambar di HP */
+            .nav-back { position: relative; top: 0; left: 0; margin-bottom: 20px; }
+            .brand-logo { position: relative; top: 0; right: 0; margin-bottom: 30px; text-align: left; }
+        }
+
+/* ============================================================
+   STYLE KHUSUS HALAMAN PROFIL (FIX DROPDOWN & CARD)
+   ============================================================ */
+
+/* 1. Wrapper Header Gelap */
+.header-wrapper-profile {
+    background-color: #1a1626; 
+    padding-bottom: 3rem; 
+    position: relative;
+    margin-top: -1px;
+    
+    /* PENTING: z-index harus lebih rendah dari navbar, tapi lebih tinggi dari body */
+    z-index: 10; 
+    /* PENTING: overflow harus visible agar dropdown bisa keluar dari kotak header */
+    overflow: visible !important; 
+}
+
+/* 2. Navbar (PAKSA PALING ATAS) */
+.navbar {
+    position: sticky;
+    top: 0;
+    /* Angka keramat bootstrap adalah 1050, kita kasih lebih tinggi biar aman */
+    z-index: 1050; position: relative;
+}
+
+/* 3. Judul Hero (Di bawah Navbar, Di bawah Konten) */
+.hero-title-box {
+    text-align: center;
+    padding-top: 6rem;    
+    padding-bottom: 6rem; 
+    color: #ffffff;
+    position: relative;
+    z-index: 1; 
+}
+
+/* 4. Konten Utama (Overlap) */
+/* Selector spesifik untuk div container yang overlap */
+.container[style*="margin-top: -"] {
+    position: relative;
+    /* Z-index konten harus LEBIH RENDAH dari Navbar (9999) */
+    /* Tapi LEBIH TINGGI dari background Header (10) */
+    z-index: 20 !important; 
+}
+
+/* 5. Kartu Putih (Profile Card) */
+.profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: auto; 
+    position: relative; /* Agar z-index container berpengaruh */
+}
+
+/* 6. Sidebar Wrapper (Sticky) */
+.sidebar-wrapper {
+    position: sticky;      
+    top: 100px;            
+    z-index: 30; /* Sedikit lebih tinggi dari konten biasa biar aman saat scroll */
+}
+
+/* 7. Sidebar Menu Styling */
+.sidebar-header {
+    padding: 15px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #111827;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #4b5563;
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.sidebar-menu a:hover {
+    background-color: #f9fafb;
+    color: #8b5cf6;
+    padding-left: 25px;
+}
+
+.sidebar-menu a.active {
+    background-color: #f3f4f6;
+    color: #8b5cf6;
+    font-weight: 700;
+    border-left: 4px solid #8b5cf6;
+}
+
+/* 8. Konten Styling */
+.content-area {
+    padding: 40px;
+    min-height: 400px; 
+}
+.content-title-line {
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+.content-title-line h2 {
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+}
+.content-body {
+    color: #4b5563;
+    line-height: 1.7;
+}

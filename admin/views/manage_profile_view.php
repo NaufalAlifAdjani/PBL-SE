@@ -1,11 +1,9 @@
 <?php
-include 'includes/header_admin.php'; 
-include '../includes/db.php'; 
+// admin/views/manage_profile_view.php
 
-// Query data
-$result = pg_query($conn, "SELECT id, title, slug, menu_group, is_published, updated_at 
-                           FROM Profile 
-                           ORDER BY display_order ASC");
+// Header biasanya di-include di View atau dipanggil lewat Controller. 
+// Karena path relative terhadap entry point (manage_profile.php), maka path ini benar:
+include 'includes/header_admin.php'; 
 ?>
 
 <div class="mb-4">
@@ -15,7 +13,7 @@ $result = pg_query($conn, "SELECT id, title, slug, menu_group, is_published, upd
     </div>
 
     <div class="d-grid d-md-block">
-        <a href="profile_form.php" class="btn btn-primary-admin px-4">
+        <a href="manage_profile.php?action=add" class="btn btn-primary-admin px-4">
             <i class="bi bi-plus-lg me-2"></i>Tambah Halaman
         </a>
     </div>
@@ -36,6 +34,7 @@ $result = pg_query($conn, "SELECT id, title, slug, menu_group, is_published, upd
                 </thead>
                 <tbody>
                     <?php
+                    // $result dikirim dari ProfileController->index()
                     if ($result && pg_num_rows($result) > 0) {
                         while($row = pg_fetch_assoc($result)) {
                     ?>
@@ -60,11 +59,12 @@ $result = pg_query($conn, "SELECT id, title, slug, menu_group, is_published, upd
                         </td>
                         <td class="px-4 text-end">
                             <div class="d-inline-flex gap-2">
-                                <a href="profile_form.php?id=<?php echo $row['id']; ?>" class="btn btn-action-edit" title="Edit">
-                                    <i class="bi bi-pencil-square"></i>
+                                <a href="manage_profile.php?action=edit&id=<?php echo $row['id']; ?>" class="btn btn-action-edit me-2">
+                                    <i class="bi bi-pencil-fill"></i> Edit
                                 </a>
-                                <a href="profile_delete.php?id=<?php echo $row['id']; ?>" class="btn btn-action-delete btn-delete" title="Hapus">
-                                    <i class="bi bi-trash"></i>
+
+                                <a href="manage_profile.php?action=delete&id=<?php echo $row['id']; ?>" class="btn btn-action-delete btn-delete">
+                                    <i class="bi bi-trash-fill"></i> Hapus
                                 </a>
                             </div>
                         </td>
@@ -82,66 +82,3 @@ $result = pg_query($conn, "SELECT id, title, slug, menu_group, is_published, upd
 </div>
 
 <?php include 'includes/footer_admin.php'; ?>
-
-<script>
-    // 1. Cek Parameter URL (?status=...)
-    const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get('status');
-
-    // Jika ada status, tampilkan Alert
-    if (status) {
-        if (status === 'success') {
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: 'Data halaman berhasil disimpan.',
-                timer: 2000,
-                showConfirmButton: false
-            });
-        } else if (status === 'deleted') {
-            Swal.fire({
-                icon: 'success',
-                title: 'Dihapus!',
-                text: 'Data halaman berhasil dihapus.',
-                timer: 2000,
-                showConfirmButton: false
-            });
-        } else if (status === 'error') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal!',
-                text: 'Terjadi kesalahan saat memproses data.',
-            });
-        }
-
-        // --- BAGIAN BARU: BERSIHKAN URL ---
-        // Hapus parameter ?status=... dari address bar tanpa refresh halaman
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        window.history.replaceState({ path: newUrl }, '', newUrl);
-    }
-
-    // 2. Konfirmasi Hapus dengan SweetAlert
-    const deleteButtons = document.querySelectorAll('.btn-delete');
-    
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            const href = this.getAttribute('href'); 
-
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: "Data yang dihapus tidak bisa dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = href;
-                }
-            });
-        });
-    });
-</script>

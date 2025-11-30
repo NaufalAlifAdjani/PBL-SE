@@ -62,15 +62,28 @@ body {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
+/* 4. Link Navigasi */
 .sidebar .nav-link {
     color: #d1d5db !important;
-    padding: 12px 20px;
+    padding: 12px 25px; /* Tambah padding kiri-kanan dikit biar lega */
     font-weight: 500;
     display: flex;
     align-items: center;
     border-radius: 0;
-    transition: background-color 0.2s ease, color 0.2s ease; 
+    transition: 0.2s;
+    
+    /* --- PERBAIKAN DI SINI --- */
+    gap: 15px; /* Memberi jarak 15px antara Ikon dan Teks */
 }
+
+/* Tambahan: Mengatur lebar ikon agar teks rata lurus vertikal */
+.sidebar .nav-link i {
+    font-size: 1.1rem;
+    width: 24px; /* Lebar fix untuk ikon */
+    text-align: center; /* Ikon di tengah area-nya */
+    display: inline-block;
+}
+
 .sidebar .nav-link:hover { background-color: #374151 !important; color: #fff !important; }
 .sidebar .nav-link.active { background-color: #4f46e5 !important; color: #fff !important; border-left: 4px solid #818cf8; }
 
@@ -93,7 +106,7 @@ body {
     background-color: #fff; margin-bottom: 1.5rem;
 }
 
-/* Dashboard Stats Card */
+/* Dashboard Cards (Warna-warni) */
 .dashboard-card {
     border-radius: 12px; padding: 2rem; color: #fff !important;
     display: flex; flex-direction: column; justify-content: space-between;
