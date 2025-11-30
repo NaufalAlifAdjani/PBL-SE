@@ -173,6 +173,168 @@ footer {
     text-align: left;
 }
 
+/*  */
+        .body-login {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Mencegah scroll */
+        }
+
+        .login-container {
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* --- SISI KIRI (FORM) --- */
+        .left-side {
+            width: 50%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 80px;
+            position: relative;
+        }
+
+        /* Navbar Back Button */
+        .nav-back {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+        .nav-back:hover {
+            color: #28a745;
+        }
+
+        .brand-logo {
+            font-weight: 700;
+            font-size: 24px;
+            color: #000;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 30px;
+            right: 40px; /* Logo di kanan atas section kiri, atau sesuaikan */
+        }
+        .brand-logo span { color: #9333ea; }
+
+        .login-content {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .login-content h1 {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .login-content p.subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        /* Styling Input Custom */
+        .custom-input {
+            background-color: #f5f7fa; /* Abu-abu muda */
+            border: none;
+            border-radius: 12px; /* Rounded corners */
+            padding: 15px 20px;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+        .custom-input:focus {
+            outline: 2px solid #e0e0e0;
+            background-color: #fff;
+        }
+
+        .forgot-pass {
+            color: #28a745;
+            font-size: 13px;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .btn-black {
+            background-color: #000;
+            color: #fff;
+            border-radius: 30px; /* Pill shape */
+            padding: 15px;
+            width: 100%;
+            font-weight: 500;
+            border: none;
+            transition: background 0.3s;
+        }
+        .btn-black:hover {
+            background-color: #333;
+        }
+
+        .footer-contact {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #666;
+        }
+        .footer-contact a {
+            color: #28a745;
+            text-decoration: none;
+        }
+
+        /* --- SISI KANAN (GAMBAR) --- */
+        .right-side {
+            width: 50%;
+            /* Ganti URL ini dengan gambar tanaman/estetik Anda */
+            background: url('https://i.pinimg.com/736x/63/2b/80/632b80cca4fbc8ba249392ee473236ea.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Efek Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 450px;
+            color: #fff;
+            margin: 20px;
+        }
+        
+        .glass-card h3 {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .glass-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .left-side { width: 100%; padding: 20px; }
+            .right-side { display: none; } /* Sembunyikan gambar di HP */
+            .nav-back { position: relative; top: 0; left: 0; margin-bottom: 20px; }
+            .brand-logo { position: relative; top: 0; right: 0; margin-bottom: 30px; text-align: left; }
+        }
+
 /* ============================================================
    STYLE KHUSUS HALAMAN PROFIL (FIX DROPDOWN & CARD)
    ============================================================ */

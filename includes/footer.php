@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="text-end"><a href="/PBL-SE/admin/index.php" class="btn btn-login">Login</a></div>
+    <div class="text-end"><a href="../PBL-SE/admin/views/login.php" class="btn btn-login">Login</a></div>
     <hr>
 
     Copyright &copy; <?php echo date('Y'); ?> Lab SE. All Rights Reserved.
