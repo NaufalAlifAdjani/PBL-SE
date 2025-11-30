@@ -22,7 +22,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style_admin.css">
 </head>
 <body class="admin-body">
 
@@ -64,7 +64,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
             </li>
         </ul>
         <div class="sidebar-footer mt-auto">
-            <a href="#" class="btn btn-logout">
+            <a href="http://localhost/PBL%20BARU/pbl/index.php" class="btn btn-logout">
                 <i class="bi bi-box-arrow-left"></i> Logout
             </a>
         </div>

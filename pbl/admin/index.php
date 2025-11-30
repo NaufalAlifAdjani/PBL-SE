@@ -1,9 +1,5 @@
 <?php
 include 'includes/header_admin.php';
-// (Di sini kamu bisa query ke DB untuk mendapat angka 24, 12, 45)
-// $personil_count = pg_num_rows(pg_query($conn, "SELECT 1 FROM tbl_personnel"));
-// $blog_count = pg_num_rows(pg_query($conn, "SELECT 1 FROM tbl_articles"));
-// $geeks_count = pg_num_rows(pg_query($conn, "SELECT 1 FROM tbl_geeks"));
 ?>
 
 <h1 class="fw-bold">Dashboard Admin</h1>
