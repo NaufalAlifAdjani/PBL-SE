@@ -9,4 +9,6 @@ require_once 'controllers/PageController.php';
 $slug = $_GET['slug'] ?? null;
 $controller = new PageController($conn);
 $controller->show($slug);
+
 ?>
+

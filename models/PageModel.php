@@ -15,11 +15,13 @@ class PageModel {
 
     // Ambil menu sidebar
     public function getSidebarItems() {
-        $query = "SELECT title, slug FROM Profile 
-                  WHERE menu_group = 'profile_dropdown' AND is_published = TRUE 
+
+
+        $query = "SELECT title, slug FROM Profile
+                  WHERE menu_group = 'profile_dropdown' AND is_published = TRUE
                   ORDER BY display_order ASC";
         $result = pg_query($this->conn, $query);
-        
+
         $items = [];
         if ($result) {
             while ($row = pg_fetch_assoc($result)) {
@@ -29,4 +31,6 @@ class PageModel {
         return $items;
     }
 }
+
 ?>
+

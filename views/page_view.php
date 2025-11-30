@@ -1,6 +1,6 @@
-<?php 
+<?php
 // Panggil Header Global
-include 'includes/header.php'; 
+include 'includes/header.php';
 ?>
 
 <style>
