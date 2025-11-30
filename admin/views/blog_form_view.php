@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0"><?php echo ($mode == 'update') ? 'Edit Artikel' : 'Tambah Artikel Baru'; ?></h1>
+    <h1 class="fw-bold h3 mb-0"><?php echo ($mode == 'update') ? 'Edit Artikel' : 'Tambah Artikel Baru'; ?></h1>
     <a href="manage_blog.php" class="btn btn-outline-secondary">Batal</a>
 </div>
 

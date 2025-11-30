@@ -1,0 +1,86 @@
+/* ============================================================
+   STYLE KHUSUS HALAMAN PROFIL (Clean Version)
+   Digunakan bersama userStyle.css
+   ============================================================ */
+
+/* 1. Wrapper Header Gelap (Background di belakang judul) */
+.header-wrapper-profile {
+    background-color: #1a1626; /* Sesuaikan dengan tema userStyle */
+    padding-bottom: 5rem; /* Ruang lebih di bawah untuk efek overlap */
+    position: relative;
+    margin-top: -1px; /* Fix garis putih tipis jika ada */
+}
+
+/* 2. Judul Hero di tengah */
+.hero-title-box {
+    text-align: center;
+    padding: 3rem 0;
+    color: #ffffff;
+}
+.hero-title-box h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: -0.5px;
+}
+
+/* 3. Layout Kartu Putih (Sidebar & Konten) */
+.profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: 100%;
+}
+
+/* 4. Sidebar Menu Styling */
+.sidebar-header {
+    padding: 15px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #111827;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #4b5563;
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.sidebar-menu a:hover {
+    background-color: #f9fafb;
+    color: #8b5cf6; /* Ungu Aksen */
+    padding-left: 25px;
+}
+
+.sidebar-menu a.active {
+    background-color: #f3f4f6;
+    color: #8b5cf6;
+    font-weight: 700;
+    border-left: 4px solid #8b5cf6;
+}
+
+/* 5. Konten Styling */
+.content-area {
+    padding: 40px;
+}
+.content-title-line {
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+.content-title-line h2 {
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+}
+.content-body {
+    color: #4b5563;
+    line-height: 1.7;
+}

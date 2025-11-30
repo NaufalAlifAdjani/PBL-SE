@@ -1,32 +1,39 @@
 <?php
 class BlogModel {
-    private $conn;
+    private $db;
 
-    public function __construct($dbConnection) {
-        $this->conn = $dbConnection;
+    public function __construct($conn) {
+        $this->db = $conn;
     }
 
-    // mendapatkan semua artikel dari db
+    // Mendapatkan semua artikel
     public function getAllArticles() {
         $query = "SELECT a.*, ad.username
                   FROM artikel a
                   LEFT JOIN admin ad ON a.id_admin = ad.id_admin
-                  ORDER BY a.tgl_diperbarui DESC"; //agar ketika edit berada di atas
-        $result = pg_query($this->conn, $query);
+                  ORDER BY a.tgl_diperbarui DESC";
+
+        $result = pg_query($this->db, $query);
         return pg_fetch_all($result) ?: [];
     }
 
-    // ambil 1 artikel berdasarkan ID
+    // Ambil 1 artikel berdasarkan ID
     public function getArticleById($id) {
         $query = "SELECT * FROM artikel WHERE id_artikel = $1";
-        $result = pg_query_params($this->conn, $query, array($id));
+        $result = pg_query_params($this->db, $query, array($id));
         return pg_fetch_assoc($result);
     }
 
-    // bikin artikel
+    // Create Artikel
     public function createArticle($data) {
-        $query = "INSERT INTO artikel (id_admin, judul, slug, isi_konten, gambar_artikel, status_artikel, tgl_dibuat, tgl_diperbarui)
-                  VALUES ($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+        $query = "SELECT sp_tambah_artikel(
+                    $1::INT,
+                    $2::VARCHAR,
+                    $3::VARCHAR,
+                    $4::TEXT,
+                    $5::VARCHAR,
+                    $6::VARCHAR
+                  ) as new_id";
 
         $params = array(
             $data['id_admin'],
@@ -37,10 +44,10 @@ class BlogModel {
             $data['status_artikel']
         );
 
-        return pg_query_params($this->conn, $query, $params);
+        return pg_query_params($this->db, $query, $params);
     }
 
-    // edit srtikel
+    // Update Artikel
     public function updateArticle($id, $data) {
         $query = "UPDATE artikel
                   SET id_admin = $1, judul = $2, slug = $3, isi_konten = $4,
@@ -57,7 +64,21 @@ class BlogModel {
             $id
         );
 
-        return pg_query_params($this->conn, $query, $params);
+        return pg_query_params($this->db, $query, $params);
+    }
+
+    // Hapus Artikel
+    public function deleteArticle($id) {
+        $query = "DELETE FROM artikel WHERE id_artikel = $1";
+        return pg_query_params($this->db, $query, array($id));
+    }
+
+    // Total Artikel (Dashboard)
+    public function getArticleCount() {
+        $query = "SELECT COUNT(*) as total FROM artikel";
+        $result = pg_query($this->db, $query);
+        $row = pg_fetch_assoc($result);
+        return $row['total'];
     }
 }
 ?>

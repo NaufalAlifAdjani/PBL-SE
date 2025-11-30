@@ -1,0 +1,339 @@
+/* ini adalah stling untuk bagian home */
+/*.about us */
+.about-us {
+    position: relative;
+    padding: 80px 0;
+    overflow: hidden; /* Keeps decorative shapes inside */
+}
+
+.about-us::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: 0;
+}
+
+.about-img-wrapper {
+    position: relative;
+    padding: 10px;
+}
+
+.img-decoration {
+    position: absolute;
+    top: 20px; /* Geser ke bawah */
+    left: -15px; /* Geser ke kiri */
+    width: 100%;
+    height: 100%;
+    border: 2px solid #a3e635;
+    border-radius: 20px;
+    z-index: 1; /* Di belakang gambar */
+    opacity: 0.6;
+    transition: all 0.4s ease;
+}
+
+/* Efek saat hover wrapper, kotaknya bergerak */
+.about-img-wrapper:hover .img-decoration {
+    top: 10px;
+    left: -10px;
+    background-color: rgba(139, 92, 246, 0.1);
+}
+
+/* visi misi */
+.brand-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid #a3e635;
+    box-shadow: 0 15px 35px rgba(139, 92, 246, 0.1);
+
+    border-radius: 20px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+/* Sedikit interaksi */
+.brand-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+    border-color: #e788ff;
+}
+
+.brand-card .card-title {
+    color: var(--bg-surface); /* Warna gelap dari tema */
+    font-weight: 800;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+}
+
+/* roadmap */
+.roadmap-section {
+    position: relative;
+    padding: 20px 0;
+}
+
+/* Garis Vertikal Utama */
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Garis tengah diganti gradient agar lebih futuristik */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background: linear-gradient(to bottom, #a3e635, #b0cd7e);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+    border-radius: 4px;
+    box-shadow: 0 0 15px #a3e635;
+}
+
+/* Container Wrapper */
+.timeline-container {
+    padding: 10px 50px;
+    position: relative;
+    width: 50%;
+    z-index: 1;
+}
+
+.timeline-left {
+    left: 0;
+}
+.timeline-right {
+    left: 50%;
+}
+
+/* --- TITIK (DOTS) DENGAN ANIMASI PULSE --- */
+.timeline-container::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: -12px;
+    background-color: #fff;
+    border: 4px solid #a3e635;
+    top: 24px;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 4px #a2e63583; /* Ring luar halus */
+    transition: all 0.3s ease;
+}
+
+/* Animasi Pulse agar roadmap terasa 'hidup' */
+.timeline-container:hover::after {
+    background-color: #a2e63564;
+    box-shadow: 0 0 0 8px #a2e63538;
+    transform: scale(1.1);
+}
+
+.timeline-right::after {
+    left: -12px;
+}
+
+/* --- card roadmpa --- */
+.timeline-content {
+    padding: 25px 30px;
+    background-color: #fff;
+    border-radius: 16px;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* Shadow yang sangat lembut (neumorphism vibes) */
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Efek Hover pada Kartu */
+.timeline-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.25); /* Shadow ungu halus */
+    border-color: #c94bf1;
+}
+
+/* Styling Tanggal/Tahun */
+.timeline-date {
+    color: #84cc16;
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Styling Judul dan Deskripsi */
+.timeline-content h4 {
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #212529;
+}
+
+.timeline-content p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* --- RESPONSIVE --- */
+@media screen and (max-width: 768px) {
+    /* Garis pindah ke kiri */
+    .timeline::after {
+        left: 31px;
+    }
+
+    /* Item memanjang penuh ke kanan */
+    .timeline-container {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+
+    /* Dot pindah ke kiri semua */
+    .timeline-container::after {
+        left: 19px;
+    }
+
+    /* Reset posisi left/right container */
+    .timeline-left,
+    .timeline-right {
+        left: 0;
+    }
+}
+
+/* dosen */
+/* ini adalah style untuk bagian dosen swipe */
+/* swiper container */
+.slide-container {
+    overflow: visible !important;
+    position: relative;
+    padding: 40px 20px;
+    margin: 0 auto;
+    max-width: 900px !important;
+}
+
+.slide-content {
+    padding: 4px 20px 20px !important;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* Styling Nama Dosen */
+.name-box {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* button buat swiper */
+.swiper-navBtn {
+    color: #c94bf1;
+    transition: all 0.3s ease;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.swiper-navBtn:hover {
+    color: #7e2e96;
+    background-color: #fff;
+    transform: scale(1.1); /* Efek membesar sedikit */
+}
+
+/* Override panah default swiper */
+.swiper-navBtn::before,
+.swiper-navBtn::after {
+    display: none;
+}
+
+.swiper-button-next {
+    right: -80px; /* Geser ke kanan luar container */
+}
+
+.swiper-button-prev {
+    left: -80px; /* Geser ke kiri luar container */
+}
+
+/* button size dan bullet */
+.swiper-navBtn i {
+    font-size: 2rem;
+}
+
+.swiper-pagination-bullet {
+    background-color: #adb5bd;
+    opacity: 1;
+}
+.swiper-pagination-bullet-active {
+    background-color: #c94bf1;
+}
+
+/* ini punya card */
+.profile-card {
+    position: relative;
+    z-index: 1;
+    /* overflow: visible; */
+    transition: transform 0.3s ease;
+}
+
+/* Efek Hover: Card naik sedikit */
+.profile-card:hover {
+    transform: translateY(-5px);
+    z-index: 2;
+}
+
+/* gambar dan warna gambar */
+.image-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    row-gap: 5px;
+}
+
+/* border rasiud dan warna */
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(135deg, #4338ca 0%, #64748b 100%);
+}
+
+/* Container lingkaran foto */
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 1px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+}

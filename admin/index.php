@@ -1,5 +1,13 @@
 <?php
 include 'includes/header_admin.php';
+include '../includes/db.php';
+
+// load model
+include 'models/BlogModel.php';
+
+$blogModel = new BlogModel($conn);
+
+$blog_count = $blogModel->getArticleCount();
 // (Di sini kamu bisa query ke DB untuk mendapat angka 24, 12, 45)
 // $personil_count = pg_num_rows(pg_query($conn, "SELECT 1 FROM tbl_personnel"));
 // $blog_count = pg_num_rows(pg_query($conn, "SELECT 1 FROM tbl_articles"));
@@ -19,15 +27,17 @@ include 'includes/header_admin.php';
             <i class="bi bi-people-fill stat-icon"></i>
         </div>
     </div>
+
     <div class="col-12 col-sm-6 col-lg-4">
         <div class="card-stat card-stat-green d-flex justify-content-between align-items-center">
             <div>
                 <h5>Blog Articles</h5>
-                <span class="stat-number">12</span>
+                <span class="stat-number"><?php echo $blog_count; ?></span>
             </div>
             <i class="bi bi-file-earmark-text-fill stat-icon"></i>
         </div>
     </div>
+
     <div class="col-12 col-sm-6 col-lg-4">
         <div class="card-stat card-stat-purple d-flex justify-content-between align-items-center">
             <div>
@@ -39,16 +49,24 @@ include 'includes/header_admin.php';
     </div>
 </div>
 
-<div class="card card-admin">
+<div class="card card-admin border-0 shadow-sm">
     <div class="card-body p-4">
         <h4 class="fw-semibold mb-3">Akses Cepat</h4>
         <div class="row g-3">
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="card-admin p-3">
-                    <h5 class="fw-semibold">Tambah Blog</h5>
-                    <p class="text-muted mb-0">Buat artikel blog baru</p>
-                </div>
+
+            <div class="col-12 col-md-4">
+                <a href="blog_form.php" class="q-link">
+                    <div class="q-icon green">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+                    <div class="q-txt">
+                        <h6>Tulis Artikel</h6>
+                        <span>Buat konten baru</span>
+                    </div>
+                    <i class="bi bi-chevron-right q-arrow"></i>
+                </a>
             </div>
+
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card-admin p-3">
                     <h5 class="fw-semibold">Kelola Personil</h5>

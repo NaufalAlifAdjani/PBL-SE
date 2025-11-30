@@ -21,9 +21,8 @@ class HomeModel {
     }
 
     public function getVisiMisi() {
-        // PERBAIKAN: Menggunakan fetchOne dan parameter binding agar aman
         return $this->fetchOne(
-            "SELECT title, content FROM Profile WHERE slug = 'visi-misi' AND is_published = TRUE LIMIT 1"
+            "SELECT title, content FROM Profile WHERE slug = 'visi-misi'"
         );
     }
 
@@ -48,19 +47,20 @@ class HomeModel {
         );
     }
 
-    public function getAboutInfo($slug) {
-        return $this->fetchOne(
-            "SELECT title, content FROM Profile WHERE slug = $1 AND is_published = TRUE",
-            [$slug]
-        );
+
+
+    public function getAllDosen() {
+        $query = "SELECT * FROM v_dosen_list
+                  ORDER BY
+                    CASE WHEN jabatan ILIKE '%kepala%' THEN 0 ELSE 1 END,
+                    nama_dosen ASC";
+        return $this->fetchAll($query);
     }
 
     public function getLatestArticles($limit = 3) {
-        $query = "SELECT id_artikel, judul, slug, isi_konten, gambar_artikel, tgl_dibuat, tgl_diperbarui
-                  FROM artikel
-                  WHERE status_artikel = 'Published'
-                  ORDER BY COALESCE(tgl_diperbarui, tgl_dibuat) DESC
-                  LIMIT $1";
+        $query = "SELECT * FROM v_artikel_published
+              ORDER BY COALESCE(tgl_diperbarui, tgl_dibuat) DESC
+              LIMIT $1";
         return $this->fetchAll($query, [$limit]);
     }
 }

@@ -10,11 +10,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <!-- css -->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="assets/css/userStyle.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css"> <!-- untuk animasi swipe -->
+    <link rel="stylesheet" href="assets/css/userStyle.css"> <!-- global user style -->
+    <link rel="stylesheet" href="assets/css/homeStyle.css"> <!-- homepage style -->
+    <link rel="stylesheet" href="assets/css/style.css"> <!-- profile style -->
+
 </head>
 <body>
 
+<!-- navbar -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
 
@@ -32,17 +36,10 @@
                         Profile
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
-                        <?php
-                        // DATA SOURCE: Controller ($menu_profile)
-                        // Kita cek apakah $menu_profile ada dan berupa array
-                        if (!empty($menu_profile) && is_array($menu_profile)) {
-                            foreach ($menu_profile as $item) {
-                                echo '<li><a class="dropdown-item" href="/PBL-SE/page.php?slug=' . htmlspecialchars($item['slug']) . '">' . htmlspecialchars($item['title']) . '</a></li>';
-                            }
-                        } else {
-                            echo '<li><a class="dropdown-item" href="#">(Belum ada data)</a></li>';
-                        }
-                        ?>
+                        <li><a class="dropdown-item" href="/PBL-SE/page.php?slug=tentang-lab">Tentang Lab SE</a></li>
+                        <li><a class="dropdown-item" href="/PBL-SE/page.php?slug=visi-misi">Visi & Misi</a></li>
+                        <li><a class="dropdown-item" href="/PBL-SE/page.php?slug=roadmap">Roadmap Penelitian</a></li>
+                        <li><a class="dropdown-item" href="/PBL-SE/page.php?slug=focus-scope">Focus & scope</a></li>
                         <li><hr class="dropdown-divider"></li>
                     </ul>
                 </li>
@@ -65,7 +62,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownGeeks">
                         <li><a class="dropdown-item" href="/PBL-SE/se_geeks.php">List Member</a></li>
-                        <li><a class="dropdown-item" href="/PBL-SE/pendaftaran.php">New Reccruit</a></li>
+                        <li><a class="dropdown-item" href="/PBL-SE/pendaftaran.php">New Recruit</a></li>
                         <li><hr class="dropdown-divider"></li>
                     </ul>
                 </li>

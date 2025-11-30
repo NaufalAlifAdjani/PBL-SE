@@ -16,7 +16,7 @@ $row = $data['article'];
                     <i class="bi bi-calendar3"></i>
                     <?php echo $row['tgl']; ?>
                     <?php if (!empty($row['is_edited']) && $row['is_edited']): ?>
-                        <span class="badge bg-warning text-dark ms-2" title="Telah diedit"><i class="bi bi-pencil-fill" style="font-size: 0.8em;"></i> Edited
+                        <span class="badge bg-warning text-dark ms-2" title="Telah diedit">Edited
                         </span>
                     <?php endif; ?>
                 </p>

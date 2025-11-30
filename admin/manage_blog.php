@@ -1,11 +1,10 @@
 <?php
 include 'includes/header_admin.php';
 include '../includes/db.php';
-include 'controllers/BlogController.php'; //include controller
+include 'controllers/BlogController.php';
 
-// inisialisasi Controller
 $controller = new BlogController($conn);
-$controller->index(); //run method
+$controller->index();
 
 include 'includes/footer_admin.php';
 ?>

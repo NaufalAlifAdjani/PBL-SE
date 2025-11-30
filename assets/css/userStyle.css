@@ -6,30 +6,39 @@
     --text-primary: #ffffff;
     --text-secondary: #9ca3af;
     --gradient-btn: linear-gradient(135deg, var(--accent-purple) 0%, #d946ef 100%);
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
 body {
+    color: var(--bg-dark);
     background-color: #f3f4f6;
+    width: 100%;
+    overflow-x: hidden; /* Mencegah scroll horizontal yang tidak perlu */
 }
 
-/* navbar */
+/* header navbar */
 .navbar {
     background-color: rgba(15, 12, 27, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(139, 92, 246, 0.1);
     position: sticky;
     top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    z-index: 1000; /* memastikan di depan */
+    box-shadow: var(--shadow-soft);
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .navbar-brand {
-    font-weight: 700;
+    font-weight: 600;
+    /* nnti dipasang logo */
     color: var(--text-primary) !important;
 }
 
 .navbar-nav .nav-link {
     color: var(--text-secondary);
+    font-size: 14px;
     font-weight: 400;
     padding: 8px 18px !important;
     position: relative;
@@ -39,7 +48,7 @@ body {
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.show {
     color: var(--text-primary);
-    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    text-shadow: var(--shadow-glow);
 }
 
 /* animasi garis di navar */
@@ -75,17 +84,19 @@ body {
 .dropdown-menu {
     background-color: var(--bg-surface);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    border-radius: 10px;
     padding: 8px;
-    margin-top: 15px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 5px;
+    box-shadow: var(--shadow-soft);
     animation: slideDown 0.3s ease forwards;
+    min-width: 160px; /* karena default bootstrap terlalu lebar*/
 }
 
 .dropdown-item {
     color: var(--text-secondary);
-    font-weight: 500;
-    padding: 10px 15px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 6px 15px;
     border-radius: 8px;
     transition: all 0.2s;
 }
@@ -112,6 +123,35 @@ body {
     }
 }
 
+/* Banner */
+.banner {
+    color: #f6f1ff;
+    background: radial-gradient(circle at center, #9466c2ba 0%, #7c3aed 40%, #1a1827 85%);
+    padding: 175px 0;
+    text-align: center;
+    border-bottom: 3px solid rgba(139, 92, 246, 0.3);
+}
+
+.banner h1 {
+    font-size: 40px;
+    margin-bottom: 1.5rem;
+}
+
+/* Cards */
+.card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #e788ff !important;
+}
+
 /* Button */
 .btn,
 .btn-login {
@@ -128,35 +168,31 @@ body {
 .btn-login:hover {
     transform: translateY(-2px);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.7);
+    box-shadow: var(--shadow-soft);
 }
 
-/* Cards */
-.card {
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.btn-white {
+    background: #fff;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 0.95rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: 0.25s ease;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: #e788ff !important;
-}
-
-/* Banner */
-.banner {
-    color: var(--text-primary);
-    background: linear-gradient(rgba(24, 19, 43, 0.9), rgba(63, 41, 95, 0.95));
-    padding: 100px 0;
-    border-bottom: 4px solid rgba(138, 92, 246, 0.461);
-    position: relative;
-    overflow: hidden;
+.btn-white:hover {
+    background: #ffffff;
+    color: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 /* footer */
 footer {
     background-color: var(--bg-surface);
     border-top: 1px solid rgba(139, 92, 246, 0.1);
-    font-size: 15px;
+    font-size: 0.85rem !important;
     color: var(--text-secondary) !important;
 }
 
@@ -164,17 +200,20 @@ footer h5 {
     color: var(--text-primary) !important;
 }
 
+footer .btn-login {
+    font-size: 0.8rem;
+    padding: 6px 20px;
+}
+
 .footer-link {
     color: var(--text-secondary);
     text-decoration: none;
     transition: all 0.3s ease;
-    display: inline-block;
 }
 
 .footer-link:hover {
     color: var(--accent-glow);
-    padding-left: 8px;
-    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    padding-left: 5px;
 }
 
 /* sosmed icon */
@@ -182,8 +221,8 @@ footer h5 {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     color: #fff;
     font-size: 1.2rem;

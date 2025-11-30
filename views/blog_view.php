@@ -4,7 +4,7 @@
     <div class="container">
         <div class="text-center mb-5">
             <h1 class="fw-bold">Blog & Artikel Terbaru</h1>
-            <p class="text-muted">Software Engineering and Technology</p>
+            <p class="text-muted">Update terkini dari tim kami</p>
         </div>
 
         <div class="row g-4">

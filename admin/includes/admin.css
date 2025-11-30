@@ -69,7 +69,7 @@ body {
     display: flex;
     align-items: center;
     border-radius: 0;
-    transition: background-color 0.2s ease, color 0.2s ease; 
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 .sidebar .nav-link:hover { background-color: #374151 !important; color: #fff !important; }
 .sidebar .nav-link.active { background-color: #4f46e5 !important; color: #fff !important; border-left: 4px solid #818cf8; }
@@ -90,42 +90,42 @@ body {
 
 /* Card Putih Pembungkus Tabel */
 .card-admin {
-    border: none; 
+    border: none;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    background-color: #fff; 
+    background-color: #fff;
     margin-bottom: 1.5rem;
 }
 
 /* Tombol Utama (Tambah Halaman) */
 .btn-primary-admin {
-    background-color: #111827; 
-    color: #fff; 
+    background-color: #111827;
+    color: #fff;
     padding: 0.6rem 1.2rem;
-    border-radius: 8px; 
-    text-decoration: none; 
-    font-weight: 500; 
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
     display: inline-flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     border: 1px solid #111827;
     transition: all 0.2s;
 }
-.btn-primary-admin:hover { 
-    background-color: #374151; 
+.btn-primary-admin:hover {
+    background-color: #374151;
     border-color: #374151;
-    color: #fff; 
+    color: #fff;
 }
 
 /* Tombol Aksi Tabel (Edit & Hapus) */
-.btn-action-edit { 
-    background-color: #e0e7ff; 
-    color: #4338ca; 
-    padding: 6px 12px; 
-    border-radius: 6px; 
-    text-decoration: none; 
-    font-size: 0.9rem; 
-    font-weight: 500; 
+.btn-action-edit {
+    background-color: #e0e7ff;
+    color: #4338ca;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
     display: inline-block;
 }
 .btn-action-edit:hover {
@@ -133,14 +133,14 @@ body {
     color: #3730a3;
 }
 
-.btn-action-delete { 
-    background-color: #fee2e2; 
-    color: #dc2626; 
-    padding: 6px 12px; 
-    border-radius: 6px; 
-    text-decoration: none; 
-    font-size: 0.9rem; 
-    font-weight: 500; 
+.btn-action-delete {
+    background-color: #fee2e2;
+    color: #dc2626;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
     display: inline-block;
 }
 .btn-action-delete:hover {
@@ -176,7 +176,7 @@ body {
     .admin-wrapper { display: block; }
 
     .sidebar {
-        position: fixed !important; 
+        position: fixed !important;
         top: 0; bottom: 0; left: 0;
         z-index: 1045;
         height: 100% !important;
@@ -186,7 +186,7 @@ body {
         transition: transform 0.3s ease-in-out !important;
         visibility: visible !important;
     }
-    
+
     .sidebar.show { transform: translateX(0) !important; }
 
     /* Prevent White Flash */
@@ -200,6 +200,6 @@ body {
     .main-content { padding: 1rem; width: 100%; padding-top: 1rem !important; }
 
     .navbar-dark { position: sticky; top: 0; z-index: 1040; width: 100%; background-color: #111827 !important; }
-    
+
     .col-md-4 { margin-bottom: 1rem; }
 }

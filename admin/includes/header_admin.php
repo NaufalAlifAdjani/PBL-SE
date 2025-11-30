@@ -22,7 +22,8 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/style_admin.css">
+    <link rel="stylesheet" href="assets/css/style_admin.css">
+    <link rel="stylesheet" href="assets/css/blog_admin.css">
 </head>
 <body class="admin-body">
 
@@ -38,7 +39,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo ($current_page == 'manage_blog.php') ? 'active' : ''; ?>" href="manage_blog.php">
+                <a class="nav-link <?php echo (in_array($current_page, ['manage_blog.php', 'blog_form.php'])) ? 'active' : ''; ?>" href="manage_blog.php">
                     <i class="bi bi-file-earmark-text-fill"></i> Manage Article
                 </a>
             </li>

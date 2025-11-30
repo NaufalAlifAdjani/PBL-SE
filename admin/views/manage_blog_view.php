@@ -31,7 +31,7 @@
                         </a>
                         <a href="blog_delete.php?id=<?php echo $row['id_artikel']; ?>"
                            class="btn btn-danger btn-sm"
-                           onclick="return confirm('Yakin hapus artikel ini?');">
+                           onclick="return confirm('Hapus artikel ini?');">
                             <i class="bi bi-trash-fill"></i> Remove
                         </a>
                     </div>

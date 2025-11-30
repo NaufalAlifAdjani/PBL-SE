@@ -3,13 +3,12 @@ require_once 'models/HomeModel.php';
 
 class HomeController {
     private $conn;   // Ini menyimpan instance Model
-    private $db_raw; // Ini menyimpan koneksi DB asli
 
     public function __construct($dbConnection) {
-        $this->db_raw = $dbConnection;
         $this->conn = new HomeModel($dbConnection);
     }
 
+    // helper
     private function getLayoutData() {
         return [
             'menu_profile'  => $this->conn->getProfileDropdown(),
@@ -21,7 +20,7 @@ class HomeController {
         // Handle Gambar
         $path_gambar = 'uploads/' . ($article['gambar_artikel'] ?? '');
         $article['image_path'] = (!empty($article['gambar_artikel']) && file_exists($path_gambar))
-                                 ? $path_gambar : "uploads/dummy.png";
+                                ? $path_gambar : "uploads/dummy.png";
 
         // Handle Snippet Teks
         $clean_text = strip_tags($article['isi_konten']);
@@ -41,18 +40,31 @@ class HomeController {
         return $article;
     }
 
+    // [BARU] Helper untuk merapikan data Dosen
+    private function prepareDosenViewData($dosen) {
+        $fotoRaw = $dosen['foto_profil'] ?? '';
+
+        // Cek apakah file foto benar-benar ada di folder
+        $pathCek = 'uploads/' . $fotoRaw;
+        $fotoAda = (!empty($fotoRaw) && file_exists($pathCek));
+
+        // Jika foto tidak ada, pakai Avatar Generator (UI Avatars)
+        $dosen['foto'] = $fotoAda
+            ? $pathCek
+            : "https://ui-avatars.com/api/?name=" . urlencode($dosen['nama_dosen']) . "&background=random";
+
+        // Pastikan key konsisten untuk View
+        $dosen['nama'] = $dosen['nama_dosen'];
+
+        return $dosen;
+    }
+
     public function index() {
         // 1. Ambil Data Mentah
-        $aboutDataRaw = $this->conn->getAboutInfo('tentang-lab');
+
         $visiMisiRaw  = $this->conn->getVisiMisi(); // <-- Ambil data Visi Misi
         $rawArticles  = $this->conn->getLatestArticles();
-
-        // 2. PROSES LOGIC: About Us
-        $data['about'] = [
-            'content' => !empty($aboutDataRaw['content'])
-                ? $aboutDataRaw['content']
-                : "Website ini dibuat sebagai ruang untuk berbagi informasi dan menghadirkan konten yang bermanfaat bagi pengunjung."
-        ];
+        $rawDosen     = $this->conn->getAllDosen();
 
         // 3. PROSES LOGIC: Visi Misi (Baru)
         $data['visi_misi'] = [
@@ -63,33 +75,10 @@ class HomeController {
         ];
 
         // 4. PROSES LOGIC: Artikel
+        $data['dosen_list'] = array_map([$this, 'prepareDosenViewData'], $rawDosen);
+
+        // 4. PROSES LOGIC: Artikel
         $data['articles'] = array_map([$this, 'prepareArticleViewData'], $rawArticles);
-
-        // 5. PROSES LOGIC: Dosen/Tim Pengajar
-        $sql_dosen = "SELECT * FROM v_dosen_list
-                      ORDER BY
-                        CASE WHEN jabatan ILIKE '%kepala%' THEN 0 ELSE 1 END, nama_dosen ASC";
-        $dosen_res = pg_query($this->db_raw, $sql_dosen);
-
-        $dosenList = [];
-        if ($dosen_res && pg_num_rows($dosen_res) > 0) {
-            while ($d = pg_fetch_assoc($dosen_res)) {
-                $nama = $d['nama_dosen'] ?? $d['nama'] ?? 'Tanpa Nama';
-                $fotoRaw = $d['foto_profil'] ?? '';
-
-                $fotoFinal = $fotoRaw
-                    ? "uploads/" . htmlspecialchars($fotoRaw)
-                    : "https://ui-avatars.com/api/?name=" . urlencode($nama) . "&background=random";
-
-                $dosenList[] = [
-                    'nama'    => $nama,
-                    'jabatan' => $d['jabatan'] ?? $d['posisi'] ?? 'Dosen',
-                    'slug'    => $d['slug'] ?? '#',
-                    'foto'    => $fotoFinal
-                ];
-            }
-        }
-        $data['dosen_list'] = $dosenList;
 
         // 6. Gabungkan dengan data Layout (Menu)
         $finalData = array_merge($this->getLayoutData(), $data);

@@ -1,11 +1,9 @@
-<link rel="stylesheet" href="assets/css/dosen.css">
-
 <section class="py-5">
     <div class="container">
 
         <div class="text-center">
             <h2 class="fw-bold">Tim Pengajar Kami</h2>
-            <p class="text-muted">Dosen dan Tenaga Ahli Laboratorium</p>
+            <p class="lead text-muted">Dosen dan Tenaga Ahli Laboratorium</p>
         </div>
 
         <?php if (!empty($dosen_list)): ?>
@@ -13,7 +11,7 @@
                 <div class="slide-content">
                     <div class="card-wrapper swiper-wrapper pb-2">
                         <?php foreach ($dosen_list as $dosen): ?>
-                            <div class="swiper-slide h-auto">
+                            <div class="swiper-slide">
                                 <div class="card shadow-sm rounded-4">
                                     <div class="image-content">
                                         <span class="overlay"></span>
@@ -33,7 +31,7 @@
                                             <?= htmlspecialchars($dosen['jabatan']) ?>
                                         </p>
 
-                                        <a href="personil_detail.php?slug=<?= urlencode($dosen['slug']) ?>" class="btn rounded-pill">
+                                        <a href="personil_detail.php?slug=<?= urlencode($dosen['slug']) ?>" class="btn btn-sm rounded-pill">
                                             Lihat Profil
                                         </a>
                                     </div>
