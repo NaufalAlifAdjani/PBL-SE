@@ -33,42 +33,15 @@ class GeeksModel {
     }
 
     // 4. Hapus User -> MENGGUNAKAN STORED PROCEDURE
-// 4. Hapus User -> GANTI JADI QUERY DELETE BIASA
     public function deleteUser($id) {
         $id = pg_escape_string($this->db, $id);
         
-        // Hapus baris ini:
-        // $query = "CALL hapus_user_pendaftaran($id)";
+        // Memanggil Procedure 'hapus_user_pendaftaran' di database
+        $query = "CALL hapus_user_pendaftaran($id)";
         
-        // Ganti dengan ini:
-        $query = "DELETE FROM pendaftaran_user WHERE id_pendaftaran_user = '$id'";
-        
-        $result = pg_query($this->db, $query);
-
-        // --- JEBAKAN ERROR (DEBUGGING) ---
-        // Biarkan ini dulu untuk memastikan tidak ada error constraint (Foreign Key)
-        if (!$result) {
-            echo "<h1>GAGAL MENGHAPUS!</h1>";
-            echo "Query: " . $query . "<br>";
-            echo "Error Database: " . pg_last_error($this->db); 
-            die(); 
-        }
-        
-        return $result;
+        return pg_query($this->db, $query);
     }
     // 5. Catat Log Email (Memanggil Stored Procedure)
-    // public function catatLogEmail($idUser, $emailTujuan, $status) {
-    //     // Amankan input
-    //     $idUser = (int)$idUser;
-    //     $emailClean = pg_escape_string($this->db, $emailTujuan);
-    //     $statusClean = pg_escape_string($this->db, $status);
-        
-    //     // Panggil Procedure di Database
-    //     $query = "CALL catat_log_email($idUser, '$emailClean', '$statusClean')";
-        
-    //     return pg_query($this->db, $query);
-    // }
-    // // Ganti fungsi catatLogEmail yang lama dengan yang ini:
     public function catatLogEmail($idUser, $emailTujuan, $status) {
         $idUser = (int)$idUser; 
         $emailClean = pg_escape_string($this->db, $emailTujuan);

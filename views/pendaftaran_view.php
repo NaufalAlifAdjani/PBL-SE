@@ -5,7 +5,7 @@ include 'includes/header.php';
 
 <div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-12 col-md-8 col-lg-8">
             
             <div class="text-center mb-4">
                 <h2 class="fw-bold">Form Pendaftaran Anggota</h2>
@@ -25,7 +25,8 @@ include 'includes/header.php';
                     </div>
                 <?php endif; ?>
             <?php endif; ?>
-            <div class="card shadow-sm border-0">
+
+            <div class="card shadow-sm border-0" style="height: auto !important;">
                 <div class="card-body p-4">
                     
                     <form action="" method="POST">
