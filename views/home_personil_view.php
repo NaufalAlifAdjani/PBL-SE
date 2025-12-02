@@ -7,10 +7,9 @@
         </div>
 
         <?php if (!empty($dosen_list)): ?>
-            <div class="slide-container swiper">
-                <div class="slide-content">
-                    <div class="card-wrapper swiper-wrapper pb-2">
-                        <?php foreach ($dosen_list as $dosen): ?>
+            <div class="slide-container">
+                <div class="slide-content swiper">
+                    <div class="card-wrapper swiper-wrapper pb-5"> <?php foreach ($dosen_list as $dosen): ?>
                             <div class="swiper-slide">
                                 <div class="card shadow-sm rounded-4">
                                     <div class="image-content">
@@ -39,6 +38,15 @@
                             </div>
                         <?php endforeach; ?>
                     </div>
+
+                    <div class="swiper-pagination"></div>
+                </div>
+
+                <div class="swiper-button-next swiper-navBtn">
+                    <i class="bi bi-caret-right-fill fs-4"></i>
+                </div>
+                <div class="swiper-button-prev swiper-navBtn">
+                    <i class="bi bi-caret-left-fill fs-4"></i>
                 </div>
 
                 <div class="swiper-button-next swiper-navBtn d-none d-md-flex"><i class="bi bi-caret-right-fill"></i></div>

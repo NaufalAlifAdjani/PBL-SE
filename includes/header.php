@@ -9,12 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- css -->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css"> <!-- untuk animasi swipe -->
-    <link rel="stylesheet" href="assets/css/userStyle.css"> <!-- global user style -->
-    <link rel="stylesheet" href="assets/css/homeStyle.css"> <!-- homepage style -->
-    <link rel="stylesheet" href="assets/css/style.css"> <!-- profile style -->
-
+    <link rel="stylesheet" href="assets/css/userStyle.css">
+    <link rel="stylesheet" href="assets/css/homeStyle.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
 </head>
 <body>
 

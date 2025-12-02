@@ -1,4 +1,4 @@
-<section id="blog" class="py-5">
+<section id="blog" class="py-5 bg-light">
     <div class="container px-5">
         <div class="text-center mb-5">
             <h2 class="fw-bold">Informasi Kami</h2>

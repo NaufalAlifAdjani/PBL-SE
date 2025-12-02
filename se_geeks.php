@@ -3,7 +3,7 @@ include 'includes/header.php';
 
 // Query ambil data yang STATUS = 'Diterima'
 $query = "SELECT * FROM pendaftaran_user WHERE status = 'Diterima' ORDER BY angkatan DESC, nama ASC";
-// $result = pg_query($conn, $query); error jf tak hide 
+$result = pg_query($conn, $query);
 ?>
 
 <div class="container my-5">
