@@ -1,22 +1,22 @@
 <!-- about us -->
-<section class="about-us py-6 bg-light">
+<section class="about-us py-5 bg-light">
     <div class="container">
         <div class="row align-items-center">
 
             <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
                 <div class="about-img-wrapper">
                     <div class="img-decoration"></div>
-                    <img src="uploads/squidword.png" class="img-fluid rounded-4 position-relative z-2" alt="Tentang Lab SE">
+                    <img src="uploads/gedung.webp" class="img-fluid rounded-4 position-relative z-2" alt="Tentang Lab SE">
                 </div>
             </div>
 
             <div class="col-lg-6 ps-lg-2">
                 <h2 class="section-title fw-semibold">About Us</h2>
-                <p class="lead text-secondary mb-4">
-                    Laboratorium Software Engineering (Lab SE) adalah pusat inovasi yang menjembatani teori akademis dengan kebutuhan industri nyata.
+                <p class="lead text-secondary">
+                    Laboratorium Software Engineering adalah pusat inovasi yang menjembatani teori akademis dengan kebutuhan industri nyata.
                 </p>
                 <p class="text-muted mb-4" style="text-align: justify; line-height: 1.7;">
-                    Kami mempersiapkan mahasiswa untuk menjadi engineer yang kompeten melalui riset mendalam, pengembangan teknologi terkini, dan kolaborasi tim yang solid. Di sini, kode bukan sekadar baris perintah, melainkan solusi untuk masa depan.
+                    Kami berfokus pada bidang rekayasa pengembangan perangkat lunak dan tumbuh menjadi pusat aktivitas penelitian serta pengabdian masyarakat yang berorientasi pada solusi teknologi nyata.
                 </p>
             </div>
         </div>
@@ -52,7 +52,7 @@
 </section>
 
 <!-- Roadmap -->
-<section id="roadmap" class="row pt-4 bg-light">
+<section id="roadmap" class="row py-5 bg-light">
     <div class="col-12 text-center mb-5">
         <h2 class="display-6 fw-bold">Roadmap</h2>
         <p class="lead text-muted">

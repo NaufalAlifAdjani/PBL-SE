@@ -126,10 +126,15 @@ body {
 /* Banner */
 .banner {
     color: #f6f1ff;
+    /* ini kalo mau menampilkan gambar bg */
+    /* background-image: linear-gradient(#00000046), url('../../uploads/gedung.webp'); */
+    /* background-size: cover; */
+    /* background-position: center; */
+    /* background-repeat: no-repeat; */
+
     background: radial-gradient(circle at center, #9466c2ba 0%, #7c3aed 40%, #1a1827 85%);
     padding: 175px 0;
     text-align: center;
-    border-bottom: 3px solid rgba(139, 92, 246, 0.3);
 }
 
 .banner h1 {

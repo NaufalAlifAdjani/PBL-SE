@@ -1,4 +1,4 @@
-<section class="py-5">
+<section class="py-4 bg-light">
     <div class="container">
 
         <div class="text-center">
