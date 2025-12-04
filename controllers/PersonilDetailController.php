@@ -1,15 +1,13 @@
 <?php
-
-class peruser_controller
+require_once __DIR__ . '/../models/PersonilDetailModel.php';
+class PersonilDetailController
 {
-     /** @var resource PostgreSQL connection **/
     private $conn;
 
     public function __construct($conn)
     {
         $this->conn = $conn;
     }
-
 
        //INDEX – LIST PERSONIL (Dosen + Member) UNTUK USER
 
@@ -19,8 +17,7 @@ class peruser_controller
          //  1. DATA DOSEN
 
 
-        $sql_dosen = "
-            SELECT * FROM v_dosen_list
+        $sql_dosen = "SELECT * FROM v_dosen_list
             ORDER BY
                 CASE
                     WHEN jabatan ILIKE '%kepala%' THEN 1
@@ -30,6 +27,7 @@ class peruser_controller
         ";
 
         $dosen = pg_query($this->conn, $sql_dosen);
+
         if (!$dosen) {
             die('Query dosen gagal: ' . pg_last_error($this->conn));
         }
@@ -61,6 +59,16 @@ class peruser_controller
 
         $viewPath = __DIR__ . '/../views/personil_view.php';
 
+        // 2. DATA MEMBER (pendaftaran_user)
+        $member = Peruser_model::getMemberList($this->conn);
+        if (!$member) {
+            die('Query member gagal: ' . pg_last_error($this->conn));
+        }
+
+        $page_title = 'Personil Lab';
+
+        // 3. LOAD VIEW LIST
+        $viewPath = __DIR__ . '/../views/personil_view.php';
         if (!file_exists($viewPath)) {
             die('View tidak ditemukan: ' . $viewPath);
         }
@@ -68,9 +76,7 @@ class peruser_controller
         include $viewPath;
     }
 
-
-    //   DETAIL – PROFIL DOSEN BERDASARKAN SLUG
-
+    // DETAIL – PROFIL DOSEN BERDASARKAN SLUG
     public function detail()
     {
         $slug = $_GET['slug'] ?? null;
@@ -80,18 +86,15 @@ class peruser_controller
             return;
         }
 
-
           // 1) Data dosen utama
 
-        $sql = "
-            SELECT
+        $sql = "SELECT
                 id_dosen,
                 nip,
                 nidn,
                 nama_dosen,
                 jabatan,
                 email_dosen,
-                bid_kemahiran,
                 foto_profil,
                 slug
             FROM dosen
@@ -106,6 +109,8 @@ class peruser_controller
         }
 
         $dosen = pg_fetch_assoc($result);
+        // 1) Data dosen utama (lengkap) dari model
+        $dosen = peruser_model::getDosenDetailBySlug($this->conn, $slug);
 
         if (!$dosen) {
             echo "<div class='container py-5'>
@@ -117,12 +122,12 @@ class peruser_controller
         $nip      = $dosen['nip'] ?? null;
         $id_dosen = $dosen['id_dosen'] ?? null;
 
+
         //    2) Riwayat pendidikan (tabel riwayat_pendidikan)
 
         $pendidikan = false;
         if ($nip) {
-            $sql_pend = "
-                SELECT
+            $sql_pend = "SELECT
                     program_studi,
                     nama_kampus,
                     thn_lulus,
@@ -132,6 +137,11 @@ class peruser_controller
                 ORDER BY thn_lulus DESC
             ";
             $pendidikan = pg_query_params($this->conn, $sql_pend, [$nip]);
+
+        // 2) Riwayat pendidikan (tabel riwayat_pendidikan)
+        $pendidikan = false;
+        if ($nip) {
+            $pendidikan = peruser_model::getPendidikanByNip($this->conn, $nip);
             if (!$pendidikan) {
                 $pendidikan = false;
             }
@@ -142,8 +152,7 @@ class peruser_controller
 
         $publikasi = false;
         if ($nip) {
-            $sql_pub = "
-                SELECT
+            $sql_pub = "SELECT
                     judul,
                     thn_terbit,
                     link_publikasi
@@ -152,18 +161,20 @@ class peruser_controller
                 ORDER BY thn_terbit DESC
             ";
             $publikasi = pg_query_params($this->conn, $sql_pub, [$nip]);
+        // 3) Publikasi (tabel publikasi)
+        $publikasi = false;
+        if ($nip) {
+            $publikasi = peruser_model::getPublikasiByNip($this->conn, $nip);
             if (!$publikasi) {
                 $publikasi = false;
             }
         }
 
-
            //4) KBM (JOIN kbm + mata_kuliah)
 
         $kbm = false;
         if ($id_dosen) {
-            $sql_kbm = "
-                SELECT
+            $sql_kbm = "SELECT
                     kbm.id_matkul,
                     mk.nama_matkul
                 FROM kbm
@@ -172,6 +183,7 @@ class peruser_controller
                 ORDER BY mk.nama_matkul ASC
             ";
             $kbm = pg_query_params($this->conn, $sql_kbm, [$id_dosen]);
+
             if (!$kbm) {
                 $kbm = false;
             }
@@ -180,16 +192,15 @@ class peruser_controller
         $page_title = 'Detail Dosen';
 
 
-        $viewPath = __DIR__ . '/../views/peruser_detail.php';
+
+        $viewPath = __DIR__ . '/../views/personil_detail_view.php';
         if (!file_exists($viewPath)) {
             die('View detail tidak ditemukan: ' . $viewPath);
         }
 
         include $viewPath;
+        }
     }
-}
-
-
-
+    }}
 
 

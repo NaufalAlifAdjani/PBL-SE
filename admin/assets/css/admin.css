@@ -1,0 +1,15 @@
+/* =======================================================
+   ADMIN DASHBOARD - MAIN STYLESHEET
+   -------------------------------------------------------
+   File ini menggabungkan semua modul CSS untuk Admin.
+   Panggil file ini di tag <head> halaman admin.
+   ======================================================= */
+
+/* 1. Base Layout & Fonts */
+@import url('admin-layout.css');
+
+/* 2. Sidebar Navigation */
+@import url('admin-sidebar.css');
+
+/* 3. Dashboard Components (Cards, Buttons, Tables) */
+@import url('admin-components.css');

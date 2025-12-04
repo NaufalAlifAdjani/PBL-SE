@@ -1,6 +1,11 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="fw-bold">Manage Articles</h1>
-    <a href="blog_form.php" class="btn btn-outline-dark"><i class="bi bi-plus-circle"></i> Tambah Artikel</a>
+</div>
+
+<div class="d-grid d-md-block mb-4">
+    <a href="blog_form.php" class="btn btn-primary-admin px-4">
+        <i class="bi bi-plus-lg me-2"></i>Tambah Halaman
+     </a>
 </div>
 
 <?php if (!empty($artikel)): ?>

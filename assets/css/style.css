@@ -1,128 +1,264 @@
-/* ============================================================
-   STYLE KHUSUS HALAMAN PROFIL (Clean Version)
-   Digunakan bersama userStyle.css
-   ============================================================ */
-
-/* 1. Wrapper Header Gelap (Background di belakang judul) */
-.header-wrapper-profile {
-    background-color: #1a1626; /* Sesuaikan dengan tema userStyle */
-    padding-bottom: 5rem; /* Ruang lebih di bawah untuk efek overlap */
-    position: relative;
-    margin-top: -1px; /* Fix garis putih tipis jika ada */
+/* =========================================
+   GLOBAL VARIABLES & RESET
+   ========================================= */
+:root {
+    --bg-dark: #0f0c1b;
+    --bg-surface: #1a1626;
+    --accent-purple: #8b5cf6;
+    --accent-glow: #a78bfa;
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --gradient-btn: linear-gradient(135deg, var(--accent-purple) 0%, #d946ef 100%);
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
-/* 2. Judul Hero di tengah */
-.hero-title-box {
-    text-align: center;
-    padding: 3rem 0;
-    color: #ffffff;
-}
-.hero-title-box h1 {
-    font-weight: 700;
-    font-size: 2.5rem;
-    letter-spacing: -0.5px;
+body {
+    color: var(--bg-dark);
+    background-color: #f3f4f6;
+    width: 100%;
+    overflow-x: hidden;
 }
 
-/* 3. Layout Kartu Putih (Sidebar & Konten) */
-.profile-card {
+/* =========================================
+   COMPONENTS (Buttons, Cards, Icons)
+   ========================================= */
+/* Buttons */
+.btn,
+.btn-login {
+    background: var(--gradient-btn);
+    font-weight: 600;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(139, 92, 246, 0.5);
+}
+
+.btn:hover,
+.btn-login:hover {
+    transform: translateY(-2px);
+    color: #fff;
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-white {
+    background: #fff;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 0.95rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: 0.25s ease;
+}
+
+.btn-white:hover {
     background: #ffffff;
-    border-radius: 12px;
-<<<<<<< HEAD
-    border: 1px solid #e5e7eb; 
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    height: 100%; 
-=======
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    height: 100%;
->>>>>>> origin/landingpage
+    color: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
-/* 4. Sidebar Menu Styling */
-.sidebar-header {
-    padding: 15px 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: #111827;
+/* Cards Global */
+.card {
+    margin-left: 0; 
+    margin-right: 0;
+    width: 100%;
+    height: 100% !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.sidebar-menu a {
-    display: block;
-    padding: 12px 20px;
-    color: #4b5563;
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #e788ff !important;
+}
+
+/* Social Icons */
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.2rem;
     text-decoration: none;
-    border-bottom: 1px solid #f3f4f6;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    color: #fff;
+}
+
+/* Social Icon Colors */
+.icon-ig {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    border: none;
+}
+.icon-ig:hover { box-shadow: 0 4px 15px rgba(214, 36, 159, 0.4); }
+
+.icon-yt { background-color: #ff0000; border: none; }
+.icon-yt:hover { box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4); }
+
+.icon-tt { background-color: #000; border: none; }
+.icon-tt i { text-shadow: 1px 1px 0px #fe2c55, -1px -1px 0px #25f4ee; }
+.icon-tt:hover { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); }
+
+.icon-gh { background-color: #333; }
+.icon-gh:hover { box-shadow: 0 4px 15px rgba(80, 80, 80, 0.4); }
+
+
+/* =========================================
+   LAYOUT: NAVBAR
+   ========================================= */
+.navbar {
+    background-color: rgba(15, 12, 27, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1050; /* Updated z-index agar aman */
+    box-shadow: var(--shadow-soft);
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    color: var(--text-primary) !important;
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 18px !important;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.show {
+    color: var(--text-primary);
+    text-shadow: var(--shadow-glow);
+}
+
+/* Animasi Garis Navbar */
+.navbar-nav .nav-item .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 5px;
+    left: 50%;
+    background: linear-gradient(90deg, var(--accent-purple), var(--accent-glow));
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-item .nav-link:hover::after {
+    width: 30px;
+}
+
+/* Toggler & Dropdown */
+.navbar-toggler { border: none; }
+.navbar-toggler-icon { filter: invert(1); }
+.navbar-toggler:focus { box-shadow: none; }
+
+.dropdown-menu {
+    background-color: var(--bg-surface);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 5px;
+    box-shadow: var(--shadow-soft);
+    animation: slideDown 0.3s ease forwards;
+    min-width: 160px;
+}
+
+.dropdown-item {
+    color: var(--text-secondary);
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 6px 15px;
+    border-radius: 8px;
     transition: all 0.2s;
-    font-weight: 500;
-<<<<<<< HEAD
-=======
 }
 
-.sidebar-menu a:hover {
-    background-color: #f9fafb;
-    color: #8b5cf6; /* Ungu Aksen */
-    padding-left: 25px;
+.dropdown-item:hover {
+    background-color: rgba(139, 92, 246, 0.1);
+    color: var(--accent-glow);
+    transform: translateX(5px);
 }
 
-.sidebar-menu a.active {
-    background-color: #f3f4f6;
-    color: #8b5cf6;
-    font-weight: 700;
-    border-left: 4px solid #8b5cf6;
+.dropdown-divider { border-color: rgba(255, 255, 255, 0.1); }
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(15px); }
 }
 
-/* 5. Konten Styling */
-.content-area {
-    padding: 40px;
-}
-.content-title-line {
-    border-bottom: 2px solid #f3f4f6;
-    padding-bottom: 15px;
-    margin-bottom: 25px;
-}
-.content-title-line h2 {
-    font-weight: 800;
-    color: #111827;
-    margin: 0;
-}
-.content-body {
-    color: #4b5563;
-    line-height: 1.7;
->>>>>>> origin/landingpage
+/* =========================================
+   LAYOUT: FOOTER
+   ========================================= */
+footer {
+    background-color: var(--bg-surface);
+    border-top: 1px solid rgba(139, 92, 246, 0.1);
+    font-size: 0.85rem !important;
+    color: var(--text-secondary) !important;
 }
 
-.sidebar-menu a:hover {
-    background-color: #f9fafb;
-    color: #8b5cf6; /* Ungu Aksen */
-    padding-left: 25px;
+footer h5 { color: var(--text-primary) !important; }
+footer .btn-login { font-size: 0.8rem; padding: 6px 20px; }
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.sidebar-menu a.active {
-    background-color: #f3f4f6;
-    color: #8b5cf6;
-    font-weight: 700;
-    border-left: 4px solid #8b5cf6;
+.footer-link:hover {
+    color: var(--accent-glow);
+    padding-left: 5px;
 }
 
-/* 5. Konten Styling */
-.content-area {
-    padding: 40px;
+/* =========================================
+   ELEMENT: BANNER (Landing)
+   ========================================= */
+.banner {
+    color: #f6f1ff;
+    /* ini kalo mau menampilkan gambar bg */
+    /* background-image: linear-gradient(#00000046), url('../../uploads/gedung.webp'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; */
+    background: radial-gradient(circle at center, #9466c2ba 0%, #7c3aed 40%, #1a1827 85%);
+    padding: 175px 0;
+    text-align: center;
+    border-bottom: 3px solid rgba(139, 92, 246, 0.3);
 }
-.content-title-line {
-    border-bottom: 2px solid #f3f4f6;
-    padding-bottom: 15px;
-    margin-bottom: 25px;
-}
-.content-title-line h2 {
-    font-weight: 800;
-    color: #111827;
-    margin: 0;
-}
-.content-body {
-    color: #4b5563;
-    line-height: 1.7;
+
+.banner h1 { font-size: 40px; margin-bottom: 1.5rem; }
+
+/* Responsive General */
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-item .nav-link::after {
+        content: none !important;
+        display: none !important;
+    }
+    .dropdown-menu {
+        animation: none;
+        box-shadow: none;
+        background-color: transparent;
+        border: none;
+        margin-top: 0;
+        padding-left: 15px;
+    }
+    .dropdown-item { color: rgba(255, 255, 255, 0.6); }
+    .dropdown-item:hover { background: transparent; color: var(--accent-glow); }
 }

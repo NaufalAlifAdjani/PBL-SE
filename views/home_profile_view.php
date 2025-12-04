@@ -1,12 +1,12 @@
 <!-- about us -->
-<section class="about-us py-6">
+<section class="about-us py-5 bg-light">
     <div class="container">
         <div class="row align-items-center">
 
             <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
                 <div class="about-img-wrapper">
                     <div class="img-decoration"></div>
-                    <img src="uploads/squidword.png" class="img-fluid rounded-4 position-relative z-2" alt="Tentang Lab SE">
+                    <img src="uploads/images.jpeg" class="img-fluid rounded-4 position-relative z-2" alt="Tentang Lab SE">
                 </div>
             </div>
 
@@ -26,17 +26,14 @@
 <!-- Visi & Misi -->
 <section id="visi-misi" class="py-5">
     <div class="container">
+        <div class="col-12 text-center mb-5">
+            <h2 class="display-6 fw-bold">Visi & Misi</h2>
+        </div>
         <div class="row justify-content-center">
             <div class="col-lg-10">
 
                 <div class="brand-card">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h5 class="card-title">
-                                <?php echo isset($visi_misi['title']) ? htmlspecialchars($visi_misi['title']) : 'Visi & Misi'; ?>
-                            </h5>
-                        </div>
-
+                    <div class="card-body text-center>
                         <div class="content-body">
                             <?php if (!empty($visi_misi['content'])): ?>
                                 <?= $visi_misi['content'] ?>

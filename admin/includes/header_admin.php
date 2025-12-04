@@ -1,7 +1,21 @@
 <?php
+// Cek apakah session sudah dimulai, jika belum, start session.
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Gunakan __DIR__ agar path ke db.php selalu benar, tidak peduli dipanggil dari mana
+// Gunakan __DIR__ agar path ke db.php selalu benar
 include_once __DIR__ . '/../../includes/db.php'; 
+
+// === LOGIKA KEAMANAN ===
+// Jika status bukan 'login', tendang ke halaman login
+if (!isset($_SESSION['status']) || $_SESSION['status'] != 'login') {
+    // Sesuaikan path ini dengan struktur foldermu. 
+    // Jika header_admin.php di-include oleh index.php, path ini relatif terhadap index.php
+    header("Location: views/login.php?msg=Harap Login Terlebih Dahulu");
+    exit(); 
+}
+// =======================
 
 $current_page = basename($_SERVER['SCRIPT_NAME']);
 ?>
@@ -16,7 +30,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/style_admin.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body class="admin-body">
 
@@ -52,8 +66,8 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo ($current_page == 'manage_geeks.php') ? 'active' : ''; ?>" href="manage_geeks.php">
-                    <i class="bi bi-person-badge-fill"></i> Manage SE Geeks
+                <a class="nav-link <?php echo ($current_page == 'manage_recruitment.php') ? 'active' : ''; ?>" href="manage_recruitment.php">
+                    <i class="bi bi-person-badge-fill"></i> Manage recruitment
                 </a>
             </li>
             <li class="nav-item">
@@ -63,7 +77,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
             </li>
         </ul>
         <div class="sidebar-footer mt-auto">
-            <a href="../index.php" class="btn btn-logout">
+            <a href="views/logout.php" class="btn btn-logout">
                 <i class="bi bi-box-arrow-left"></i> Logout
             </a>
         </div>

@@ -29,7 +29,7 @@
     left: -15px; /* Geser ke kiri */
     width: 100%;
     height: 100%;
-    border: 2px solid #a3e635;
+    border: 2px solid #c94bf1;
     border-radius: 20px;
     z-index: 1; /* Di belakang gambar */
     opacity: 0.6;
@@ -46,7 +46,7 @@
 /* visi misi */
 .brand-card {
     background: rgba(255, 255, 255, 0.7);
-    border: 1px solid #a3e635;
+    border: 1px solid #3e3e3e39;
     box-shadow: 0 15px 35px rgba(139, 92, 246, 0.1);
 
     border-radius: 20px;
@@ -91,13 +91,13 @@
     content: '';
     position: absolute;
     width: 4px;
-    background: linear-gradient(to bottom, #a3e635, #b0cd7e);
+    background: linear-gradient(to bottom, #b090fc, #ee9dfb);
     top: 0;
     bottom: 0;
     left: 50%;
     margin-left: -2px;
     border-radius: 4px;
-    box-shadow: 0 0 15px #a3e635;
+    box-shadow: 0 0 15px #b090fc;
 }
 
 /* Container Wrapper */
@@ -123,18 +123,18 @@
     height: 24px;
     right: -12px;
     background-color: #fff;
-    border: 4px solid #a3e635;
+    border: 4px solid #b090fc;
     top: 24px;
     border-radius: 50%;
     z-index: 2;
-    box-shadow: 0 0 0 4px #a2e63583; /* Ring luar halus */
+    box-shadow: 0 0 0 4px #b090fc76; /* Ring luar halus */
     transition: all 0.3s ease;
 }
 
 /* Animasi Pulse agar roadmap terasa 'hidup' */
 .timeline-container:hover::after {
-    background-color: #a2e63564;
-    box-shadow: 0 0 0 8px #a2e63538;
+    background-color: #b090fc76;
+    box-shadow: 0 0 0 8px #b090fc39;
     transform: scale(1.1);
 }
 
@@ -163,7 +163,7 @@
 
 /* Styling Tanggal/Tahun */
 .timeline-date {
-    color: #84cc16;
+    color: #4c2a8c;
     font-weight: 800;
     font-size: 0.9rem;
     letter-spacing: 1px;
@@ -240,6 +240,10 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Shadow halus */
     transition: transform 0.3s ease;
     overflow: hidden; /* Agar overlay tidak keluar border */
+    /* min-height: 300px; */
+    min-height: 400px; /* Atur angka ini (misal 450px atau 500px) sesuai keinginan */
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-card:hover {
@@ -264,7 +268,7 @@
     height: 100%;
     width: 100%;
     background: linear-gradient(to right, #2c5ba5, #1e3a8a); /* Warna biru tua sesuai gambar */
-    border-radius: 20px 20px 0 25px; /* Lengkungan unik di overlay */
+    /* border-radius: 20px 20px 0 25px; Lengkungan unik di overlay */
 }
 
 /* Lengkungan Putih di Bawah Overlay (Opsional, agar mirip referensi persis) */
@@ -309,6 +313,11 @@
     background-color: #fff;
     z-index: 10;
     position: relative;
+    flex-grow: 1; /* Memaksa bagian putih ini mengisi sisa tinggi kartu */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    padding-bottom: 40px; /* Menambah ruang kosong di bagian bawah */
 }
 
 .name-box h5 {
@@ -325,6 +334,7 @@
 
 /* Tombol Lihat Profil (Ungu) */
 .card-body .btn {
+    margin-top: auto !important; /* Mendorong tombol ke paling bawah */
     background-color: #a855f7; /* Warna ungu */
     border: none;
     padding: 8px 24px;
@@ -345,8 +355,8 @@
 
 /* 2. Tombol Bulat Putih */
 .swiper-navBtn {
-    width: 50px;
-    height: 50px;
+    width: 50px !important;
+    height: 50px !important;
     background-color: #fff;
     border-radius: 50%;
     
@@ -360,7 +370,7 @@
     z-index: 20;
     
     /* Shadow ungu tipis agar terlihat elegan */
-    box-shadow: 0 5px 15px rgba(168, 85, 247, 0.2); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); 
     border: none;
     transition: all 0.3s ease;
 }

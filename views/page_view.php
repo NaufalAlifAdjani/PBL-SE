@@ -11,7 +11,7 @@ include 'includes/header.php';
     }
 </style>
 
-<div class="header-wrapper-profile">
+<div class="banner">
     <?php if ($data): ?>
     <div class="container hero-title-box">
         <h1><?php echo htmlspecialchars($data['title']); ?></h1>

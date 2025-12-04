@@ -53,7 +53,7 @@ class BlogController {
         $artikel = $this->model->getArticleById($id);
 
         if ($artikel && !empty($artikel['gambar_artikel'])) {
-            $file = '../uploads/' . $artikel['gambar_artikel'];
+            $file = '../uploads/artikel/' . $artikel['gambar_artikel'];
             if (file_exists($file)) {
                 unlink($file); // Hapus gambar lama
             }
@@ -62,11 +62,12 @@ class BlogController {
         $hasil = $this->model->deleteArticle($id); // Hapus data dari db
 
         if ($hasil) {
-            header("Location: manage_blog.php"); // Redirect ke list
+            header("Location: manage_blog.php?status=deleted"); // Redirect ke list
             exit;
         } else {
             // Error handling sederhana
-            echo "<script>alert('Gagal menghapus data.'); window.location='manage_blog.php';</script>";
+            header("Location: manage_blog.php?status=error");
+            exit;
         }
     }
 
@@ -81,7 +82,7 @@ class BlogController {
         $slug_post = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $judul_post)));
 
         $nama_file_gambar = $_POST['gambar_sekarang_hidden'] ?? '';
-        $upload_dir = '../uploads/';
+        $upload_dir = '../uploads/artikel/';
 
         if (isset($_FILES['gambar_artikel']) && $_FILES['gambar_artikel']['error'] == 0) {
             $nama_file_asli = basename($_FILES['gambar_artikel']['name']);
@@ -118,10 +119,18 @@ class BlogController {
 
         // popup info hadil
         if ($hasil) {
-            echo "<script>alert('Berhasil disimpan!'); window.location='manage_blog.php';</script>";
+
+            if ($mode == 'update') {
+                $status = 'updated';    
+            } else {
+                $status = 'created';
+            }
+
+            header("Location: manage_blog.php?status=" . $status);
             exit;
         } else {
-            die("Error Saving Data.");
+            header("Location: manage_blog.php?status=error");
+            exit;
         }
     }
 }

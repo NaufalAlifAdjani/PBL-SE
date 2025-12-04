@@ -581,3 +581,140 @@ footer .btn-login {
     color: #4b5563;
     line-height: 1.7;
 }
+
+/* =========================================================
+   STYLE KHUSUS HALAMAN BLOG DETAIL (Single Post Card)
+   ========================================================= */
+
+/* 1. Blog Card Container */
+/* Mengubah kolom biasa menjadi kartu putih elegan */
+.blog-detail-card {
+    background-color: #ffffff;
+    border-radius: 20px;       /* Sudut membulat */
+    padding: 40px;             /* Jarak dalam yang lega */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Bayangan halus */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden; /* Mencegah konten keluar */
+}
+
+/* 2. Judul Blog */
+.blog-detail-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111827; /* Warna gelap tegas */
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+/* 3. Meta Info (Penulis & Tanggal) */
+.blog-meta-info {
+    font-size: 0.95rem;
+    color: #6b7280; /* Abu-abu medium */
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px; /* Jarak antar elemen info */
+}
+
+.blog-meta-info i {
+    color: var(--accent-purple); /* Ikon warna ungu tema */
+}
+
+/* Badge 'Edited' */
+.badge-edited {
+    background-color: #fef3c7; /* Kuning lembut */
+    color: #92400e;           /* Coklat tua */
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-left: auto; /* Dorong ke kanan jika flex */
+}
+
+/* 4. Gambar Utama Blog */
+.blog-featured-image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    object-fit: cover;
+    max-height: 500px;
+}
+
+/* 5. Konten Blog (Typography) */
+.blog-content-body {
+    font-size: 1.05rem; /* Sedikit lebih besar agar enak dibaca */
+    line-height: 1.8;   /* Jarak antar baris lega */
+    color: #374151;     /* Abu-abu gelap (bukan hitam pekat) */
+}
+
+/* Styling elemen di dalam konten blog (Penting jika user pakai editor teks) */
+.blog-content-body p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-content-body h2, 
+.blog-content-body h3 {
+    color: #111827;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.blog-content-body ul, 
+.blog-content-body ol {
+    padding-left: 20px;
+    margin-bottom: 1.5rem;
+}
+
+.blog-content-body li {
+    margin-bottom: 0.5rem;
+}
+
+.blog-content-body blockquote {
+    border-left: 4px solid var(--accent-purple);
+    background-color: #f9fafb;
+    padding: 15px 20px;
+    font-style: italic;
+    color: #555;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+/* 6. Tombol Kembali */
+.blog-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.blog-back-btn:hover {
+    background-color: var(--accent-purple);
+    color: #ffffff;
+    transform: translateX(-5px); /* Efek geser kiri sedikit */
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .blog-detail-card {
+        padding: 25px; /* Padding lebih kecil di HP */
+    }
+    .blog-detail-title {
+        font-size: 1.8rem;
+    }
+}

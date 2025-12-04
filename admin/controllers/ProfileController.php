@@ -52,17 +52,21 @@ class ProfileController
             'is_published' => isset($_POST['is_published']) ? 't' : 'f'
         ];
 
+        $action_status = '';
+
         if ($id_post) {
             // Update
             $result = $this->model->updateProfile($id_post, $data);
+            $action_status = 'updated';
         } else {
             // Insert
             $result = $this->model->createProfile($data);
+            $action_status = 'created';
         }
 
         // Redirect hasil
         if ($result) {
-            header("Location: manage_profile.php?status=success");
+            header("Location: manage_profile.php?status=" . $action_status);
         } else {
             header("Location: manage_profile.php?status=error");
         }

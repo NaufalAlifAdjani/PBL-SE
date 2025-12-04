@@ -9,6 +9,7 @@ class HomeController {
     }
 
     // helper
+
     private function getLayoutData() {
         return [
             'menu_profile'  => $this->conn->getProfileDropdown(),
@@ -18,15 +19,16 @@ class HomeController {
 
     private function prepareArticleViewData($article) {
         // Handle Gambar
-        $path_gambar = 'uploads/' . ($article['gambar_artikel'] ?? '');
+        $path_gambar = 'uploads/artikel/' . ($article['gambar_artikel'] ?? '');
         $article['image_path'] = (!empty($article['gambar_artikel']) && file_exists($path_gambar))
-                                ? $path_gambar : "uploads/dummy.png";
+                                 ? $path_gambar : "uploads/dummy.png";
 
         // Handle Snippet Teks
         $clean_text = strip_tags($article['isi_konten']);
         $article['snippet'] = (strlen($clean_text) > 100)
                               ? substr($clean_text, 0, 100) . '...'
                               : $clean_text;
+
 
         // Handle Tanggal
         if (!empty($article['tgl_diperbarui'])) {
@@ -45,7 +47,7 @@ class HomeController {
         $fotoRaw = $dosen['foto_profil'] ?? '';
 
         // Cek apakah file foto benar-benar ada di folder
-        $pathCek = 'uploads/' . $fotoRaw;
+        $pathCek = 'uploads/personil/' . $fotoRaw;
         $fotoAda = (!empty($fotoRaw) && file_exists($pathCek));
 
         // Jika foto tidak ada, pakai Avatar Generator (UI Avatars)

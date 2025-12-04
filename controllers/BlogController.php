@@ -21,7 +21,7 @@ class BlogController {
 
     // Menyiapkan data artikel
     private function prepareArticleViewData($article) {
-        $path_gambar = 'uploads/' . ($article['gambar_artikel'] ?? '');
+        $path_gambar = 'uploads/artikel/' . ($article['gambar_artikel'] ?? '');
         $article['image_path'] = (!empty($article['gambar_artikel']) && file_exists($path_gambar))
                                  ? $path_gambar : "uploads/dummy.png";
 

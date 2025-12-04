@@ -19,23 +19,23 @@
                                  style="height: 200px; object-fit: cover;">
 
                             <div class="card-body d-flex flex-column">
-                                <div class="mb-2 small text-muted">
+                                <div class="mb-2 small text-muted text-start">
                                     <i class="bi bi-calendar3"></i>
                                     <?php echo $row['display_date']; ?>
                                     <?php if ($row['is_edited']): ?>
                                         <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7em;">Edited</span>
                                     <?php endif; ?>
                                     &nbsp;|&nbsp;
-                                    <i class="bi bi-person-fill"></i> <?php echo htmlspecialchars($row['username'] ?? 'Admin'); ?>
+                                    <i class="bi bi-person-fill text-start"></i> <?php echo htmlspecialchars($row['username'] ?? 'Admin'); ?>
                                 </div>
 
-                                <h5 class="card-title fw-bold">
+                                <h5 class="card-title fw-bold text-start">
                                     <a href="blog_detail.php?slug=<?php echo $row['slug']; ?>" class="text-decoration-none text-dark">
                                         <?php echo htmlspecialchars($row['judul']); ?>
                                     </a>
                                 </h5>
 
-                                <p class="card-text text-muted flex-grow-1">
+                                <p class="card-text text-muted flex-grow-1 text-start">
                                     <?php echo htmlspecialchars($row['snippet']); ?>
                                 </p>
 

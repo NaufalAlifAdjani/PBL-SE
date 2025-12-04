@@ -21,25 +21,33 @@ class GeeksModel {
         return pg_fetch_assoc($result);
     }
 
-    // 3. Update Status (Terima/Tolak) -> MENGGUNAKAN STORED PROCEDURE
+// 3. Update Status
     public function updateStatus($id, $status) {
         $id = pg_escape_string($this->db, $id);
         $status = pg_escape_string($this->db, $status);
         
-        // Memanggil Procedure 'update_status_pendaftaran' di database
         $query = "CALL update_status_pendaftaran($id, '$status')";
-        
-        return pg_query($this->db, $query);
+        $result = pg_query($this->db, $query);
+
+        // --- TAMBAHAN DEBUG ---
+        if (!$result) {
+            die("Error Update Status: " . pg_last_error($this->db));
+        }
+        return $result;
     }
 
-    // 4. Hapus User -> MENGGUNAKAN STORED PROCEDURE
+    // 4. Hapus User
     public function deleteUser($id) {
         $id = pg_escape_string($this->db, $id);
         
-        // Memanggil Procedure 'hapus_user_pendaftaran' di database
         $query = "CALL hapus_user_pendaftaran($id)";
-        
-        return pg_query($this->db, $query);
+        $result = pg_query($this->db, $query);
+
+        // --- TAMBAHAN DEBUG ---
+        if (!$result) {
+            die("Error Delete User: " . pg_last_error($this->db));
+        }
+        return $result;
     }
     // 5. Catat Log Email (Memanggil Stored Procedure)
     public function catatLogEmail($idUser, $emailTujuan, $status) {

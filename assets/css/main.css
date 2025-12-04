@@ -1,0 +1,6 @@
+@import url('style.css');   /* Navbar, Footer, Global */
+@import url('profile.css'); /* Style Profil */
+@import url('blog.css');    /* Style Blog */
+@import url('userPersonil.css');
+@import url('homeStyle.css');
+@import url('swiper-bundle.min.css');

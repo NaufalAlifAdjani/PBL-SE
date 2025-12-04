@@ -35,9 +35,9 @@ $personil_items = pg_query($conn, $query_personil);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="assets/css/userStyle.css">
-    <link rel="stylesheet" href="assets/css/homeStyle.css">
-        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+<link rel="stylesheet" href="<?php echo $base_path; ?>assets/css/userPersonil.css">
 
 </head>
 <body>
@@ -56,15 +56,27 @@ $personil_items = pg_query($conn, $query_personil);
 
                 <!-- profile navbar -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/PBL-SE/page.php" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Profile
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
-                        <li><a class="dropdown-item" href="/PBL-SE/page.php?slug=tentang-lab">Tentang Lab SE</a></li>
-                        <li><a class="dropdown-item" href="/PBL-SE/page.php?slug=visi-misi">Visi & Misi</a></li>
-                        <li><a class="dropdown-item" href="/PBL-SE/page.php?slug=roadmap">Roadmap Penelitian</a></li>
-                        <li><a class="dropdown-item" href="/PBL-SE/page.php?slug=focus-scope">Focus & scope</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <?php 
+                        // Cek apakah ada data dari query $dropdown_items yang kamu buat di atas
+                        if ($dropdown_items && pg_num_rows($dropdown_items) > 0) {
+                            // Looping data dari database
+                            while ($row = pg_fetch_assoc($dropdown_items)) {
+                                // Ambil title dan slug, lalu bersihkan dengan htmlspecialchars untuk keamanan
+                                $title = htmlspecialchars($row['title']);
+                                $slug = htmlspecialchars($row['slug']);
+                                
+                                // Tampilkan link otomatis
+                                echo "<li><a class='dropdown-item' href='/PBL-SE/page.php?slug={$slug}'>{$title}</a></li>";
+                            }
+                        } else {
+                            // Opsi jika database kosong
+                            echo "<li><a class='dropdown-item' href='#'>Belum ada menu</a></li>";
+                        }
+                        ?>
                     </ul>
                 </li>
 
@@ -85,7 +97,7 @@ $personil_items = pg_query($conn, $query_personil);
                         Recruitment
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownGeeks">
-                        <li><a class="dropdown-item" href="/PBL-SE/se_geeks.php">List Anggota</a></li>
+                        <li><a class="dropdown-item" href="/PBL-SE/recruitment.php">List Anggota</a></li>
                         <li><a class="dropdown-item" href="/PBL-SE/pendaftaran.php">Pendaftaran Baru</a></li>
                         <li><hr class="dropdown-divider"></li> <!-- minor change  -->
                     </ul>

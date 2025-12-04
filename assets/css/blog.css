@@ -1,0 +1,123 @@
+/* =========================================
+   PAGE: BLOG DETAIL
+   ========================================= */
+
+/* 1. Blog Card Container */
+.blog-detail-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 2. Judul Blog */
+.blog-detail-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+/* 3. Meta Info */
+.blog-meta-info {
+    font-size: 0.95rem;
+    color: #6b7280;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.blog-meta-info i { color: var(--accent-purple); }
+
+.badge-edited {
+    background-color: #fef3c7;
+    color: #92400e;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+/* 4. Gambar Utama */
+.blog-featured-image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    object-fit: cover;
+    max-height: 500px;
+}
+
+/* 5. Konten Blog (Typography) */
+.blog-content-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #374151;
+}
+
+.blog-content-body p { margin-bottom: 1.5rem; }
+
+.blog-content-body h2, 
+.blog-content-body h3 {
+    color: #111827;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.blog-content-body ul, 
+.blog-content-body ol {
+    padding-left: 20px;
+    margin-bottom: 1.5rem;
+}
+
+.blog-content-body li { margin-bottom: 0.5rem; }
+
+.blog-content-body blockquote {
+    border-left: 4px solid var(--accent-purple);
+    background-color: #f9fafb;
+    padding: 15px 20px;
+    font-style: italic;
+    color: #555;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+/* 6. Tombol Kembali */
+.blog-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.blog-back-btn:hover {
+    background-color: var(--accent-purple);
+    color: #ffffff;
+    transform: translateX(-5px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .blog-detail-card { padding: 25px; }
+    .blog-detail-title { font-size: 1.8rem; }
+}

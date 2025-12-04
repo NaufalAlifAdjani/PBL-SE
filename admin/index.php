@@ -1,28 +1,19 @@
 <?php
-session_start();
-
-// Cek apakah user sudah login
-if (!isset($_SESSION['status']) || $_SESSION['status'] != 'login') {
-    // UBAH BARIS INI: Arahkan ke folder views/login.php
-    header("Location: views/login.php?msg=Belum Login");
-    exit(); 
-}
+session_start(); // Tetap butuh start session untuk ambil data user/model
 
 // 1. Include Koneksi & Model
 include '../includes/db.php'; 
 include 'models/DashboardsModel.php';
 
+// 2. Load Header (Pengecekan Login sekarang otomatis terjadi di sini)
+include 'includes/header_admin.php';
 
-// 2. Inisialisasi Model
+// 3. Inisialisasi Model & Ambil Data
+// (Pindahkan logika pengambilan data SETELAH include header agar aman)
 $dashboard = new DashboardModel($conn);
-
-// 3. Ambil Data
 $jml_personil = $dashboard->getPersonilCount();
 $jml_blog     = $dashboard->getBlogCount();
 $jml_geeks    = $dashboard->getGeeksCount();
-
-// 4. Load Header
-include 'includes/header_admin.php';
 ?>
 
 <div class="mb-4">
@@ -64,7 +55,5 @@ include 'includes/header_admin.php';
             <i class="bi bi-person-badge-fill stat-icon position-absolute top-50 end-0 translate-middle-y me-3 fs-1 opacity-25"></i>
         </div>
     </div>
-
-</div>
 
 <?php include 'includes/footer_admin.php'; ?>

@@ -27,7 +27,7 @@ include 'includes/header.php';
             <?php endif; ?>
 
             <div class="card shadow-sm border-0" style="height: auto !important;">
-                <div class="card-body p-4">
+                <div class="card-body p-4 text-start">
                     
                     <form action="" method="POST">
                         

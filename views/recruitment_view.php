@@ -1,14 +1,6 @@
-<?php
-include 'includes/header.php';
-
-// Query ambil data yang STATUS = 'Diterima'
-$query = "SELECT * FROM pendaftaran_user WHERE status = 'Diterima' ORDER BY angkatan DESC, nama ASC";
-// $result = pg_query($conn, $query); error jf tak hide 
-?>
-
 <div class="container my-5">
     <div class="text-center mb-5">
-        <h1 class="fw-bold">Komunitas SE Geeks</h1>
+        <h1 class="fw-bold">Daftar Member Lab SE</h1>
         <p class="lead text-muted">Daftar mahasiswa yang tergabung dalam komunitas riset kami.</p>
     </div>
 
@@ -26,6 +18,7 @@ $query = "SELECT * FROM pendaftaran_user WHERE status = 'Diterima' ORDER BY angk
                     </thead>
                     <tbody>
                         <?php
+                        // Variabel $result diambil dari file induk (se_geeks.php)
                         if ($result && pg_num_rows($result) > 0) {
                             while($row = pg_fetch_assoc($result)) {
                         ?>
@@ -55,5 +48,3 @@ $query = "SELECT * FROM pendaftaran_user WHERE status = 'Diterima' ORDER BY angk
         </div>
     </div>
 </div>
-
-<?php include 'includes/footer.php'; ?>

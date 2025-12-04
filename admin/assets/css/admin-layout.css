@@ -1,0 +1,47 @@
+/* =======================================================
+   MODULE: BASE LAYOUT
+   ======================================================= */
+
+/* Import Font Inter dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- Reset & Body --- */
+body {
+    font-family: 'Inter', sans-serif;
+    color: #343a40;
+    margin: 0;
+}
+
+/* Background abu-abu muda khas dashboard */
+.admin-body {
+    background-color: #f4f7f6;
+    min-height: 100vh;
+}
+
+/* --- Wrapper Utama --- */
+/* Flex container untuk Sidebar (kiri) dan Konten (kanan) */
+.admin-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Area Konten Utama */
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    width: 100%;
+    overflow-x: hidden; /* Mencegah scroll horizontal accidental */
+}
+
+/* --- Responsive Layout Adjustments --- */
+@media (max-width: 767.98px) {
+    .admin-wrapper {
+        display: block; /* Stack ke bawah di HP */
+    }
+
+    .main-content {
+        padding: 1rem;
+        padding-top: 1rem !important;
+    }
+}

@@ -19,7 +19,7 @@ function toggle(source) {
     </div>
 <?php endif; ?>
 
-<form action="geeks_action.php" method="POST">
+<form action="manage_recruitment.php" method="POST">
 
     <!-- <div class="mb-3 d-flex gap-2">
         <button type="submit" name="bulk_action" value="approve_selected" class="btn btn-success" onclick="return confirm('Yakin ingin MENERIMA semua user yang dipilih?')">
@@ -45,6 +45,7 @@ function toggle(source) {
                                 <input class="form-check-input" type="checkbox" onclick="toggle(this)">
                             </th>
                             <th>Nama & Email</th>
+                            <th>NIM</th>
                             <th>Info Akademik</th>
                             <th>Portofolio</th>
                             <th>Status</th>
@@ -65,6 +66,9 @@ function toggle(source) {
                             <td>
                                 <div class="fw-bold"><?php echo htmlspecialchars($row['nama']); ?></div>
                                 <small class="text-muted"><?php echo htmlspecialchars($row['email']); ?></small>
+                            </td>
+                            <td>
+                                <div class="fw-bold"><?php echo htmlspecialchars($row['nim']); ?></div>
                             </td>
                             <td>
                                 <div><?php echo htmlspecialchars($row['jurusan']); ?></div>
@@ -90,18 +94,18 @@ function toggle(source) {
                             <td>
                                 <div class="btn-group" role="group">
                                     <?php if ($row['status'] != 'Diterima'): ?>
-                                        <a href="geeks_action.php?action=approve&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-success" title="Terima">
+                                        <a href="manage_recruitment.php?action=approve&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-success" title="Terima">
                                             <i class="bi bi-check-lg"></i>
                                         </a>
                                     <?php endif; ?>
 
                                     <?php if ($row['status'] == 'Pending'): ?>
-                                        <a href="geeks_action.php?action=reject&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-warning" title="Tolak">
+                                        <a href="manage_recruitment.php?action=reject&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-warning" title="Tolak">
                                             <i class="bi bi-x-lg"></i>
                                         </a>
                                     <?php endif; ?>
 
-                                    <a href="geeks_action.php?action=delete&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus data ini permanen?')" title="Hapus">
+                                    <a href="manage_recruitment.php?action=delete&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus data ini permanen?')" title="Hapus">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>

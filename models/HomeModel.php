@@ -41,12 +41,19 @@ class HomeModel {
         return $data;
     }
 
+    // public function getProfileDropdown() {
+    //     return $this->fetchAll(
+    //         "SELECT title, slug FROM Profile
+    //          WHERE menu_group = 'profile_dropdown' AND is_published = TRUE
+    //          ORDER BY display_order ASC"
+    //     );
+    // }
+
     public function getPersonilDropdown() {
         return $this->fetchAll(
             "SELECT id_dosen, nama_dosen FROM dosen ORDER BY id_dosen ASC LIMIT 3"
         );
     }
-
 
 
     // public function getAllDosen() {
@@ -67,11 +74,27 @@ class HomeModel {
         return $this->fetchAll($query);
     }
 
+    // public function getLatestArticles($limit = 3) {
+    //     $query = "SELECT * FROM v_artikel_published
+    //           ORDER BY COALESCE(tgl_diperbarui, tgl_dibuat) DESC
+    //           LIMIT $1";
+    // }
+
+    public function getAboutInfo($slug) {
+        return $this->fetchOne(
+            "SELECT title, content FROM Profile WHERE slug = $1 AND is_published = TRUE",
+            [$slug]
+        );
+    }
+
     public function getLatestArticles($limit = 3) {
-        $query = "SELECT * FROM v_artikel_published
-              ORDER BY COALESCE(tgl_diperbarui, tgl_dibuat) DESC
-              LIMIT $1";
+        $query = "SELECT id_artikel, judul, slug, isi_konten, gambar_artikel, tgl_dibuat
+                  FROM artikel
+                  WHERE status_artikel = 'Published'
+                  ORDER BY COALESCE(tgl_diperbarui, tgl_dibuat) DESC
+                  LIMIT $1"; // Menggunakan parameter binding untuk limit agar aman
         return $this->fetchAll($query, [$limit]);
     }
 }
+
 ?>

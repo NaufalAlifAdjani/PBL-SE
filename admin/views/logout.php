@@ -2,6 +2,8 @@
 session_start();
 session_unset();
 session_destroy();
-header("Location: index.php");
-exit;
 
+// Arahkan user kembali ke halaman LOGIN, bukan index.php
+header("Location: login.php?msg=Berhasil Logout");
+exit;
+?>
