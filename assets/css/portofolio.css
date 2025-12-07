@@ -1,0 +1,53 @@
+    /* Styling Sidebar */
+    .custom-sidebar .list-group-item {
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 15px 20px;
+        transition: all 0.2s;
+        font-weight: 500;
+        color: #555;
+    }
+    .custom-sidebar .list-group-item:hover {
+        background-color: #f8f9fa;
+        color: #3b0a70; /* Ungu Lab SE */
+        padding-left: 25px;
+    }
+    .custom-sidebar .list-group-item.active-item {
+        background-color: #3b0a70;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .custom-sidebar .list-group-item.active-item .badge {
+        background-color: #fff !important;
+        color: #3b0a70 !important;
+    }
+    
+    /* Styling Card */
+    .portfolio-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .portfolio-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(59, 10, 112, 0.15) !important;
+    }
+    .card-gradient {
+        background: linear-gradient(135deg, #3b0a70 0%, #5a189a 100%);
+        color: white;
+    }
+    .badge-category {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }

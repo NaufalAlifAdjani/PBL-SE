@@ -1,4 +1,7 @@
 <?php
+// === WAJIB: Panggil LogModel ===
+require_once __DIR__ . '/LogModel.php';
+
 class ProfileModel
 {
     private $conn;
@@ -8,18 +11,13 @@ class ProfileModel
         $this->conn = $conn;
     }
 
-    // 1. Ambil Semua Data (Menggunakan VIEW)
     public function getAllProfiles()
     {
-        // Kita cukup SELECT * dari VIEW yang sudah dibuat
-        // View 'view_profile_list' sudah mengandung ORDER BY di dalamnya
-        $sql = "SELECT * FROM view_profile_list";
+        $sql = "SELECT id, title, slug, menu_group, is_published, updated_at
+                FROM Profile ORDER BY display_order ASC";
         return pg_query($this->conn, $sql);
     }
 
-    // 2. Ambil Satu Data berdasarkan ID (Tetap Query Biasa / Prepared Statement)
-    // Kenapa? Karena View biasanya untuk list massal, dan SP untuk aksi. 
-    // Mengambil 1 baris untuk diedit tetap paling efisien pakai SELECT biasa.
     public function getProfileById($id)
     {
         $sql = "SELECT * FROM Profile WHERE id = $1";
@@ -27,50 +25,60 @@ class ProfileModel
         return pg_fetch_assoc($result);
     }
 
-    // 3. Tambah Data Baru (Menggunakan STORED PROCEDURE)
+    // === MODIFIKASI CREATE ===
     public function createProfile($data)
     {
-        // Panggil procedure sp_create_profile
+        $logger = new LogModel($this->conn); // Init Logger
+
         $sql = "CALL sp_create_profile($1, $2, $3, $4, $5, $6)";
-        
         $params = [
-            $data['title'],
-            $data['slug'],
-            $data['content'],
-            $data['menu_group'],
-            (int)$data['display_order'], // Pastikan integer
-            $data['is_published']        // Akan dikirim sebagai string 't'/'f' atau boolean, Postgre paham
+            $data['title'], $data['slug'], $data['content'],
+            $data['menu_group'], (int)$data['display_order'], $data['is_published']
         ];
 
-        return pg_query_params($this->conn, $sql, $params);
+        $res = pg_query_params($this->conn, $sql, $params);
+
+        if ($res) {
+            // Karena SP tidak return ID, kita isi ID Target 0, tapi keterangan jelas
+            $logger->catat('CREATE', 'profile', 0, "Menambah halaman profile: " . $data['title']);
+        }
+        return $res;
     }
 
-    // 4. Update Data (Menggunakan STORED PROCEDURE)
+    // === MODIFIKASI UPDATE ===
     public function updateProfile($id, $data)
     {
-        // Panggil procedure sp_update_profile
-        // Urutan parameter harus sama dengan definisi di SQL tadi
-        $sql = "CALL sp_update_profile($1, $2, $3, $4, $5, $6, $7)";
+        $logger = new LogModel($this->conn); // Init Logger
 
+        $sql = "CALL sp_update_profile($1, $2, $3, $4, $5, $6, $7)";
         $params = [
-            $id, // Parameter 1 adalah ID
-            $data['title'],
-            $data['slug'],
-            $data['content'],
-            $data['menu_group'],
-            (int)$data['display_order'],
-            $data['is_published']
+            $id, $data['title'], $data['slug'], $data['content'],
+            $data['menu_group'], (int)$data['display_order'], $data['is_published']
         ];
 
-        return pg_query_params($this->conn, $sql, $params);
+        $res = pg_query_params($this->conn, $sql, $params);
+
+        if ($res) {
+             $logger->catat('UPDATE', 'profile', $id, "Mengupdate halaman profile: " . $data['title']);
+        }
+        return $res;
     }
 
-    // 5. Hapus Data (Menggunakan STORED PROCEDURE)
+    // === MODIFIKASI DELETE ===
     public function deleteProfile($id)
     {
-        // Panggil procedure sp_delete_profile
+        $logger = new LogModel($this->conn); // Init Logger
+        // Ambil judul dulu sebelum dihapus (opsional, biar log bagus)
+        $cek = pg_fetch_assoc(pg_query_params($this->conn, "SELECT title FROM profile WHERE id=$1", [$id]));
+        $judul_lama = $cek['title'] ?? 'Unknown';
+
         $sql = "CALL sp_delete_profile($1)";
-        return pg_query_params($this->conn, $sql, [$id]);
+        $res = pg_query_params($this->conn, $sql, [$id]);
+
+        if ($res) {
+            $logger->catat('DELETE', 'profile', $id, "Menghapus halaman profile : " . $judul_lama);
+        }
+        return $res;
     }
 }
 ?>

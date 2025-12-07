@@ -1,0 +1,235 @@
+<?php
+// Normalisasi data (diwariskan dari controller)
+$dosen = $dosen ?? [];
+$type  = $type ?? 'dosen';
+$data  = $dosen; 
+
+$id    = $dosen['id_dosen']    ?? ($id ?? '');
+$nama  = $_POST['nama']        ?? ($dosen['nama_dosen']  ?? '');
+$email = $_POST['email']       ?? ($dosen['email_dosen'] ?? '');
+$slug  = $_POST['slug']        ?? ($dosen['slug']        ?? '');
+$foto  = $dosen['foto_profil'] ?? '';
+
+$title = $page_title ?? ($id ? 'Edit Dosen' : 'Tambah Dosen');
+?>
+
+<div class="container-fluid py-4">
+    <h2 class="fw-bold mb-3"><?= htmlspecialchars($title) ?></h2>
+    <a href="manage_personil.php" class="btn btn-outline-secondary mb-3">
+        <i class="bi bi-arrow-left"></i> Kembali
+    </a>
+
+    <div class="card card-admin shadow-sm">
+      <div class="card-body p-4">
+
+        <form action="manage_personil.php?action=save" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="id_dosen" value="<?= htmlspecialchars($id) ?>">
+          <input type="hidden" name="type" value="<?= htmlspecialchars($type) ?>">
+          <input type="hidden" name="foto_lama" value="<?= htmlspecialchars($foto) ?>">
+          <input type="hidden" name="slug" id="slug" value="<?= htmlspecialchars($slug) ?>">
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Nama Lengkap</label>
+              <input type="text" id="nama" name="nama_dosen" class="form-control"
+                     value="<?= htmlspecialchars($nama) ?>" required placeholder="Contoh: Dr. Budi Santoso, M.Kom">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Email</label>
+              <input type="email" name="email_dosen" class="form-control"
+                     value="<?= htmlspecialchars($email) ?>" placeholder="email@polinema.ac.id">
+            </div>
+          </div>
+
+          <?php if ($type === 'dosen'): ?>
+            
+            <div class="card bg-light border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-bold text-black mb-3"><i class="bi bi-person-badge me-2"></i>Informasi Akademik</h6>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">NIP</label>
+                            <input type="text" class="form-control" name="nip" value="<?= $data['nip'] ?? '' ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">NIDN</label>
+                            <input type="text" class="form-control" name="nidn" value="<?= $data['nidn'] ?? '' ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Jabatan</label>
+                            <input type="text" class="form-control" name="jabatan" value="<?= $data['jabatan'] ?? '' ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Foto Profil</label>
+                            <input type="file" class="form-control" name="foto_profil">
+                            <?php if (!empty($data['foto_profil'])): ?>
+                                <div class="mt-2">
+                                    <small class="text-muted d-block mb-1">Foto saat ini:</small>
+                                    <img src="../uploads_personil/<?= $data['foto_profil'] ?>" width="80" class="rounded border">
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-light border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-bold text-black mb-3"><i class="bi bi-mortarboard me-2"></i>Riwayat Pendidikan</h6>
+                    <?php $riwayat_list = (isset($riwayat_list) && is_array($riwayat_list)) ? $riwayat_list : []; ?>
+                    
+                    <div id="riwayat-container">
+                        <?php foreach ($riwayat_list as $r): ?>
+                            <div class="row mb-2 riwayat-item">
+                                <div class="col-md-2 "><input type="text" class="form-control" name="jenjang[]" value="<?= htmlspecialchars($r['jenjang']) ?>" placeholder="Jenjang"></div>
+                                <div class="col-md-3"><input type="text" class="form-control" name="program_studi[]" value="<?= htmlspecialchars($r['program_studi']) ?>" placeholder="Prodi"></div>
+                                <div class="col-md-3"><input type="text" class="form-control" name="nama_kampus[]" value="<?= htmlspecialchars($r['nama_kampus']) ?>" placeholder="Kampus"></div>
+                                <div class="col-md-3"><input type="text" class="form-control" name="thn_lulus[]" value="<?= htmlspecialchars($r['thn_lulus']) ?>" placeholder="Lulus"></div>
+                                <div class="col-md-1"><button type="button" class="btn btn-danger w-100 remove-riwayat"><i class="bi bi-x-lg"></i></button></div>
+                            </div>
+                        <?php endforeach; ?>
+
+                        <?php if (count($riwayat_list) == 0): ?>
+                            <div class="row mb-2 riwayat-item">
+                                <div class="col-md-2"><input type="text" class="form-control" name="jenjang[]" placeholder="Jenjang (S1)"></div>
+                                <div class="col-md-3"><input type="text" class="form-control" name="program_studi[]" placeholder="Program Studi"></div>
+                                <div class="col-md-3"><input type="text" class="form-control" name="nama_kampus[]" placeholder="Nama Kampus"></div>
+                                <div class="col-md-3"><input type="text" class="form-control" name="thn_lulus[]" placeholder="Thn Lulus"></div>
+                                <div class="col-md-1"><button type="button" class="btn btn-danger w-100 remove-riwayat"><i class="bi bi-x-lg"></i></button></div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <button type="button" id="add-riwayat" class="btn btn-sm btn-secondary mt-2"><i class="bi bi-plus-circle me-1"></i> Tambah Riwayat</button>
+                </div>
+            </div>
+
+            <div class="card bg-light border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-bold text-black mb-3"><i class="bi bi-journal-text me-2"></i>Publikasi</h6>
+                    <?php $publikasi_list = (isset($publikasi_list) && is_array($publikasi_list)) ? $publikasi_list : []; ?>
+                    
+                    <div id="publikasi-container">
+                        <?php foreach($publikasi_list as $p): ?>
+                        <div class="row mb-2 publikasi-item">
+                            <div class="col-md-4"><input type="text" class="form-control" name="judul_pub[]" value="<?= $p['judul'] ?>" placeholder="Judul"></div>
+                            <div class="col-md-3"><input type="text" class="form-control" name="tahun_pub[]" value="<?= $p['thn_terbit'] ?>" placeholder="Tahun"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" name="link_pub[]" value="<?= $p['link_publikasi'] ?>" placeholder="Link"></div>
+                            <div class="col-md-1"><button type="button" class="btn btn-danger w-100 remove-pub"><i class="bi bi-x-lg"></i></button></div>
+                        </div>
+                        <?php endforeach ?>
+                        
+                        <?php if(count($publikasi_list)==0): ?>
+                        <div class="row mb-2 publikasi-item">
+                            <div class="col-md-4"><input type="text" class="form-control" name="judul_pub[]" placeholder="Judul Publikasi"></div>
+                            <div class="col-md-3"><input type="text" class="form-control" name="tahun_pub[]" placeholder="Tahun Terbit"></div>
+                            <div class="col-md-4"><input type="text" class="form-control" name="link_pub[]" placeholder="Link (URL)"></div>
+                            <div class="col-md-1"><button type="button" class="btn btn-danger w-100 remove-pub"><i class="bi bi-x-lg"></i></button></div>
+                        </div>
+                        <?php endif ?>
+                    </div>
+                    <button type="button" id="add-pub" class="btn btn-sm btn-secondary mt-2"><i class="bi bi-plus-circle me-1"></i> Tambah Publikasi</button>
+                </div>
+            </div>
+
+            <div class="card bg-light border-0 mb-3">
+                <div class="card-body">
+                    <h6 class="fw-bold text-black mb-3"><i class="bi bi-book me-2"></i>Mata Kuliah Diampu</h6>
+                    <?php
+                    $kbm_list   = (isset($kbm_list)   && is_array($kbm_list))   ? $kbm_list   : [];
+                    $all_matkul = (isset($all_matkul) && is_array($all_matkul)) ? $all_matkul : [];
+
+                    if (count($kbm_list) === 0) {
+                        $kbm_list[] = ['id_matkul' => null];
+                    }
+                    ?>
+                    <div id="kbm-container">
+                        <?php foreach ($kbm_list as $k): ?>
+                            <?php $selectedId = $k['id_matkul'] ?? null; ?>
+                            <div class="row mb-2 kbm-item">
+                                <div class="col-md-11">
+                                    <select name="id_matkul[]" class="form-select">
+                                        <option value="">-- Pilih Mata Kuliah --</option>
+                                        <?php foreach ($all_matkul as $m): ?>
+                                            <option value="<?= htmlspecialchars($m['id_matkul']) ?>"
+                                                <?= ($selectedId == $m['id_matkul']) ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($m['nama_matkul']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-danger w-100 remove-kbm"><i class="bi bi-x-lg"></i></button>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <button type="button" id="add-kbm" class="btn btn-sm btn-secondary mt-2"><i class="bi bi-plus-circle me-1"></i> Tambah KBM</button>
+                </div>
+            </div>
+
+          <?php else: ?>
+            <div class="alert alert-warning">Form untuk tipe ini belum disiapkan.</div>
+          <?php endif; ?>
+
+          <div class="d-grid gap-2 d-md-block mt-4">
+              <button class="btn btn-success px-5" type="submit"><i class="bi bi-save me-1"></i> Simpan Data</button>
+              <a href="manage_personil.php" class="btn btn-light border">Batal</a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('input', e => {
+  if (e.target.id === 'nama') {
+    const s = e.target.value.toLowerCase().trim()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, '-');
+    const slug = document.getElementById('slug');
+    if (slug) slug.value = s;
+  }
+});
+
+document.addEventListener('click', e => {
+  const targetIs = (id) => e.target.id === id || e.target.closest('#' + id);
+  const targetClass = (cls) => e.target.classList.contains(cls) || e.target.closest('.' + cls);
+
+  // ADD RIWAYAT
+  if (targetIs('add-riwayat')) {
+    document.querySelector('#riwayat-container').insertAdjacentHTML('beforeend', `
+      <div class="row mb-2 riwayat-item">
+        <div class="col-md-2"><input class="form-control" name="jenjang[]" placeholder="S1"></div>
+        <div class="col-md-3"><input class="form-control" name="program_studi[]" placeholder="Prodi"></div>
+        <div class="col-md-3"><input class="form-control" name="nama_kampus[]" placeholder="Kampus"></div>
+        <div class="col-md-3"><input class="form-control" name="thn_lulus[]" placeholder="Tahun"></div>
+        <div class="col-md-1"><button type="button" class="btn btn-danger w-100 remove-riwayat"><i class="bi bi-x-lg"></i></button></div>
+      </div>`);
+  }
+  if (targetClass('remove-riwayat')) e.target.closest('.riwayat-item').remove();
+
+  // ADD PUBLIKASI
+  if (targetIs('add-pub')) {
+    document.querySelector('#publikasi-container').insertAdjacentHTML('beforeend', `
+      <div class="row mb-2 publikasi-item">
+        <div class="col-md-4"><input class="form-control" name="judul_pub[]" placeholder="Judul"></div>
+        <div class="col-md-3"><input type="number" class="form-control" name="tahun_pub[]" placeholder="Tahun"></div>
+        <div class="col-md-4"><input class="form-control" name="link_pub[]" placeholder="Link"></div>
+        <div class="col-md-1"><button type="button" class="btn btn-danger w-100 remove-pub"><i class="bi bi-x-lg"></i></button></div>
+      </div>`);
+  }
+  if (targetClass('remove-pub')) e.target.closest('.publikasi-item').remove();
+
+  // ADD KBM
+  if (targetIs('add-kbm')) {
+    const opts = `<?php foreach ($all_matkul as $m): ?><option value="<?= $m['id_matkul'] ?>"><?= htmlspecialchars($m['nama_matkul']) ?></option><?php endforeach; ?>`;
+    document.querySelector('#kbm-container').insertAdjacentHTML('beforeend', `
+        <div class="row mb-2 kbm-item">
+          <div class="col-md-11"><select name="id_matkul[]" class="form-control"><option value="">-- Pilih Mata Kuliah --</option>${opts}</select></div>
+          <div class="col-md-1"><button type="button" class="btn btn-danger w-100 remove-kbm"><i class="bi bi-x-lg"></i></button></div>
+        </div>`);
+  }
+  if (targetClass('remove-kbm')) e.target.closest('.kbm-item').remove();
+});
+</script>

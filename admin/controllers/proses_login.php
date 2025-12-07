@@ -31,7 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Ingat saya
             if (isset($_POST['ingat_saya'])) {
-                // ... (kode cookie kamu)
+                setcookie('ingat_username', $username, time() + (86400 * 30), "/");
+            } else {
+                if (isset($_COOKIE['ingat_username'])) {
+                    setcookie('ingat_username', '', time() - 3600, "/");
+                }
             }
 
             header("Location:../index.php");
@@ -41,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Gagal login
     header("Location: ../views/login.php?error=Username%20atau%20password%20salah");
-exit;
+    exit;
 
 }
 ?>

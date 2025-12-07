@@ -7,9 +7,9 @@
 #sidebarMenu, 
 .sidebar, 
 .offcanvas-md {
-    background-color: #111827 !important;
+    background: linear-gradient(90deg, #3b0764 0%, #4c1d95 100%) !important;
     color: #fff !important;
-    --bs-offcanvas-bg: #111827 !important;
+    /* --bs-offcanvas-bg: #ffffff !important; */
 }
 
 .sidebar {
@@ -27,7 +27,7 @@
 /* Header Sidebar (Logo area) */
 .sidebar-header {
     padding: 25px 20px;
-    border-bottom: 1px solid #374151; /* Garis pemisah tipis */
+    border-bottom: 1px solid linear-gradient(90deg, #3b0764 0%, #4c1d95 100%); /* Garis pemisah tipis */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,7 +59,7 @@
 
 /* Efek Hover */
 .sidebar .nav-link:hover {
-    background-color: #374151 !important;
+    background-color: #1a1626 !important;
     color: #fff !important;
 }
 
@@ -80,7 +80,7 @@
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #dc3545;
+    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
     color: #fff;
     border-radius: 8px;
     text-align: center;
@@ -90,8 +90,9 @@
 }
 
 .btn-logout:hover {
-    background-color: #c82333;
+    transform: translateY(-2px);
     color: #fff;
+    box-shadow: var(--shadow-soft);
 }
 
 /* =======================================================
@@ -116,7 +117,7 @@
         z-index: 1045;
         height: 100% !important;
         width: 280px;
-        background-color: #111827 !important;
+        background-color: #ffffff !important;
         
         /* Default sembunyi ke kiri */
         transform: translateX(-100%);

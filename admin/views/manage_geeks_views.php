@@ -1,12 +1,3 @@
-<script>
-function toggle(source) {
-    var checkboxes = document.querySelectorAll('input[name="pilih_id[]"]');
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = source.checked;
-    }
-}
-</script>
-
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="fw-bold">Kelola Pendaftaran SE Geeks</h1>
 </div>
@@ -41,9 +32,7 @@ function toggle(source) {
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th width="40" class="text-center">
-                                <input class="form-check-input" type="checkbox" onclick="toggle(this)">
-                            </th>
+
                             <th>Nama & Email</th>
                             <th>NIM</th>
                             <th>Info Akademik</th>
@@ -59,9 +48,6 @@ function toggle(source) {
                             while($row = pg_fetch_assoc($result)) {
                         ?>
                         <tr>
-                            <td class="text-center">
-                                <input class="form-check-input" type="checkbox" name="pilih_id[]" value="<?php echo $row['id_pendaftaran_user']; ?>">
-                            </td>
 
                             <td>
                                 <div class="fw-bold"><?php echo htmlspecialchars($row['nama']); ?></div>

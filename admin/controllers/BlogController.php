@@ -8,10 +8,18 @@ class BlogController {
         $this->model = new BlogModel($conn); // Inisialisasi model dgn koneksi db
     }
 
-    public function index() {
-        $artikel = $this->model->getAllArticles(); // Ambil semua artikel
+    // Di dalam class BlogController method index()
 
-        include 'views/manage_blog_view.php'; // Tampilkan halaman list artikel
+    public function index() {
+        // 1. Tangkap input dari URL (Search & Filter)
+        $keyword = isset($_GET['q']) ? $_GET['q'] : null;
+        $status  = isset($_GET['status']) ? $_GET['status'] : null;
+
+        // 2. Minta data ke Model (Model yang akan query ke DB)
+        $artikel = $this->model->getAllArticles($keyword, $status); 
+
+        // 3. Panggil View (View hanya menampilkan $artikel)
+        include 'views/manage_blog_view.php'; 
     }
 
     // Inisialisasi default form

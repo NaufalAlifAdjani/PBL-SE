@@ -32,26 +32,6 @@ class PersonilDetailController
             die('Query dosen gagal: ' . pg_last_error($this->conn));
         }
 
-
-        //    //2. DATA MEMBER (pendaftaran_user)
-
-        // $sql_member = "
-        //     SELECT
-        //         id_pendaftaran_user,
-        //         nama,
-        //         nim,
-        //         jurusan,
-        //         slug_member
-        //     FROM pendaftaran_user
-        //     WHERE status = 'Diterima'
-        //     ORDER BY nama ASC
-        // ";
-
-        // $member = pg_query($this->conn, $sql_member);
-        // if (!$member) {
-        //     die('Query member gagal: ' . pg_last_error($this->conn));
-        // }
-
         $page_title = 'Personil Lab';
 
 

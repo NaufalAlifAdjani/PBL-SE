@@ -37,7 +37,7 @@ $personil_items = pg_query($conn, $query_personil);
 
     <link rel="stylesheet" href="assets/css/main.css">
     
-<link rel="stylesheet" href="<?php echo $base_path; ?>assets/css/userPersonil.css">
+    <link rel="stylesheet" href="<?php echo $base_path; ?>assets/css/userPersonil.css">
 
 </head>
 <body>
@@ -46,7 +46,9 @@ $personil_items = pg_query($conn, $query_personil);
 <nav class="navbar navbar-expand-lg">
     <div class="container">
 
-        <a class="navbar-brand" href="index.php">Lab SE</a>
+        <a class="navbar-brand d-flex align-items-center" href="index.php">
+            Lab SE
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -80,6 +82,8 @@ $personil_items = pg_query($conn, $query_personil);
                     </ul>
                 </li>
 
+                <li class="nav-item"><a class="nav-link" href="/PBL-SE/portofolio.php">Portofolio</a></li>
+
                 <!-- personil navbar -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/PBL-SE/personil.php" id="navbarDropdownPersonil" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,6 +110,10 @@ $personil_items = pg_query($conn, $query_personil);
                 <li class="nav-item"><a class="nav-link" href="/PBL-SE/blog.php">Blog</a></li>
             </ul>
         </div>
+        
+        <a class="navbar-brand d-none d-lg-block me-0" href="#">
+            <img src="uploads/logo/putih.png" alt="Logo Lab SE" style="height: 40px; width: auto;" class="me-2"> 
+        </a>
 
     </div>
 </nav>

@@ -34,7 +34,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
 </head>
 <body class="admin-body">
 
-<nav class="navbar navbar-dark d-md-none sticky-top px-3 shadow-sm" style="background-color: #111827; z-index: 1050;">
+<nav class="navbar navbar-dark d-md-none sticky-top px-3 shadow-sm">
     <span class="navbar-brand fw-bold">Lab SE</span>
     <button class="btn btn-outline-light border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
         <i class="bi bi-list fs-1"></i>
@@ -43,7 +43,7 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
 
 <div class="admin-wrapper">
     
-    <div class="sidebar offcanvas-md offcanvas-start" tabindex="-1" id="sidebarMenu" style="background-color: #111827 !important; color: #fff !important;">
+    <div class="sidebar offcanvas-md offcanvas-start" tabindex="-1" id="sidebarMenu" style="background-color: #ffffffff !important; color: #fff !important;">
         
         <div class="sidebar-header">
             <h3 class="text-white fw-bold mb-0">Lab SE</h3>
@@ -75,12 +75,22 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                     <i class="bi bi-person-vcard-fill"></i> Manage Profile
                 </a>
             </li>
-        </ul>
-        <div class="sidebar-footer mt-auto">
-            <a href="views/logout.php" class="btn btn-logout">
-                <i class="bi bi-box-arrow-left"></i> Logout
-            </a>
-        </div>
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($current_page == 'activity_logs.php') ? 'active' : ''; ?>" href="activity_logs.php">
+                    <i class="bi bi-activity"></i> Activity Logs
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($current_page == 'manage_portofolio.php') ? 'active' : ''; ?>" href="manage_portofolio.php">
+                <i class="bi bi-briefcase-fill"></i> Manage Portofolio
+                </a>
+            </li>
+            <li class="sidebar-footer mt-auto">
+                <a href="views/logout.php" class="btn btn-logout">
+                    <i class="bi bi-box-arrow-left"></i> Logout
+                </a>
+            </li>
+        </ul>   
     </div>
 
     <main class="main-content flex-grow-1 p-4">

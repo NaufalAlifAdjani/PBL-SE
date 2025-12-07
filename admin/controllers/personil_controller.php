@@ -19,26 +19,34 @@ class personil_controller
     // ============================
     // HALAMAN LIST PERSONIL (ADMIN)
     // ============================
+    // Ubah method index() menjadi seperti ini:
+
     public function index()
     {
-        // DOSEN (VIEW)
-        $dosen = $this->model->getList('dosen');
-        if (!$dosen) {
-            die('Query dosen gagal: ' . pg_last_error($this->conn));
-        }
+        // 1. Tangkap Keyword & Angkatan
+        $keyword  = isset($_GET['q']) ? trim($_GET['q']) : null;
+        $angkatan = isset($_GET['angkatan']) && $_GET['angkatan'] !== '' ? (int)$_GET['angkatan'] : null;
 
-        // MEMBER
-        $member = $this->model->getList('member');
-        if (!$member) {
-            die('Query member gagal: ' . pg_last_error($this->conn));
+        // 2. Kirim ke Model
+        // DOSEN (Parameter ke-3 null karena dosen tidak difilter angkatan)
+        $dosen = $this->model->getList('dosen', $keyword, null);
+        if (!$dosen) die('Query dosen gagal: ' . pg_last_error($this->conn));
+
+        // MEMBER (Kirim parameter angkatan)
+        $member = $this->model->getList('member', $keyword, $angkatan);
+        if (!$member) die('Query member gagal: ' . pg_last_error($this->conn));
+
+        // 3. Ambil List Tahun untuk Dropdown Filter
+        $list_angkatan_db = $this->model->getListAngkatan();
+        $opsi_angkatan = [];
+        while ($row = pg_fetch_assoc($list_angkatan_db)) {
+            $opsi_angkatan[] = $row['angkatan'];
         }
 
         $page_title = 'Personil Lab';
 
         $viewPath = __DIR__ . '/../views/manage_personil_view.php';
-        if (!file_exists($viewPath)) {
-            die('View tidak ditemukan: ' . $viewPath);
-        }
+        if (!file_exists($viewPath)) die('View tidak ditemukan: ' . $viewPath);
 
         include $viewPath;
     }
@@ -119,16 +127,6 @@ class personil_controller
             if ($slug === '' && $nama_dosen !== '') {
                 $slug = strtolower(trim(preg_replace('/[^a-zA-Z0-9]+/', '-', $nama_dosen), '-'));
             }
-        // $raw_slug = $_POST['slug'] ?? '';
-
-        // // 2. Jika form slug kosong, ATAU kita ingin memastikan update mengikuti nama baru:
-        // // Kita paksa generate ulang dari $nama_dosen agar tidak kosong.
-        // if (empty($raw_slug) || $raw_slug == '-') {
-        //      // Generate dari nama dosen
-        //      $slug = strtolower(trim(preg_replace('/[^a-zA-Z0-9]+/', '-', $nama_dosen), '-'));
-        // } else {
-        //      $slug = $raw_slug;
-        // }
 
         // 3. PENYELAMAT: Jika hasil generate di atas MASIH kosong (misal nama dosen dihapus/kosong)
         // Kita beri nilai default random supaya tidak error "Duplicate Key" di database

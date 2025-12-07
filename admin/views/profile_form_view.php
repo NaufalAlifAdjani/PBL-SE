@@ -32,7 +32,6 @@ include 'includes/header_admin.php';
                     <div class="mb-3">
                         <label for="menu_group" class="form-label fw-semibold">Grup Menu</label>
                         <input type="text" class="form-control" id="menu_group" name="menu_group" value="<?php echo htmlspecialchars($data['menu_group'] ?? 'profile_dropdown'); ?>">
-                        <small class="text-muted">Gunakan 'profile_dropdown' agar muncul di navbar.</small>
                     </div>
                     <div class="mb-3">
                         <label for="display_order" class="form-label fw-semibold">Urutan</label>
