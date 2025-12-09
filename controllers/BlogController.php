@@ -44,14 +44,19 @@ class BlogController {
 
     // --- MAIN METHODS ---
     public function index() {
-        $rawArticles = $this->blogModel->getAllArticles();
+        // 1. Tangkap keyword dari URL (jika ada)
+        $searchKeyword = isset($_GET['q']) ? trim($_GET['q']) : null;
+
+        // 2. Kirim keyword ke Model
+        $rawArticles = $this->blogModel->getAllArticles($searchKeyword);
 
         // Proses setiap artikel untuk view
         $processedArticles = array_map([$this, 'prepareArticleViewData'], $rawArticles);
 
         // Gabungkan data Layout + Data Halaman
         $data = array_merge($this->getLayoutData(), [
-            'articles' => $processedArticles
+            'articles' => $processedArticles,
+            'search_keyword' => $searchKeyword // 3. Kirim balik keyword ke View agar input tidak hilang
         ]);
 
         require 'views/blog_view.php';

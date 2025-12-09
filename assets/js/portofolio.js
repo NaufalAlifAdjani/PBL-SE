@@ -1,41 +1,85 @@
-/* File: assets/js/portofolio.js */
-
 function filterPortofolio(kategori, element) {
-    event.preventDefault();
-
-    // 1. Reset Sidebar Style
-    const allLinks = document.querySelectorAll('.custom-sidebar .list-group-item');
-    allLinks.forEach(link => {
-        link.classList.remove('active-item');
-        const badge = link.querySelector('.badge');
-        if(badge) {
-            badge.classList.remove('bg-light', 'text-dark');
-            badge.classList.add('bg-light', 'text-dark');
-        }
-    });
-
-    // 2. Set Active Style pada tombol yang diklik
-    element.classList.add('active-item');
-    const activeBadge = element.querySelector('.badge');
-    if(activeBadge) {
-        activeBadge.classList.remove('bg-light', 'text-dark');
-        activeBadge.classList.add('bg-white', 'text-primary'); 
+    // Mencegah perilaku default jika element adalah link (a href="#")
+    // Tapi karena kita pakai onclick di element, preventDefault opsional tergantung struktur
+    if (element.tagName === 'A') {
+        event.preventDefault(); 
     }
 
-    // 3. Update Judul Halaman
-    const judul = document.getElementById('judul-kategori');
-    if (kategori === 'all') judul.innerText = 'Semua Data';
-    else if (kategori === 'publikasi') judul.innerText = 'Publikasi Ilmiah';
-    else if (kategori === 'produk') judul.innerText = 'Produk Inovasi';
-    else if (kategori === 'penelitian') judul.innerText = 'Penelitian';
-    else if (kategori === 'pengabdian') judul.innerText = 'Pengabdian Masyarakat';
+    // ---------------------------------------------------------
+    // 1. BAGIAN VISUAL (Memindahkan Warna Aktif)
+    // ---------------------------------------------------------
 
-    // 4. Logic Show/Hide Kartu
+    // A. JIKA YANG DIKLIK ADALAH LINK SIDEBAR (DESKTOP)
+    if (element.tagName === 'A') {
+        // Cari semua link di dalam sidebar
+        const sidebarLinks = document.querySelectorAll('.custom-sidebar a');
+        
+        // Reset style semua link
+        sidebarLinks.forEach(link => {
+            link.classList.remove('active-item', 'bg-primary', 'text-white');
+            link.classList.add('text-dark');
+            
+            // Reset badge
+            const badge = link.querySelector('.badge');
+            if(badge) {
+                badge.classList.remove('bg-light', 'text-dark');
+                badge.classList.add('bg-secondary', 'text-white');
+            }
+        });
+
+        // Set style aktif ke link yang diklik
+        element.classList.remove('text-dark');
+        element.classList.add('active-item'); 
+        
+        // Ubah warna badge aktif
+        const activeBadge = element.querySelector('.badge');
+        if(activeBadge) {
+            activeBadge.classList.remove('bg-secondary', 'text-white');
+            activeBadge.classList.add('bg-light', 'text-dark');
+        }
+    } 
+    
+    // B. JIKA YANG DIKLIK ADALAH TOMBOL (MOBILE)
+    else if (element.tagName === 'BUTTON') {
+        // Reset semua tombol mobile
+        const mobileButtons = document.querySelectorAll('.d-lg-none button');
+        mobileButtons.forEach(btn => {
+            btn.classList.remove('btn-outline-primary', 'active-mobile-filter');
+            btn.classList.add('btn-outline-secondary');
+        });
+
+        // Aktifkan tombol yang diklik
+        element.classList.remove('btn-outline-secondary');
+        element.classList.add('btn-outline-primary', 'active-mobile-filter');
+    }
+
+    // ---------------------------------------------------------
+    // 2. BAGIAN FILTER DATA (Menampilkan/Menyembunyikan Card)
+    // ---------------------------------------------------------
+    
+    // Update Judul Halaman
+    const judul = document.getElementById('judul-kategori');
+    if(judul) {
+        const textMap = {
+            'all': 'Semua Data',
+            'publikasi': 'Publikasi',
+            'produk': 'Produk Inovasi',
+            'penelitian': 'Penelitian',
+            'pengabdian': 'Pengabdian'
+        };
+        judul.innerText = textMap[kategori] || 'Data Portofolio';
+    }
+
+    // Filter Card Items
     const items = document.querySelectorAll('.portfolio-item');
     items.forEach(item => {
-        if (kategori === 'all' || item.getAttribute('data-category') === kategori) {
+        const itemCat = item.getAttribute('data-category');
+        
+        // Logika Show/Hide
+        if (kategori === 'all' || itemCat === kategori) {
             item.classList.remove('d-none');
-            // Efek animasi fade-in sederhana
+            
+            // Animasi Fade In
             item.style.opacity = '0';
             setTimeout(() => item.style.opacity = '1', 50);
         } else {

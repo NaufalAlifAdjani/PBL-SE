@@ -7,7 +7,7 @@
         <form method="GET" action="">
             <div class="row g-2 align-items-center">
                 <div class="col-md-4 me-auto">
-                    <a href="blog_form.php" class="btn btn-primary text-white">
+                    <a href="blog_form.php" class="btn btn-primary-admin text-white">
                         <i class="bi bi-plus-lg me-1"></i> Tambah Baru
                     </a>
                 </div>
@@ -72,7 +72,7 @@
                                     <small><i class="bi bi-clock me-1"></i> <?php echo date('d M Y', strtotime($row['tgl_diperbarui'])); ?></small>
                                 </td>
                                 <td class="text-end px-4">
-                                    <a href="blog_form.php?id=<?php echo $row['id_artikel']; ?>" class="btn btn-sm btn-outline-primary me-1">
+                                    <a href="blog_form.php?id=<?php echo $row['id_artikel']; ?>" class="btn btn-sm btn-outline-success me-1">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                     <a href="blog_delete.php?id=<?php echo $row['id_artikel']; ?>" 

@@ -7,7 +7,6 @@ class LogModel {
     }
 
     public function catat($aksi, $tabel, $idTarget, $keterangan) {
-        // === PERBAIKAN DI SINI ===
         // Cek apakah session sudah aktif? Kalau belum, kita start paksa.
         if (session_status() == PHP_SESSION_NONE) {
             session_start();

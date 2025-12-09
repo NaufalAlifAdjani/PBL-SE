@@ -32,16 +32,17 @@ if ($id) {
                 }
                 break; // Jangan lupa break!
 
-            case 'reject':
-                // Kirim email dulu
-                $mailer->sendRejectionEmail($id, $email, $nama);
-                // Hapus dari DB
-                if ($modelAction->deleteUser($id)) {
-                    $msg = "User ditolak, email terkirim, dan data dihapus.";
-                } else {
-                    $msg = "Gagal menghapus data.";
-                }
-                break;
+        case 'reject':
+            // 1. Kirim email penolakan
+            $mailer->sendRejectionEmail($id, $email, $nama);
+            
+            // 2. SEKARANG: Update status jadi 'Ditolak' (Jangan dihapus)
+            if ($modelAction->updateStatus($id, 'Ditolak')) {
+                $msg = "User berhasil ditolak. Status diperbarui.";
+            } else {
+                $msg = "Gagal mengupdate status database.";
+            }
+            break;
 
             case 'delete':
                 $modelAction->deleteUser($id);

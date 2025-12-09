@@ -1,3 +1,19 @@
+<style>
+    /* Khusus Tampilan Mobile */
+    @media (max-width: 768px) {
+        /* Membatasi lebar kartu personil agar tidak full layar */
+        .profile-card {
+            max-width: 85% !important; /* Kartu hanya mengambil 85% lebar layar */
+            margin: 0 auto; /* Posisi tengah */
+            transform: scale(0.95); /* Sedikit diperkecil agar elegan */
+        }
+        
+        /* Jika ingin menampilkan 2 orang sekaligus dalam slider, 
+           Kamu harus mengedit file Javascript (main.js/script.js) 
+           pada bagian 'breakpoints' Swiper menjadi 'slidesPerView: 2' */
+    }
+</style>
+
 <section class="py-5 bg-light"> <div class="container">
 
         <div class="text-center mb-5">

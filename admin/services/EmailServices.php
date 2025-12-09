@@ -36,8 +36,7 @@ class EmailServices {
             $this->mail->Subject = 'Selamat! Pendaftaran Anda Diterima';
             $this->mail->Body    = "
                 <h3>Halo, $namaPenerima!</h3>
-                <p>Selamat, pendaftaran Anda di SE Geeks telah <b>DITERIMA</b>.</p>
-                <p>Silakan login ke sistem untuk mengakses materi.</p>
+                <p>Selamat, Anda telah <b>DITERIMA</b> menjadi member lab Software Engineering.</p>
                 <br><p>Salam,<br>Admin</p>
             ";
             

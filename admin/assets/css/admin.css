@@ -13,3 +13,5 @@
 
 /* 3. Dashboard Components (Cards, Buttons, Tables) */
 @import url('admin-components.css');
+
+@import url('admin-recruitment.css');

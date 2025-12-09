@@ -1,4 +1,5 @@
 <?php
+// Pastikan path ini benar sesuai struktur folder kamu
 require_once __DIR__ . '/../models/pendaftaran_model.php';
 
 class PendaftaranController {
@@ -10,7 +11,6 @@ class PendaftaranController {
         $this->model = new PendaftaranModel($this->conn);
     }
 
-    // Fungsi utama untuk menangani request (mirip show di PageController)
     public function handleRequest() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->prosesSimpan();
@@ -19,14 +19,12 @@ class PendaftaranController {
         }
     }
 
-    // Logika menampilkan view
     private function tampilkanForm() {
-        // Kita include view dari folder views
+        // Variable $conn mungkin dibutuhkan di view untuk dropdown dsb
         $conn = $this->conn;
         include __DIR__ . '/../views/pendaftaran_view.php';
     }
 
-    // Logika memproses data (pindahan dari proses_pendaftaran.php)
     private function prosesSimpan() {
         $dataForm = [
             'nama'       => $_POST['nama'],
@@ -37,15 +35,21 @@ class PendaftaranController {
             'portofolio' => $_POST['portofolio']
         ];
 
+        // Panggil fungsi di Model (yang baru kamu kirim)
         $hasil = $this->model->tambahPendaftar($dataForm);
 
-        if ($hasil) {
-            // Redirect kembali ke pendaftaran.php (bukan ke view langsung)
+        // PERUBAHAN PENTING DI SINI:
+        // Karena model mengembalikan array ['status' => ..., 'msg' => ...],
+        // Kita harus cek index ['status']-nya.
+        if ($hasil['status'] === true) {
+            // Jika SUKSES
             header("Location: pendaftaran.php?status=success");
             exit;
         } else {
-            $error = pg_last_error($this->conn);
-            header("Location: pendaftaran.php?status=error&msg=" . urlencode("Gagal database"));
+            // Jika GAGAL (Duplikat atau Error Lain)
+            // Ambil pesan error dari Model ($hasil['msg']) dan kirim ke URL
+            $pesanError = urlencode($hasil['msg']);
+            header("Location: pendaftaran.php?status=error&msg=" . $pesanError);
             exit;
         }
     }

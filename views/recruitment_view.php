@@ -29,7 +29,7 @@
                             <td>
                                 <?php if(!empty($row['portofolio'])): ?>
                                     <a href="<?php echo htmlspecialchars($row['portofolio']); ?>" target="_blank" class="btn btn-sm btn-outline-primary">
-                                        Lihat Portofolio
+                                        Portofolio
                                     </a>
                                 <?php else: ?>
                                     <span class="text-muted">-</span>

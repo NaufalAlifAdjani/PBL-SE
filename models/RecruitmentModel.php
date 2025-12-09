@@ -7,10 +7,13 @@ class RecruitmentModel {
     }
 
     public function getMemberDiterima() {
-        // Query SQL pindah ke sini
-        $query = "SELECT * FROM pendaftaran_user WHERE status = 'Diterima' ORDER BY angkatan DESC, nama ASC";
+        // PERUBAHAN DI SINI:
+        // Urutkan berdasarkan 'batch' (Tahun Masuk) dulu secara menurun (DESC), 
+        // baru urutkan nama sesuai abjad.
+        $query = "SELECT * FROM pendaftaran_user 
+                  WHERE status = 'Diterima' 
+                  ORDER BY batch DESC, nama ASC";
         
-        // Eksekusi query
         return pg_query($this->conn, $query);
     }
 }

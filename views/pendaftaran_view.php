@@ -39,7 +39,14 @@ include 'includes/header.php';
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">NIM</label>
-                                <input type="text" class="form-control" name="nim" placeholder="Nomor Induk Mahasiswa" required>
+                                <input type="text" 
+                                    class="form-control" 
+                                    name="nim" 
+                                    placeholder="Nomor Induk Mahasiswa" 
+                                    inputmode="numeric" 
+                                    pattern="[0-9]*"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                    required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Email</label>
@@ -59,7 +66,18 @@ include 'includes/header.php';
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Angkatan</label>
-                                <input type="number" class="form-control" name="angkatan" placeholder="Contoh: 2023" required>
+                                <select class="form-select" name="angkatan" required>
+                                    <option value="">Pilih Angkatan</option>
+                                    <?php
+                                    $tahunSekarang = (int)date('Y');
+                                    // Loop 4 kali (0 sampai 3)
+                                    // Jika tahun 2025, akan generate: 2025, 2024, 2023, 2022
+                                    for ($i = 0; $i < 4; $i++) {
+                                        $tahunOpsi = $tahunSekarang - $i;
+                                        echo "<option value='$tahunOpsi'>$tahunOpsi</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
 
@@ -79,6 +97,20 @@ include 'includes/header.php';
         </div>
     </div>
 </div>
+
+<script>
+    // Tunggu sampai halaman selesai dimuat
+    if (window.history.replaceState) {
+        // Cek jika URL memiliki parameter (tanda tanya)
+        if (window.location.search.length > 0) {
+            // Ambil URL saat ini tapi buang query string-nya (bagian ?status=...)
+            var cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            
+            // Ubah URL di address bar tanpa me-refresh halaman
+            window.history.replaceState(null, null, cleanUrl);
+        }
+    }
+</script>
 
 <?php 
 // Panggil Footer Global

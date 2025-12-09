@@ -415,3 +415,15 @@
         padding: 40px 0 !important;
     }
 }
+
+@media (max-width: 576px) {
+        .card-img-top {
+            height: 120px !important; /* Perkecil tinggi gambar di HP */
+        }
+        .card-title {
+            font-size: 0.9rem; /* Perkecil font judul */
+        }
+        .card-text {
+            display: none; /* Opsional: Sembunyikan snippet di HP agar lebih rapi */
+        }
+    }
