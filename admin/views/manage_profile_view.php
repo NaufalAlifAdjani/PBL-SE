@@ -36,7 +36,7 @@ include 'includes/header_admin.php';
                     <?php
                     // $result dikirim dari ProfileController->index()
                     if ($result && pg_num_rows($result) > 0) {
-                        while($row = pg_fetch_assoc($result)) {
+                        foreach ($profiles as $row) {
                     ?>
                     <tr>
                         <td class="px-4 fw-semibold text-dark">
@@ -57,16 +57,9 @@ include 'includes/header_admin.php';
                                 <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-pill">Draft</span>
                             <?php endif; ?>
                         </td>
-                        <td class="px-4 text-end">
-                            <div class="d-inline-flex gap-2">
-                                <a href="manage_profile.php?action=edit&id=<?php echo $row['id']; ?>" class="btn btn-action-edit me-2">
-                                    <i class="bi bi-pencil-fill"></i> Edit
-                                </a>
-
-                                <a href="manage_profile.php?action=delete&id=<?php echo $row['id']; ?>" class="btn btn-action-delete btn-delete">
-                                    <i class="bi bi-trash-fill"></i> Hapus
-                                </a>
-                            </div>
+                        <td class="text-end px-4">
+                            <a href="manage_profile.php?action=edit&id=<?php echo $row['id']; ?>" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="manage_profile.php?action=delete&id=<?php echo $row['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus dosen ini?');"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                     <?php
@@ -82,3 +75,5 @@ include 'includes/header_admin.php';
 </div>
 
 <?php include 'includes/footer_admin.php'; ?>
+
+

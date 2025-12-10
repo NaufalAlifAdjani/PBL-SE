@@ -204,6 +204,42 @@ body {
 }
 
 /* =========================================
+   ACTIVE NAVBAR STATE
+   ========================================= */
+
+/* Style untuk link utama yang sedang aktif */
+.navbar-nav .nav-link.active {
+    background: var(--gradient-btn); /* Menggunakan variabel gradasi ungu kamu */
+    color: #ffffff !important;       /* Teks jadi putih */
+    font-weight: 600;
+    border-radius: 50px;             /* Bentuk bulat/capsule */
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); /* Efek glow */
+    text-shadow: none;               /* Hilangkan shadow teks default */
+    padding: 8px 20px !important;    /* Sedikit lebih lebar */
+    transition: all 0.3s ease;
+}
+
+/* Hilangkan garis bawah animasi untuk menu yang sedang aktif agar rapi */
+.navbar-nav .nav-link.active::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Style tambahan saat hover pada menu aktif (biar makin nyala) */
+.navbar-nav .nav-link.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.8);
+}
+
+/* Opsional: Style untuk item di dalam Dropdown jika aktif (page.php?slug=...) */
+.dropdown-item.active-item {
+    background-color: rgba(139, 92, 246, 0.2); /* Ungu transparan */
+    color: var(--accent-purple);
+    font-weight: 600;
+    border-left: 3px solid var(--accent-purple); /* Garis di kiri */
+}
+
+/* =========================================
    LAYOUT: FOOTER
    ========================================= */
 footer {

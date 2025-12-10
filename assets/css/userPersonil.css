@@ -1,20 +1,13 @@
-/* LIST PERSONIL (DOSEN & MEMBER) */
+/* =========================================
+   1. GLOBAL LAYOUT & UTILITIES
+   ========================================= */
+html {
+    scroll-behavior: smooth;
+}
 
 .personil-page {
     padding-top: 24px;
     padding-bottom: 40px;
-}
-
-.personil-page .section-title {
-    font-weight: 700;
-    font-size: 1.6rem;
-    margin-bottom: 0.25rem;
-}
-
-.personil-page .section-subtitle {
-    color: #e5e7eb;
-    font-size: 0.95rem;
-    margin-bottom: 0;
 }
 
 .personil-page .section-header {
@@ -22,78 +15,154 @@
     margin-bottom: 24px;
 }
 
-/* card generic */
-.personil-page .card-personil {
-    min-height: 220px;
-    border-radius: 20px;
-    border: none;
-    background: #111827;
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.4);
-    color: #f9fafb;
-}
+/* =========================================
+   2. SIDEBAR & NAVIGATION (LIST PAGE)
+   ========================================= */
 
-.personil-page .card-personil .card-body {
-    padding: 1.25rem 1.5rem;
-}
-
-.personil-page .card-personil .nama-personil {
+/* Tombol Sidebar */
+.personil-sidebar-btn {
+    color: #4b5563;
     font-weight: 600;
-    font-size: 1.05rem;
+    border: none;
+    padding: 15px 20px;
+    transition: all 0.2s ease-in-out;
+    text-align: left;
+    width: 100%;
+    background: white;
 }
 
-.personil-page .card-personil .info-secondary {
-    font-size: 0.9rem;
-    color: #e5e7eb;
+.personil-sidebar-btn:hover:not(.active) {
+    background-color: #f3e8ff !important;
+    color: #4c1d95 !important;
+    padding-left: 25px; /* Efek geser dikit saat hover */
 }
 
-/* Dosen list - UPDATED */
-.personil-page .card.dosen-card {
+.personil-sidebar-btn.active {
+    background-color: #4c1d95 !important;
+    color: #ffffff !important;
+    border-color: #4c1d95 !important;
+    box-shadow: 0 4px 6px rgba(76, 29, 149, 0.2);
+}
+
+/* Sticky Sidebar Logic */
+.custom-sticky-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px; /* Jarak dari atas agar tidak tertutup navbar */
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    .sidebar-adjust {
+        margin-top: 0; /* Reset jika perlu, atau sesuaikan dengan header */
+        transition: margin-top 0.3s;
+    }
+}
+
+/* Search Bar Styling */
+.search-container {
+    max-width: 350px;
+    border-radius: 50px;
+}
+.search-icon-box {
+    border-radius: 50px 0 0 50px;
+    border-color: #e5e7eb;
+}
+.search-input-field {
+    border-radius: 0 50px 50px 0;
+    border-color: #e5e7eb;
+    box-shadow: none;
+}
+
+/* =========================================
+   3. CARDS: DOSEN & MEMBER (LIST PAGE)
+   ========================================= */
+
+/* Common Card Styles */
+.dosen-card, .member-card {
     border-radius: 20px;
     border: none !important;
-    /* Gradasi disamakan persis dengan member-card */
-    background: linear-gradient(90deg, #3b0764 0%, #4c1d95 100%) !important;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    color: #ffffff !important;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dosen-card:hover, .member-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(76, 29, 149, 0.25);
+    cursor: pointer;
+}
+
+/* --- DOSEN CARD --- */
+.dosen-card {
+    background: linear-gradient(90deg, #3b0764 0%, #4c1d95 100%) !important;
+    color: #ffffff !important;
     height: 100%;
 }
 
-/* Pastikan bagian dalam kartu transparan agar warna background kartu terlihat */
-.personil-page .card.dosen-card .card-body,
-.personil-page .card.dosen-card .dosen-info-container {
-    background-color: transparent !important; 
+.dosen-card .card-body,
+.dosen-card .dosen-info-container {
+    background-color: transparent !important;
     color: #ffffff !important;
 }
 
-.personil-page .dosen-name {
+/* Container Foto Dosen */
+.dosen-img-wrapper {
+    height: 300px;
+    overflow: hidden;
+    background-color: transparent;
+    position: relative;
+}
+
+.dosen-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.5s ease;
+}
+
+.dosen-card:hover .dosen-img-wrapper img {
+    transform: scale(1.05); /* Zoom effect */
+}
+
+/* Placeholder jika tidak ada foto */
+.dosen-placeholder {
+    height: 300px;
+    background-color: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dosen-info-container {
+    padding: 1.5rem;
+}
+
+.dosen-name {
     font-weight: 700;
     font-size: 1.1rem;
     color: #ffffff !important;
     margin-bottom: 0.5rem;
 }
 
-.personil-page .dosen-meta {
+.dosen-meta {
     font-size: 0.9rem;
     color: #e9d5ff !important;
     opacity: 0.9;
 }
 
-/* Member list - FIXED */
-.personil-page .card.member-card {
-    border-radius: 20px;
-    border: none !important;
-    /* Tambahkan !important */
+/* --- MEMBER CARD --- */
+.member-card {
     background: linear-gradient(180deg, #3b0764 0%, #4c1d95 100%) !important;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
     color: #ffffff !important;
     min-height: 220px;
     display: flex;
     flex-direction: column;
 }
 
-.personil-page .member-card .card-body {
-    background-color: transparent !important; /* Pastikan transparan */
-    color: #ffffff !important;
+.member-card .card-body {
+    background-color: transparent !important;
     padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
@@ -102,202 +171,28 @@
     text-align: center;
 }
 
-.personil-page .member-name {
+.member-name a {
+    color: white !important;
+    text-decoration: none;
     font-weight: 700;
     font-size: 1.1rem;
-    color: #ffffff !important;
-    margin-bottom: 0.5rem;
+    transition: opacity 0.2s;
 }
 
-.personil-page .member-meta {
+.member-name a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.member-meta {
     font-size: 0.9rem;
     color: #e9d5ff !important;
 }
 
-/* Fix tombol di member agar terlihat jelas di background ungu */
-.personil-page .member-card .btn {
-    background-color: #ffffff !important;
-    color: #ffffff !important;
-    border: none !important;
-}
+/* =========================================
+   4. DETAIL PAGE STYLING
+   ========================================= */
 
-/* tombol portofolio */
-
-.personil-page .btn-porto {
-    font-size: 0.9rem;
-    border-radius: 999px;
-    padding: 0.45rem 1.6rem;
-}
-
-.personil-page .btn-porto.btn-primary {
-    background: linear-gradient(135deg, #4c1d95, #7c3aed);
-    border: none;
-    color: #ffffff;
-}
-
-.personil-page .btn-porto.btn-primary:hover {
-    background: linear-gradient(135deg, #3b0f80, #6d28d9);
-    color: #ffffff;
-}
-
-/* anchor scroll dari dropdown */
-
-html {
-    scroll-behavior: smooth;
-}
-
-.personil-page .section-anchor {
-    scroll-margin-top: 90px;
-}
-
-.personil-page .section-nav {
-    margin-bottom: 20px;
-}
-
-/* DETAIL PERSONIL */
-
-.detail-personil-page .card {
-    border-radius: 24px;
-    border: none;
-    background: linear-gradient(135deg, #181028, #4c1d95);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.6);
-    color: #f9fafb;
-}
-
-.detail-personil-page .card .text-muted {
-    color: #e5e7eb !important;
-}
-
-.detail-personil-page .card h2,
-.detail-personil-page .card h3,
-.detail-personil-page .card h4,
-.detail-personil-page .card .fw-semibold {
-    color: #ffffff;
-}
-
-/* foto header detail */
-
-.detail-personil-page .detail-photo-wrapper {
-    width: 160px;
-    max-width: 100%;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.5);
-    margin: 4px 8px 4px 56px;
-}
-
-
-.detail-personil-page .detail-photo {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    object-position: center 20%;
-}
-
-/* heading + icon (Bootstrap Icons) */
-
-.detail-personil-page h4 {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.detail-personil-page .section-icon {
-    font-size: 1rem;
-    margin-right: 0.1rem;
-    color: #374151;
-}
-
-/* card publikasi */
-
-.detail-personil-page .publikasi-card {
-    min-height: 180px;
-}
-
-/* tombol baca & tombol kembali */
-
-.detail-personil-page .btn-login,
-.detail-personil-page .btn-kembali-personil {
-    background: linear-gradient(135deg, #4c1d95, #7c3aed);
-    border: none;
-    color: #ffffff;
-    border-radius: 999px;
-    padding: 0.4rem 1.4rem;
-    font-size: 0.9rem;
-}
-
-.detail-personil-page .btn-login:hover,
-.detail-personil-page .btn-kembali-personil:hover {
-    background: linear-gradient(135deg, #3b0f80, #6d28d9);
-    color: #ffffff;
-}
-
-/* TIMELINE RIWAYAT PENDIDIKAN  */
-
-.detail-personil-page .edu-timeline {
-    margin-left: 4px;
-}
-
-.detail-personil-page .edu-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
-}
-
-/* label S1 / S2 / S3 */
-
-.detail-personil-page .edu-level {
-    width: 32px;
-    font-weight: 600;
-    margin-right: 0.35rem;
-    color: #111827;
-}
-
-/* spacer riwayat */
-
-.detail-personil-page .edu-line {
-    position: relative;
-    width: 24px;
-    margin-right: 0.5rem;
-    min-height: 24px;
-}
-
-.detail-personil-page .edu-dot {
-    position: absolute;
-    left: 50%;
-    top: 6px;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(168, 85, 247, 0.45);
-    border: 2px solid rgba(17, 24, 39, 0.45);
-}
-
-/* bagian kanan timeline */
-
-.detail-personil-page .edu-content {
-    font-size: 1rem;
-    color: #111827;
-}
-
-.detail-personil-page .edu-content .fw-semibold {
-    color: #111827;
-}
-
-/* efek hover */
-.personil-page .card.dosen-card:hover,
-.personil-page .card.member-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.75);
-    cursor: pointer;
-}
-
-/* =========================================================
-   STYLE TAMBAHAN UNTUK DETAIL PERSONIL (Fix Tampilan)
-   ========================================================= */
-
-/* Tombol Kembali (Gradient) */
 .detail-personil-page .btn-gradient {
     background: linear-gradient(135deg, #6d28d9, #8b5cf6) !important;
     color: white !important;
@@ -307,57 +202,47 @@ html {
     box-shadow: 0 4px 10px rgba(109, 40, 217, 0.3);
     text-decoration: none;
     display: inline-block;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-left: 0;
-    margin-right: 0;
+    transition: transform 0.2s;
 }
 
 .detail-personil-page .btn-gradient:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(109, 40, 217, 0.5);
-    color: white !important;
 }
 
-/* Card Utama (Purple Background) */
-.detail-personil-page .card-purple {
+/* Card Header Profil (Purple) */
+.card-purple-gradient {
     background: linear-gradient(135deg, #181028, #4c1d95) !important;
     color: #ffffff !important;
     border-radius: 20px !important;
-    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+    border: none !important;
     overflow: hidden !important;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3) !important;
 }
 
-.detail-personil-page .card-purple .card-body {
-    background-color: transparent !important;
-    color: #ffffff !important;
-}
-
-/* Override Text Colors dalam Card Purple */
-.detail-personil-page .card-purple .text-muted-purple {
-    color: #d1d5db !important;
-}
-
-.detail-personil-page .card-purple h2,
-.detail-personil-page .card-purple h5,
-.detail-personil-page .card-purple span {
-    color: #ffffff !important;
-}
-
-/* Foto Profil Wrapper */
-/* Kita override style wrapper yang lama */
-.detail-personil-page .detail-photo-wrapper {
-    border-radius: 15px;
+.profile-img-detail-wrapper {
+    width: 180px;
+    height: 240px;
+    border-radius: 12px;
     overflow: hidden;
-    border: 3px solid rgba(255,255,255,0.2);
+    border: 4px solid rgba(255,255,255,0.2);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    background-color: #333;
-    margin: 0 auto !important; /* Paksa tengah */
-    width: auto; /* Reset width agar mengikuti max-width di HTML */
+    margin: 0 auto;
 }
 
-/* Judul Section (Mata Kuliah, Pendidikan, dll) */
-.detail-personil-page .judul-section {
+.profile-img-detail-placeholder {
+    width: 180px;
+    height: 240px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* Judul Per Section (Matkul, Edu, dll) */
+.judul-section {
     color: #111827;
     font-weight: 700;
     display: flex;
@@ -369,95 +254,113 @@ html {
     padding-bottom: 10px;
 }
 
-.detail-personil-page .section-icon {
+.section-icon {
     color: #6d28d9;
     font-size: 1.5rem;
 }
 
-/* Badge Pendidikan */
-.detail-personil-page .edu-badge {
-    background: linear-gradient(135deg, #6d28d9, #4c1d95);
-    color: white;
-    font-weight: bold;
-    padding: 8px 12px;
-    border-radius: 10px;
-    margin-right: 15px;
-    min-width: 60px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(109, 40, 217, 0.2);
-}
-
-/* =======================================================
-   TAMBAHAN STYLE BARU (Mata Kuliah & Pendidikan)
-   Letakkan kode ini di baris PALING BAWAH file userPersonil.css
-   ======================================================= */
-
-/* 1. MATA KULIAH (Style Ungu Solid - Bentuk Pil) */
+/* Card Matkul (Pil Ungu) */
 .matkul-card-purple {
-    background: linear-gradient(135deg, #1e1b4b, #4c1d95) !important; /* Warna Ungu Gelap */
-    color: #ffffff !important; /* Teks Putih */
+    background: linear-gradient(135deg, #1e1b4b, #4c1d95) !important;
+    color: #ffffff !important;
     border: none !important;
-    border-radius: 50px !important; /* Membuat sudut sangat bulat (Pil) */
+    border-radius: 50px !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 1rem 1.5rem;
-    height: 100%; /* Agar tinggi sama rata */
+    height: 100%;
     transition: transform 0.2s;
 }
 
 .matkul-card-purple:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(76, 29, 149, 0.4);
 }
 
-.matkul-card-purple .matkul-nama {
+.matkul-nama {
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.2;
 }
 
-.matkul-card-purple small {
-    display: block;
-    color: #e9d5ff; /* Warna ungu muda untuk kode matkul */
-    margin-top: 4px;
-    font-size: 0.8rem;
-}
-
-
-/* 2. RIWAYAT PENDIDIKAN (Kecil/Compact & Rata Kiri) */
+/* Riwayat Pendidikan (Compact) */
 .edu-card-compact {
     background: #ffffff;
     border-radius: 15px;
-    border: 1px solid #e5e7eb; /* Garis tepi tipis abu-abu */
+    border: 1px solid #e5e7eb;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    padding: 1rem 1.25rem; /* Padding dikecilkan agar muat banyak */
+    padding: 1rem 1.25rem;
     height: 100%;
     display: flex;
-    align-items: center; /* Posisi vertikal tengah */
+    align-items: center;
     transition: all 0.2s ease-in-out;
 }
 
 .edu-card-compact:hover {
-    border-color: #8b5cf6; /* Berubah ungu saat di-hover */
+    border-color: #8b5cf6;
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
 }
 
-/* Badge jenjang (S1/S2) yang lebih kecil */
 .edu-badge-small {
     background: linear-gradient(135deg, #6d28d9, #4c1d95);
     color: white;
     font-weight: 700;
     font-size: 0.85rem;
-    width: 40px;      /* Lebar fix */
-    height: 40px;     /* Tinggi fix */
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     margin-right: 15px;
-    flex-shrink: 0;   /* Mencegah icon tergencet */
+    flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(109, 40, 217, 0.3);
+}
+
+/* Card Publikasi */
+.card-publikasi {
+    background: linear-gradient(135deg, #181028, #4c1d95);
+    color: #ffffff;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.text-muted-purple {
+    color: #d1d5db !important;
+}
+
+
+/* =========================================
+   5. MOBILE RESPONSIVE TWEAKS
+   ========================================= */
+@media (max-width: 767.98px) {
+    /* Penyesuaian Foto Dosen di List HP */
+    .dosen-img-wrapper, 
+    .dosen-placeholder {
+        height: 180px !important; 
+    }
+
+    /* Text Dosen di HP */
+    .dosen-info-container {
+        padding: 10px 5px !important;
+    }
+
+    .dosen-name {
+        font-size: 0.85rem !important;
+        line-height: 1.2;
+        margin-bottom: 4px;
+    }
+
+    .dosen-meta {
+        font-size: 0.7rem !important;
+    }
+    
+    /* Margin judul section */
+    .judul-section {
+        font-size: 1.1rem;
+        margin-top: 2rem;
+    }
 }

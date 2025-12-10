@@ -1,11 +1,13 @@
-/* ini adalah stling untuk bagian home */
-/*.about us */
+/* =========================================
+   1. SECTION: ABOUT US
+   ========================================= */
 .about-us {
     position: relative;
     padding: 80px 0;
-    overflow: hidden; /* Keeps decorative shapes inside */
+    overflow: hidden;
 }
 
+/* Dekorasi Blur Bulat */
 .about-us::before {
     content: '';
     position: absolute;
@@ -23,32 +25,33 @@
     padding: 10px;
 }
 
+/* Kotak Dekorasi di Belakang Gambar */
 .img-decoration {
     position: absolute;
-    top: 20px; /* Geser ke bawah */
-    left: -15px; /* Geser ke kiri */
+    top: 20px;
+    left: -15px;
     width: 100%;
     height: 100%;
     border: 2px solid #c94bf1;
     border-radius: 20px;
-    z-index: 1; /* Di belakang gambar */
+    z-index: 1;
     opacity: 0.6;
     transition: all 0.4s ease;
 }
 
-/* Efek saat hover wrapper, kotaknya bergerak */
 .about-img-wrapper:hover .img-decoration {
     top: 10px;
     left: -10px;
     background-color: rgba(139, 92, 246, 0.1);
 }
 
-/* visi misi */
+/* =========================================
+   2. SECTION: VISI MISI
+   ========================================= */
 .brand-card {
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid #3e3e3e39;
     box-shadow: 0 15px 35px rgba(139, 92, 246, 0.1);
-
     border-radius: 20px;
     padding: 3rem;
     position: relative;
@@ -56,15 +59,15 @@
     transition: transform 0.3s ease;
 }
 
-/* Sedikit interaksi */
 .brand-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
     border-color: #e788ff;
 }
 
+/* Note: Class ini dijaga untuk antisipasi konten dinamis */
 .brand-card .card-title {
-    color: var(--bg-surface); /* Warna gelap dari tema */
+    color: var(--bg-surface, #333); /* Fallback color added */
     font-weight: 800;
     font-size: 2rem;
     margin-bottom: 2rem;
@@ -73,20 +76,21 @@
     display: inline-block;
 }
 
-/* roadmap */
+/* =========================================
+   3. SECTION: ROADMAP
+   ========================================= */
 .roadmap-section {
     position: relative;
     padding: 20px 0;
 }
 
-/* Garis Vertikal Utama */
 .timeline {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Garis tengah diganti gradient agar lebih futuristik */
+/* Garis Tengah Gradient */
 .timeline::after {
     content: '';
     position: absolute;
@@ -108,14 +112,10 @@
     z-index: 1;
 }
 
-.timeline-left {
-    left: 0;
-}
-.timeline-right {
-    left: 50%;
-}
+.timeline-left { left: 0; }
+.timeline-right { left: 50%; }
 
-/* --- TITIK (DOTS) DENGAN ANIMASI PULSE --- */
+/* Dots (Titik) dengan Animasi Pulse */
 .timeline-container::after {
     content: '';
     position: absolute;
@@ -127,41 +127,37 @@
     top: 24px;
     border-radius: 50%;
     z-index: 2;
-    box-shadow: 0 0 0 4px #b090fc76; /* Ring luar halus */
+    box-shadow: 0 0 0 4px #b090fc76;
     transition: all 0.3s ease;
-}
-
-/* Animasi Pulse agar roadmap terasa 'hidup' */
-.timeline-container:hover::after {
-    background-color: #b090fc76;
-    box-shadow: 0 0 0 8px #b090fc39;
-    transform: scale(1.1);
 }
 
 .timeline-right::after {
     left: -12px;
 }
 
-/* --- card roadmpa --- */
+.timeline-container:hover::after {
+    background-color: #b090fc76;
+    box-shadow: 0 0 0 8px #b090fc39;
+    transform: scale(1.1);
+}
+
+/* Card Content Roadmap */
 .timeline-content {
     padding: 25px 30px;
     background-color: #fff;
     border-radius: 16px;
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    /* Shadow yang sangat lembut (neumorphism vibes) */
     box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Efek Hover pada Kartu */
 .timeline-content:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.25); /* Shadow ungu halus */
+    box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.25);
     border-color: #c94bf1;
 }
 
-/* Styling Tanggal/Tahun */
 .timeline-date {
     color: #4c2a8c;
     font-weight: 800;
@@ -172,7 +168,6 @@
     display: block;
 }
 
-/* Styling Judul dan Deskripsi */
 .timeline-content h4 {
     font-weight: 700;
     margin-bottom: 10px;
@@ -186,48 +181,37 @@
     line-height: 1.6;
 }
 
-/* --- RESPONSIVE --- */
+/* Responsive Roadmap */
 @media screen and (max-width: 768px) {
-    /* Garis pindah ke kiri */
-    .timeline::after {
-        left: 31px;
-    }
-
-    /* Item memanjang penuh ke kanan */
+    .timeline::after { left: 31px; }
     .timeline-container {
         width: 100%;
         padding-left: 70px;
         padding-right: 25px;
     }
-
-    /* Dot pindah ke kiri semua */
-    .timeline-container::after {
-        left: 19px;
-    }
-
-    /* Reset posisi left/right container */
-    .timeline-left,
-    .timeline-right {
-        left: 0;
-    }
+    .timeline-container::after { left: 19px; }
+    .timeline-left, .timeline-right { left: 0; }
 }
 
 /* =========================================
-   STYLE KHUSUS SLIDER DOSEN (Fixed)
+   4. SECTION: TEAM / DOSEN SLIDER
+   ========================================= */
+/* =========================================
+   STYLE KHUSUS SLIDER DOSEN (Fixed Scoping)
    ========================================= */
 
 /* Container Utama */
 .slide-container {
     max-width: 1120px;
     width: 100%;
-    padding: 40px 0; /* Padding atas bawah */
+    padding: 40px 0;
     margin: 0 auto;
-    position: relative; /* Agar tombol navigasi bisa diposisikan absolute terhadap ini */
+    position: relative;
 }
 
 /* Area Konten Slider */
 .slide-content {
-    margin: 0 40px; /* Memberi jarak di kiri kanan agar tombol navigasi tidak menabrak */
+    margin: 0 40px;
     overflow: hidden;
     border-radius: 25px;
 }
@@ -235,23 +219,24 @@
 /* --- KARTU DOSEN (PROFILE CARD) --- */
 .profile-card {
     background-color: #fff;
-    border-radius: 20px; /* Sudut membulat */
-    border: none; /* Hapus border default */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Shadow halus */
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease;
-    overflow: hidden; /* Agar overlay tidak keluar border */
-    /* min-height: 300px; */
-    min-height: 400px; /* Atur angka ini (misal 450px atau 500px) sesuai keinginan */
+    overflow: hidden;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
 }
 
 .profile-card:hover {
-    transform: translateY(-5px); /* Efek naik saat hover */
+    transform: translateY(-5px);
 }
 
+/* --- PERBAIKAN DI SINI: Tambahkan .profile-card di depan class umum --- */
+
 /* Bagian Gambar & Overlay */
-.image-content {
+.profile-card .image-content {
     position: relative;
     row-gap: 5px;
     padding: 25px 0;
@@ -261,19 +246,17 @@
 }
 
 /* Latar Belakang Biru/Ungu di Atas */
-.overlay {
+.profile-card .overlay {
     position: absolute;
     left: 0;
     top: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(to right, #2c5ba5, #1e3a8a); /* Warna biru tua sesuai gambar */
-    /* border-radius: 20px 20px 0 25px; Lengkungan unik di overlay */
+    background: linear-gradient(to right, #2c5ba5, #1e3a8a);
 }
 
-/* Lengkungan Putih di Bawah Overlay (Opsional, agar mirip referensi persis) */
-.overlay::before,
-.overlay::after {
+.profile-card .overlay::before,
+.profile-card .overlay::after {
     content: '';
     position: absolute;
     right: 0;
@@ -282,60 +265,61 @@
     width: 40px;
     background-color: #2c5ba5;
 }
-.overlay::after {
+.profile-card .overlay::after {
     border-radius: 0 25px 0 0;
-    background-color: #fff; /* Warna background kartu */
+    background-color: #fff;
 }
 
 /* Lingkaran Foto */
-.card-image {
+.profile-card .card-image {
     position: relative;
     height: 140px;
     width: 140px;
     border-radius: 50%;
-    background: #fff; /* Ring putih di sekeliling foto */
-    padding: 3px; /* Ketebalan ring putih */
+    background: #fff;
+    padding: 3px;
     z-index: 5;
 }
 
-.card-image .card-img {
+.profile-card .card-image .card-img {
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #fff; /* Border tambahan jika perlu */
+    border: 3px solid #fff;
 }
 
-/* Bagian Teks (Body) */
-.card-body {
+/* Bagian Teks (Body) - INI BIANG KEROKNYA */
+/* Kita kunci agar hanya berlaku di dalam .profile-card */
+.profile-card .card-body {
     padding: 20px;
     text-align: center;
-    background-color: #fff;
+    background-color: #fff; /* Warna putih ini yang menimpa ungu kamu */
     z-index: 10;
     position: relative;
-    flex-grow: 1; /* Memaksa bagian putih ini mengisi sisa tinggi kartu */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start !important;
-    padding-bottom: 40px; /* Menambah ruang kosong di bagian bawah */
+    padding-bottom: 40px;
 }
 
-.name-box h5 {
+.profile-card .name-box h5 {
     font-size: 1.1rem;
     font-weight: 700;
     color: #333;
     margin-bottom: 5px;
 }
 
-.card-body p.small {
+.profile-card .card-body p.small {
     color: #666;
     font-size: 0.9rem;
 }
 
-/* Tombol Lihat Profil (Ungu) */
-.card-body .btn {
-    margin-top: auto !important; /* Mendorong tombol ke paling bawah */
-    background-color: #a855f7; /* Warna ungu */
+/* Tombol Lihat Profil */
+.profile-card .card-body .btn {
+    margin-top: auto !important;
+    background-color: #a855f7;
     border: none;
     padding: 8px 24px;
     font-weight: 500;
@@ -343,87 +327,66 @@
     background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%);
 }
 
-/* =========================================
-   TOMBOL NAVIGASI (POSISI LUAR & WARNA BARU)
-   ========================================= */
-
-/* 1. Reset Panah Bawaan */
+/* Navigation Buttons (Swiper) */
 .swiper-button-next::after,
 .swiper-button-prev::after {
     content: none !important;
 }
 
-/* 2. Tombol Bulat Putih */
 .swiper-navBtn {
     width: 50px !important;
     height: 50px !important;
     background-color: #fff;
     border-radius: 50%;
-    
     display: flex;
     align-items: center;
     justify-content: center;
-    
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 20;
-    
-    /* Shadow ungu tipis agar terlihat elegan */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); 
     border: none;
     transition: all 0.3s ease;
 }
 
-/* 3. WARNA PANAH GRADASI (UNGU KE PINK) */
 .swiper-navBtn i {
-    font-size: 1.5rem; /* Sesuaikan ukuran ikon */
-    
-    /* Trik Gradient Text pada Ikon */
-    background: linear-gradient(to bottom, #a855f7, #ec4899); /* Ungu ke Pink */
+    font-size: 1.5rem;
+    background: linear-gradient(to bottom, #a855f7, #ec4899);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    color: transparent; /* Fallback wajib */
+    color: transparent;
 }
 
-/* 4. POSISI TOMBOL (KELUAR DARI KARTU) */
-/* Gunakan nilai negatif lebih besar (-60px) agar benar-benar keluar */
-.swiper-button-next {
-    right: -60px !important; 
-}
+/* Posisi Tombol */
+.swiper-button-next { right: -60px !important; }
+.swiper-button-prev { left: -60px !important; }
 
-.swiper-button-prev {
-    left: -60px !important;
-}
-
-/* 5. Efek Hover */
 .swiper-navBtn:hover {
     transform: translateY(-50%) scale(1.1);
     box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
     background-color: #fff;
 }
 
-/* 6. Mobile Responsif (Sembunyikan panah di HP) */
+/* Slider Responsive */
 @media screen and (max-width: 991px) {
-    .swiper-navBtn {
-        display: none !important;
-    }
-    
-    /* Kembalikan margin normal di slide container agar tidak lebar sebelah */
-    .slide-container {
-        padding: 40px 0 !important;
-    }
+    .swiper-navBtn { display: none !important; }
+    .slide-container { padding: 40px 0 !important; }
 }
 
+/* =========================================
+   5. GLOBAL RESPONSIVE (BLOG & CARDS)
+   ========================================= */
 @media (max-width: 576px) {
-        .card-img-top {
-            height: 120px !important; /* Perkecil tinggi gambar di HP */
-        }
-        .card-title {
-            font-size: 0.9rem; /* Perkecil font judul */
-        }
-        .card-text {
-            display: none; /* Opsional: Sembunyikan snippet di HP agar lebih rapi */
-        }
+    /* Penyesuaian untuk kartu Blog di HP */
+    .card-img-top {
+        height: 120px !important;
     }
+    .card-title {
+        font-size: 0.9rem;
+    }
+    .card-text {
+        display: none; /* Menyembunyikan snippet di HP agar rapi */
+    }
+}

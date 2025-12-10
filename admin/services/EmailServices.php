@@ -33,7 +33,7 @@ class EmailServices {
         try {
             $this->mail->clearAddresses();
             $this->mail->addAddress($emailPenerima, $namaPenerima);
-            $this->mail->Subject = 'Selamat! Pendaftaran Anda Diterima';
+            $this->mail->Subject = '[HASIL PENDAFTARAN LAB SOFTWARE ENGINEERING]';
             $this->mail->Body    = "
                 <h3>Halo, $namaPenerima!</h3>
                 <p>Selamat, Anda telah <b>DITERIMA</b> menjadi member lab Software Engineering.</p>
@@ -58,10 +58,10 @@ class EmailServices {
         try {
             $this->mail->clearAddresses();
             $this->mail->addAddress($emailPenerima, $namaPenerima);
-            $this->mail->Subject = 'Update Status Pendaftaran SE Geeks';
+            $this->mail->Subject = '[HASIL PENDAFTARAN LAB SOFTWARE ENGINEERING]';
             $this->mail->Body    = "
                 <h3>Halo, $namaPenerima.</h3>
-                <p>Terima kasih telah mendaftar. Mohon maaf, pendaftaran Anda <b>BELUM DAPAT KAMI TERIMA</b> saat ini.</p>
+                <p>Terima kasih telah mendaftar. Mohon maaf, Anda <b>BELUM DAPAT KAMI TERIMA</b> saat ini.</p>
                 <p>Tetap semangat dan coba lagi di kesempatan berikutnya.</p>
                 <br><p>Salam,<br>Admin</p>
             ";

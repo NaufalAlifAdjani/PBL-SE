@@ -8,23 +8,38 @@
         <p class="text-muted mb-0">Manage data calon member Batch <?php echo htmlspecialchars($current_batch); ?></p>
     </div>
 
-    <div class="filter-box d-flex align-items-center gap-2">
-        <label class="fw-bold small text-muted text-uppercase mb-0">Angkatan:</label>
-        <form method="GET" action="manage_recruitment.php">
-            <select name="filter_batch" class="form-select form-select-sm fw-bold border-0 bg-transparent" style="cursor: pointer;" onchange="this.form.submit()">
-                <?php
-                if ($list_batch && pg_num_rows($list_batch) > 0) {
-                    while($b = pg_fetch_assoc($list_batch)) {
-                        $sel = ($current_batch == $b['batch']) ? 'selected' : '';
-                        echo "<option value='{$b['batch']}' $sel>Batch {$b['batch']}</option>";
-                    }
-                } else {
-                    echo "<option value='".date('Y')."'>".date('Y')."</option>";
-                }
-                ?>
-            </select>
-        </form>
-    </div>
+    <div class="filter-box d-flex align-items-center gap-3 bg-white p-2 rounded shadow-sm border">
+            
+            <div class="d-flex align-items-center border-end pe-3">
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" role="switch" id="recruitmentToggle" style="cursor: pointer; transform: scale(1.2);" <?php echo $is_recruitment_open ? 'checked' : ''; ?>>
+                    <label class="form-check-label ms-2 fw-bold small text-uppercase" for="recruitmentToggle" id="statusLabel">
+                        <?php if($is_recruitment_open): ?>
+                            <span class="text-success"><i class="bi bi-unlock-fill"></i> Pendaftaran Buka</span>
+                        <?php else: ?>
+                            <span class="text-danger"><i class="bi bi-lock-fill"></i> Pendaftaran Tutup</span>
+                        <?php endif; ?>
+                    </label>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <label class="fw-bold small text-muted text-uppercase mb-0">Angkatan:</label>
+                <form method="GET" action="manage_recruitment.php" class="m-0">
+                    <select name="filter_batch" class="form-select form-select-sm fw-bold border-0 bg-transparent" style="cursor: pointer;" onchange="this.form.submit()">
+                        <?php
+                        if ($list_batch && pg_num_rows($list_batch) > 0) {
+                            while($b = pg_fetch_assoc($list_batch)) {
+                                $sel = ($current_batch == $b['batch']) ? 'selected' : '';
+                                echo "<option value='{$b['batch']}' $sel>Batch {$b['batch']}</option>";
+                            }
+                        } else {
+                            echo "<option value='".date('Y')."'>".date('Y')."</option>";
+                        }
+                        ?>
+                    </select>
+                </form>
+            </div>
+        </div>
 </div>
 
 <?php if (isset($_GET['msg'])): ?>
@@ -189,6 +204,60 @@
     </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('recruitmentToggle');
+    const statusLabel = document.getElementById('statusLabel');
+
+    toggleBtn.addEventListener('change', function() {
+        const isChecked = this.checked;
+        
+        // 1. Ubah Tampilan UI Sementara (Loading/Optimistic UI)
+        if(isChecked) {
+            statusLabel.innerHTML = '<span class="text-muted"><i class="bi bi-hourglass-split"></i> Mengaktifkan...</span>';
+        } else {
+            statusLabel.innerHTML = '<span class="text-muted"><i class="bi bi-hourglass-split"></i> Menutup...</span>';
+        }
+        this.disabled = true; // Matikan tombol agar tidak di-klik berkali-kali
+
+        // 2. Kirim ke Backend (Pastikan file update_recruitment.php ada di folder yang sama/sesuai path)
+        fetch('update_recruitment.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: isChecked })
+        })
+        .then(response => response.json())
+        .then(data => {
+            this.disabled = false; // Hidupkan tombol lagi
+
+            if (data.status === 'success') {
+                // 3. Update UI jika Sukses
+                if (isChecked) {
+                    statusLabel.innerHTML = '<span class="text-success"><i class="bi bi-unlock-fill"></i> Pendaftaran Buka</span>';
+                    // Opsional: Tampilkan notifikasi kecil/toast
+                } else {
+                    statusLabel.innerHTML = '<span class="text-danger"><i class="bi bi-lock-fill"></i> Pendaftaran Tutup</span>';
+                }
+            } else {
+                // Jika Gagal
+                alert("Gagal update: " + data.message);
+                this.checked = !isChecked; // Balikkan posisi tombol
+                // Reset label
+                statusLabel.innerHTML = isChecked ? 
+                    '<span class="text-danger"><i class="bi bi-lock-fill"></i> Pendaftaran Tutup</span>' : 
+                    '<span class="text-success"><i class="bi bi-unlock-fill"></i> Pendaftaran Buka</span>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            this.disabled = false;
+            this.checked = !isChecked; // Balikkan posisi tombol
+            alert("Terjadi kesalahan koneksi server.");
+        });
+    });
+});
+</script>
 
 <script src="assets/js/admin_recruitment.js"></script>
 

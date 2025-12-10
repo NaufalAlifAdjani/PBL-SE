@@ -34,7 +34,6 @@ function getLink($newPage, $currentAksi, $currentTgl) {
                             <option value="CREATE" <?= $filter_aksi == 'CREATE' ? 'selected' : '' ?>>CREATE (Tambah)</option>
                             <option value="UPDATE" <?= $filter_aksi == 'UPDATE' ? 'selected' : '' ?>>UPDATE (Ubah)</option>
                             <option value="DELETE" <?= $filter_aksi == 'DELETE' ? 'selected' : '' ?>>DELETE (Hapus)</option>
-                            <option value="LOGIN"  <?= $filter_aksi == 'LOGIN'  ? 'selected' : '' ?>>LOGIN</option>
                         </select>
                     </div>
                     <div class="col-md-3">

@@ -3,9 +3,25 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
+global $conn;
 // Gunakan __DIR__ agar path ke db.php selalu benar
 include_once __DIR__ . '/../../includes/db.php'; 
+
+// Default status
+$is_recruitment_open = false; 
+
+// Gunakan pg_query, bukan $conn->prepare
+$query = "SELECT value FROM settings WHERE key_name = 'recruitment_status'";
+$result = pg_query($conn, $query);
+
+if ($result) {
+    $row_status = pg_fetch_assoc($result);
+    // Jika value '1' maka ON
+    if ($row_status && $row_status['value'] == '1') {
+        $is_recruitment_open = true;
+    }
+}
+
 
 // === LOGIKA KEAMANAN ===
 // Jika status bukan 'login', tendang ke halaman login

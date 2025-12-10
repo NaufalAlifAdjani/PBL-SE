@@ -1,55 +1,95 @@
 /* =========================================
-   1. STYLING SIDEBAR (DESKTOP)
+   1. STYLING SIDEBAR & FILTERS
    ========================================= */
+
+/* Sidebar Item (Desktop) */
 .custom-sidebar .list-group-item {
     border: none;
     border-bottom: 1px solid rgba(0,0,0,0.05);
     padding: 15px 20px;
-    transition: all 0.2s;
+    transition: all 0.2s ease-in-out;
     font-weight: 500;
     color: #555;
+    background-color: transparent;
 }
 
+/* Efek Hover: Geser sedikit ke kanan */
 .custom-sidebar .list-group-item:hover {
     background-color: #f8f9fa;
     color: #3b0a70; /* Ungu Lab SE */
     padding-left: 25px;
 }
 
-/* State Aktif untuk Sidebar */
+/* State Aktif (Sidebar Desktop) */
 .active-item {
-    background-color: #3b0a70 !important; /* Warna Ungu */
+    background-color: #3b0a70 !important;
     color: white !important;
     border-color: #3b0a70 !important;
     border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(59, 10, 112, 0.2);
 }
 
+/* Badge di dalam item aktif berubah jadi putih */
 .active-item .badge {
     background-color: #fff !important;
     color: #3b0a70 !important;
 }
 
-/* Pastikan text muted di dalam active-item tetap terlihat terang */
+/* Text muted di dalam item aktif jadi agak terang */
 .active-item .text-muted {
     color: rgba(255, 255, 255, 0.8) !important;
 }
 
+/* State Aktif (Tombol Filter Mobile) */
+/* Ditambahkan karena class 'active-mobile-filter' ada di PHP tapi belum ada CSS-nya */
+.active-mobile-filter {
+    background-color: #3b0a70 !important;
+    color: white !important;
+    border-color: #3b0a70 !important;
+}
 
 /* =========================================
-   2. STYLING CARD & GENERAL
+   2. STYLING CARD PORTFOLIO
    ========================================= */
+
 .portfolio-card {
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
     border: none;
     border-radius: 12px;
     overflow: hidden;
+    background-color: #fff;
 }
 
+/* Efek Hover Card */
 .portfolio-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(59, 10, 112, 0.15) !important;
+    z-index: 2; /* Agar card sedikit muncul di atas elemen lain */
 }
 
+/* Container Gambar (Desktop Default) */
+.portfolio-img-container {
+    height: 180px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #f8f9fa; /* Placeholder color jika gambar loading */
+}
+
+.portfolio-img-container img {
+    transition: transform 0.5s ease;
+}
+
+/* Zoom effect pada gambar saat hover */
+.portfolio-card:hover .portfolio-img-container img {
+    transform: scale(1.05);
+}
+
+/* =========================================
+   3. UTILITIES & DECORATION
+   ========================================= */
+
+/* Gradient & Badges (Disimpan untuk keperluan dinamis/JS) */
 .card-gradient {
     background: linear-gradient(135deg, #3b0a70 0%, #5a189a 100%);
     color: white;
@@ -70,42 +110,38 @@
     letter-spacing: 1px;
 }
 
-/* Default Image Height (Desktop) */
-.portfolio-img-container {
-    height: 180px;
-}
-
-
 /* =========================================
-   3. RESPONSIVE MOBILE (Max-Width 768px)
+   4. RESPONSIVE MOBILE (Max-Width 768px)
    ========================================= */
 @media (max-width: 767.98px) {
-    /* Tinggi gambar di HP diperkecil biar proporsional */
+    
+    /* 1. Gambar lebih kecil agar muat 3 kolom di layout grid */
     .portfolio-img-container {
         height: 90px !important; 
     }
     
-    /* Font judul di HP diperkecil */
+    /* 2. Judul diperkecil */
     .portfolio-title {
-        font-size: 0.7rem !important;
-        line-height: 1.2;
+        font-size: 0.75rem !important; /* Sedikit dibesarkan dari 0.7 agar terbaca */
+        line-height: 1.3;
         margin-bottom: 5px !important;
     }
 
-    /* Tahun & Penulis di HP diperkecil */
+    /* 3. Meta info (Tahun) diperkecil */
     .portfolio-meta {
-        font-size: 0.6rem !important;
-    }
-
-    /* Padding card di HP diperkecil */
-    .card-body-mobile {
-        padding: 8px !important;
-    }
-
-    /* Tombol di HP diperkecil */
-    .btn-mobile-sm {
-        padding: 2px 5px !important;
         font-size: 0.65rem !important;
+    }
+
+    /* 4. Padding card lebih rapat */
+    .card-body-mobile {
+        padding: 10px !important;
+    }
+
+    /* 5. Tombol 'Lihat Detail' versi mini */
+    .btn-mobile-sm {
+        padding: 2px 8px !important;
+        font-size: 0.7rem !important;
         height: auto !important;
+        margin-top: 5px;
     }
 }

@@ -1,123 +1,140 @@
 /* =========================================
-   PAGE: BLOG DETAIL
+   1. GLOBAL VARIABLES
+   ========================================= */
+:root {
+    --blog-primary: #a855f7; 
+    --blog-primary-gradient: linear-gradient(90deg, #a855f7 0%, #d946ef 100%);
+    --blog-text-dark: #1f2937;
+    --blog-text-muted: #6b7280;
+    --blog-bg-page: #f3f4f6;
+}
+
+/* =========================================
+   2. HALAMAN LISTING (blog_view.php)
    ========================================= */
 
-/* 1. Blog Card Container */
+/* Search Bar */
+.blog-search-container .input-group {
+    border-radius: 12px; background: white; padding: 4px; border: 1px solid rgba(0,0,0,0.1);
+}
+.blog-search-container .form-control { border: none; padding-left: 15px; box-shadow: none; }
+.blog-search-container .btn-search {
+    border-radius: 8px; padding: 8px 20px; font-weight: 600;
+    background: var(--blog-primary-gradient); border: none; color: white;
+}
+
+/* Kartu Artikel (Listing) */
+.blog-card {
+    border: none; border-radius: 12px; background-color: #ffffff;
+    overflow: hidden; height: 100%; display: flex; flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.3s;
+}
+.blog-card:hover { transform: translateY(-3px); }
+
+/* Wrapper Gambar Listing */
+.blog-card-img-wrapper {
+    height: 180px; width: 100%; overflow: hidden; flex-shrink: 0;
+}
+.blog-card-img {
+    height: 100%; width: 100%; object-fit: cover;
+}
+
+/* Body Artikel Listing */
+.blog-card-body {
+    padding: 20px; display: flex; flex-direction: column; flex-grow: 1;
+}
+.blog-card-meta {
+    font-size: 0.8rem; color: var(--blog-text-muted); margin-bottom: 8px;
+}
+.blog-card-title a {
+    color: var(--blog-text-dark); font-weight: 700; text-decoration: none;
+    font-size: 1.1rem; line-height: 1.3; display: block; margin-bottom: 8px;
+}
+.blog-card-text {
+    color: #4b5563; font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px; flex-grow: 1;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Tombol Read More */
+.blog-card .btn {
+    margin-top: auto; width: 100%;
+    background: var(--blog-primary-gradient); color: white; border: none;
+    padding: 10px 0; border-radius: 8px; font-weight: 600; font-size: 0.95rem;
+}
+
+
+/* =========================================
+   3. HALAMAN DETAIL (blog_detail_view.php)
+   ========================================= */
+
+/* INI YANG MEMBUNGKUS KONTEN JADI PUTIH */
 .blog-detail-card {
-    background-color: #ffffff;
+    background-color: #ffffff !important; /* Force White Background */
     border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 50px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
     margin-top: 20px;
     margin-bottom: 40px;
     position: relative;
-    overflow: hidden;
 }
 
-/* 2. Judul Blog */
+/* Typography Halaman Detail */
 .blog-detail-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #111827;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    font-size: 2.5rem; font-weight: 800; color: var(--blog-text-dark); margin-bottom: 1rem;
 }
 
-/* 3. Meta Info */
 .blog-meta-info {
-    font-size: 0.95rem;
-    color: #6b7280;
-    border-bottom: 1px solid #f3f4f6;
-    padding-bottom: 1.5rem;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+    font-size: 0.95rem; color: var(--blog-text-muted);
+    border-bottom: 1px solid #eee; padding-bottom: 1.5rem; margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
 }
-
-.blog-meta-info i { color: var(--accent-purple); }
+.blog-meta-info i { color: var(--blog-primary); margin-right: 5px; }
 
 .badge-edited {
-    background-color: #fef3c7;
-    color: #92400e;
-    font-size: 0.75rem;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-weight: 600;
-    margin-left: auto;
+    background-color: #fef08a; color: #854d0e; font-size: 0.75rem; 
+    padding: 4px 10px; border-radius: 6px; font-weight: 700;
 }
 
-/* 4. Gambar Utama */
 .blog-featured-image {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-    object-fit: cover;
-    max-height: 500px;
+    width: 100%; border-radius: 12px; margin-bottom: 2rem;
+    max-height: 500px; object-fit: cover;
 }
 
-/* 5. Konten Blog (Typography) */
 .blog-content-body {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: #374151;
+    font-size: 1.1rem; line-height: 1.8; color: #374151;
 }
-
 .blog-content-body p { margin-bottom: 1.5rem; }
-
-.blog-content-body h2, 
-.blog-content-body h3 {
-    color: #111827;
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
-
-.blog-content-body ul, 
-.blog-content-body ol {
-    padding-left: 20px;
-    margin-bottom: 1.5rem;
-}
-
-.blog-content-body li { margin-bottom: 0.5rem; }
-
 .blog-content-body blockquote {
-    border-left: 4px solid var(--accent-purple);
-    background-color: #f9fafb;
-    padding: 15px 20px;
-    font-style: italic;
-    color: #555;
-    margin: 1.5rem 0;
-    border-radius: 0 8px 8px 0;
+    border-left: 4px solid var(--blog-primary);
+    background: #f8fafc; padding: 20px 25px; margin: 2rem 0; font-style: italic;
 }
 
-/* 6. Tombol Kembali */
+/* Tombol Kembali */
 .blog-back-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f3f4f6;
-    color: #4b5563;
-    font-weight: 600;
-    padding: 12px 28px;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    border: 1px solid transparent;
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: #f3f4f6; color: #4b5563; font-weight: 600;
+    padding: 12px 30px; border-radius: 50px; text-decoration: none; transition: all 0.3s;
 }
-
 .blog-back-btn:hover {
-    background-color: var(--accent-purple);
-    color: #ffffff;
-    transform: translateX(-5px);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    background: var(--blog-primary-gradient); color: #ffffff;
 }
 
-/* Responsive Mobile */
+
+/* =========================================
+   4. RESPONSIVE FIXES (MOBILE)
+   ========================================= */
 @media (max-width: 768px) {
-    .blog-detail-card { padding: 25px; }
+    /* --- Fix untuk Listing (2 Kolom) --- */
+    .blog-card-img-wrapper { height: 120px; }
+    .blog-card-body { padding: 12px; }
+    .blog-card-title a { font-size: 0.9rem; min-height: 2.5em; }
+    .blog-card-meta { font-size: 0.65rem; }
+    .blog-card-text { font-size: 0.75rem; -webkit-line-clamp: 2; margin-bottom: 10px; }
+    .blog-card .btn { padding: 6px 0; font-size: 0.75rem; }
+
+    /* --- Fix untuk Detail Page --- */
+    .blog-detail-card { 
+        padding: 25px; /* Padding lebih kecil di HP tapi tetap putih */
+    }
     .blog-detail-title { font-size: 1.8rem; }
 }

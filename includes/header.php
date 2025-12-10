@@ -5,6 +5,8 @@ if (!$conn) {
     include_once 'db.php';
 }
 
+$current_page = basename($_SERVER['PHP_SELF']);
+
 function getProfileSection($conn, $slug) {
     $query = "SELECT title, content FROM Profile WHERE slug = $1 AND is_published = TRUE";
     $result = pg_query_params($conn, $query, [$slug]);
@@ -21,8 +23,21 @@ $query_dropdown = "SELECT title, slug FROM Profile
 $dropdown_items = pg_query($conn, $query_dropdown);
 
 // query dropdown personil
-$query_personil = "SELECT id_dosen, nama_dosen FROM dosen ORDER BY id_dosen ASC LIMIT 3";
-$personil_items = pg_query($conn, $query_personil);
+// $query_personil = "SELECT id_dosen, nama_dosen FROM dosen ORDER BY id_dosen ASC LIMIT 3";
+// $personil_items = pg_query($conn, $query_personil);
+
+// [BARU] Cek Status Recruitment dari Database
+$is_recruitment_open = false; // Default tertutup
+$query_status = "SELECT value FROM settings WHERE key_name = 'recruitment_status'";
+$result_status = pg_query($conn, $query_status);
+
+if ($result_status && pg_num_rows($result_status) > 0) {
+    $row_status = pg_fetch_assoc($result_status);
+    // Jika value '1', berarti BUKA
+    if ($row_status['value'] == '1') {
+        $is_recruitment_open = true;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -45,69 +60,60 @@ $personil_items = pg_query($conn, $query_personil);
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-
         <a class="navbar-brand d-flex align-items-center" href="index.php">
             Lab SE
         </a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($current_page == 'index.php' || $current_page == '') ? 'active' : ''; ?>" href="index.php">Home</a>
+                </li>
 
-                <!-- profile navbar -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle <?php echo ($current_page == 'page.php') ? 'active' : ''; ?>" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Profile
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
                         <?php 
-                        // Cek apakah ada data dari query $dropdown_items yang kamu buat di atas
                         if ($dropdown_items && pg_num_rows($dropdown_items) > 0) {
-                            // Looping data dari database
                             while ($row = pg_fetch_assoc($dropdown_items)) {
-                                // Ambil title dan slug, lalu bersihkan dengan htmlspecialchars untuk keamanan
                                 $title = htmlspecialchars($row['title']);
                                 $slug = htmlspecialchars($row['slug']);
-                                
-                                // Tampilkan link otomatis
-                                echo "<li><a class='dropdown-item' href='/PBL-SE/page.php?slug={$slug}'>{$title}</a></li>";
+                                // Cek slug URL untuk active state di dropdown item (opsional)
+                                $isActiveItem = (isset($_GET['slug']) && $_GET['slug'] == $slug) ? 'active-item' : '';
+                                echo "<li><a class='dropdown-item $isActiveItem' href='/PBL-SE/page.php?slug={$slug}'>{$title}</a></li>";
                             }
                         } else {
-                            // Opsi jika database kosong
                             echo "<li><a class='dropdown-item' href='#'>Belum ada menu</a></li>";
                         }
                         ?>
                     </ul>
                 </li>
 
-                <li class="nav-item"><a class="nav-link" href="/PBL-SE/portofolio.php">Portofolio</a></li>
-
-                <!-- personil navbar -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/PBL-SE/personil.php" id="navbarDropdownPersonil" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Personil
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownPersonil">
-                        <li><a class="dropdown-item" href="/PBL-SE/personil.php">Lihat Semua Personil</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($current_page == 'portofolio.php') ? 'active' : ''; ?>" href="/PBL-SE/portofolio.php">Portofolio</a>
                 </li>
 
-                <!-- recruit navbar -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGeeks" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Recruitment
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownGeeks">
-                        <li><a class="dropdown-item" href="/PBL-SE/recruitment.php">List Anggota</a></li>
-                        <li><a class="dropdown-item" href="/PBL-SE/pendaftaran.php">Pendaftaran Baru</a></li>
-                        <li><hr class="dropdown-divider"></li> <!-- minor change  -->
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($current_page == 'personil.php') ? 'active' : ''; ?>" href="/PBL-SE/personil.php">Personil</a>
                 </li>
 
-                <li class="nav-item"><a class="nav-link" href="/PBL-SE/blog.php">Blog</a></li>
+                <?php if ($is_recruitment_open): ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo ($current_page == 'pendaftaran.php' || $current_page == 'recruitment.php') ? 'active' : ''; ?>" href="/PBL-SE/pendaftaran.php">Recruitment</a>
+                    </li>
+                <?php endif; ?>
+
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>" href="/PBL-SE/blog.php">Blog</a>
+                </li>
+
             </ul>
         </div>
         

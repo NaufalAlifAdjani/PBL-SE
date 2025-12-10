@@ -1,19 +1,9 @@
 /* =========================================
-   PAGE: USER PROFILE & DASHBOARD
+   PAGE VIEW & PROFILE STYLES (SCOPED)
    ========================================= */
 
-/* 1. Header Wrapper (Dark Background) */
-.header-wrapper-profile {
-    background-color: #1a1626; 
-    padding-bottom: 3rem; 
-    position: relative;
-    margin-top: -1px;
-    z-index: 10; 
-    overflow: visible !important; 
-}
-
-/* 2. Judul Hero */
-.hero-title-box {
+/* 1. Judul Hero Section */
+.pview-hero-box {
     text-align: center;
     padding-top: 6rem;    
     padding-bottom: 6rem; 
@@ -22,14 +12,9 @@
     z-index: 1; 
 }
 
-/* 3. Konten Utama (Overlap Effect) */
-.container[style*="margin-top: -"] {
-    position: relative;
-    z-index: 20 !important; 
-}
-
-/* 4. Profile Card (White Container) */
-.profile-card {
+/* 2. Kartu Utama (Sidebar & Content Wrapper) */
+/* Menggunakan prefix .pview-card agar tidak konflik dengan card bootstrap */
+.pview-card {
     background: linear-gradient(180deg, #3b0764 0%, #4c1d95 100%) !important;
     border-radius: 12px;
     border: 1px solid #e5e7eb; 
@@ -39,62 +24,75 @@
     position: relative;
 }
 
-/* 5. Sidebar Wrapper (Sticky) */
-.sidebar-wrapper {
+/* 3. Sidebar Wrapper (Sticky Position) */
+.pview-sidebar-wrapper {
     position: sticky;      
     top: 100px;            
     z-index: 30; 
 }
 
-/* 6. Sidebar Menu */
-.sidebar-header {
+/* 4. Sidebar Header */
+.pview-sidebar-header {
     padding: 15px 20px;
-    background-color: linear-gradient(180deg, #3b0764 0%, #4c1d95 100%) !important;;
-    border-bottom: 1px solid #eee;
+    /* Background diambil dari parent, tapi ditegaskan kembali jika perlu */
+    background: transparent; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Diperhalus border-nya */
     font-weight: 700;
     font-size: 1.1rem;
     color: #ffffff;
 }
 
-.sidebar-menu a {
+/* 5. Sidebar Menu Items */
+.pview-sidebar-menu a {
     display: block;
     padding: 12px 20px;
     color: #ffffff;
     text-decoration: none;
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid rgba(243, 244, 246, 0.1); /* Transparansi agar blend dengan ungu */
     transition: all 0.2s;
     font-weight: 500;
 }
 
-.sidebar-menu a:hover {
+.pview-sidebar-menu a:hover {
     background-color: #f9fafb;
-    color: #8b5cf6;
+    color: #8b5cf6; /* Ungu terang saat hover */
     padding-left: 25px;
 }
 
-.sidebar-menu a.active {
+.pview-sidebar-menu a.active {
     background-color: #f3f4f6;
     color: #8b5cf6;
     font-weight: 700;
     border-left: 4px solid #8b5cf6;
 }
 
-/* 7. Content Area */
-.content-area {
+/* 6. Content Area Specifics */
+/* Class tambahan untuk membedakan kartu konten dengan kartu sidebar */
+.pview-content-area {
     padding: 40px;
     min-height: 400px; 
 }
-.content-title-line {
+
+.pview-content-title-line {
     border-bottom: 2px solid #f3f4f6;
     padding-bottom: 15px;
     margin-bottom: 25px;
 }
-.content-title-line h2 {
+
+.pview-content-title-line h2 {
     font-weight: 800;
     color: #ffffff;
     margin: 0;
 }
-.content-body {
+
+/* 7. Typography Body Content */
+.pview-content-body {
     color: #ffffff;
     line-height: 1.7;
+}
+
+/* Utility: Fix overlap issue jika ada margin negatif di container utama */
+.pview-relative-container {
+    position: relative;
+    z-index: 20 !important;
 }

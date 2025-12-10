@@ -4,30 +4,37 @@ include 'includes/header.php';
 ?>
 
 <style>
-    /* Fix Video agar responsif */
-    .content-body iframe, .content-body object, .content-body embed {
-        width: 100% !important; height: auto !important; aspect-ratio: 16 / 9;
-        margin: 20px 0; border-radius: 8px; display: block;
+    .pview-content-body iframe, 
+    .pview-content-body object, 
+    .pview-content-body embed {
+        width: 100% !important; 
+        height: auto !important; 
+        aspect-ratio: 16 / 9;
+        margin: 20px 0; 
+        border-radius: 8px; 
+        display: block;
     }
 </style>
 
 <div class="banner">
     <?php if ($data): ?>
-    <div class="container hero-title-box">
+    <div class="container pview-hero-box">
         <h1><?php echo htmlspecialchars($data['title']); ?></h1>
     </div>
     <?php endif; ?>
 </div>
 
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 pview-relative-container">
     <?php if ($data): ?>
-        <div class="row g-5"> <div class="col-lg-3 d-none d-lg-block">
-                <div class="sidebar-wrapper sticky-top" style="top: 100px; z-index: 10;">
-                    <div class="profile-card">
-                        <div class="sidebar-header">
+        <div class="row g-5"> 
+            
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="pview-sidebar-wrapper">
+                    <div class="pview-card">
+                        <div class="pview-sidebar-header">
                             Menu Profile
                         </div>
-                        <div class="sidebar-menu">
+                        <div class="pview-sidebar-menu">
                             <?php
                             if (!empty($sidebar_items)) {
                                 foreach ($sidebar_items as $item) {
@@ -45,8 +52,8 @@ include 'includes/header.php';
             </div>
 
             <div class="col-lg-9">
-                <div class="profile-card content-area">
-                    <div class="content-body">
+                <div class="pview-card pview-content-area">
+                    <div class="pview-content-body">
                         <?php echo $data['content']; ?>
                     </div>
                 </div>

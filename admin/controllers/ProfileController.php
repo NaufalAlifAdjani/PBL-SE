@@ -12,9 +12,26 @@ class ProfileController
     }
 
     // --- Halaman List ---
+// --- Halaman List ---
     public function index()
     {
-        $result = $this->model->getAllProfiles();
+        // 1. Ambil Resource dari Model
+        $result_resource = $this->model->getAllProfiles();
+
+        // 2. Konversi Resource menjadi Array Asosiatif
+        $profiles = pg_fetch_all($result_resource);
+
+        // 3. Jaga-jaga jika database kosong (agar tidak error di View)
+        if (!$profiles) {
+            $profiles = [];
+        }
+
+        // --- DEBUGGING (OPSIONAL) ---
+        // Uncomment 2 baris di bawah ini untuk melihat isi data asli dari database
+        // echo "<pre>"; print_r($profiles); echo "</pre>"; die();
+
+        // 4. Kirim variabel $profiles ke View
+        // Pastikan di View kamu mengubah loop-nya menjadi foreach ($profiles as ...)
         include __DIR__ . '/../views/manage_profile_view.php';
     }
 
@@ -74,10 +91,12 @@ class ProfileController
     }
 
     // --- Proses Hapus ---
-    public function delete($id)
+    public function delete($id) 
     {
         if ($id) {
-            $result = $this->model->deleteProfile($id);
+            // Cukup kirim ID saja, biarkan Model yang mencari judulnya untuk log (sesuai logika di Model kamu)
+            $result = $this->model->deleteProfile($id); 
+            
             if ($result) {
                 header("Location: manage_profile.php?status=deleted");
             } else {

@@ -15,12 +15,18 @@ $active_tab = $_GET['tab'] ?? 'dosen';
     
     <div class="container-fluid py-4" id="personil-admin">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold m-0">Manajemen Personil</h2>
+            <h2 class="fw-bold m-0">Manage Personil</h2>
         </div>
         
         <div class="card card-admin mb-4">
             <div class="card-body p-3">
+                <div class="col-md-auto ms-auto ps-2 mb-3">
+                    <a href="manage_personil.php?action=form" class="btn btn-primary-admin">
+                        <i class="bi bi-plus-lg me-2"></i>Tambah Dosen
+                    </a>
+                </div>                
                 <form action="" method="GET">
+                    
                     <input type="hidden" name="tab" id="current_tab_input" value="<?= htmlspecialchars($active_tab) ?>">
 
                     <div class="row g-2">
@@ -51,12 +57,6 @@ $active_tab = $_GET['tab'] ?? 'dosen';
                                 <a href="manage_personil.php?tab=<?= $active_tab ?>" class="btn btn-outline-danger" title="Reset Filter"><i class="bi bi-x-lg"></i></a>
                             </div>
                         <?php endif; ?>
-
-                        <div class="col-md-auto ms-auto ps-2">
-                            <a href="manage_personil.php?action=form" class="btn btn-primary-admin">
-                                <i class="bi bi-plus-lg me-2"></i>Tambah Dosen
-                            </a>
-                        </div>
                     </div>
                 </form>
             </div>

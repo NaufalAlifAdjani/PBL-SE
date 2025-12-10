@@ -5,14 +5,16 @@
         <h2 class="fw-bold text-dark mb-0"><?= $page_title ?></h2>
         <p class="text-muted small mb-0">Kelola semua data portofolio Anda di sini.</p>
     </div>
-    <a href="manage_portofolio.php?action=add" class="btn btn-primary-admin shadow-sm">
-        <i class="bi bi-plus-lg"></i> Tambah Data
-    </a>
 </div>
 
 <div class="card shadow-sm border-0 mb-3">
     <div class="card-body p-3">
         <form method="GET" action="manage_portofolio.php">
+                        <div class="col-md-auto ms-auto ps-2 mb-3">
+                <a href="manage_portofolio.php?action=add" class="btn btn-primary-admin">
+                    <i class="bi bi-plus-lg me-2"></i>Tambah Data
+                </a>
+            </div>  
             <div class="row g-2">
                 <div class="col-md-3">
                     <select name="kategori" class="form-select form-select-sm" onchange="this.form.submit()">
@@ -99,17 +101,11 @@
                             <span class="badge bg-light text-dark border fw-normal"><?= ucfirst($row['kategori']) ?></span>
                         </td>
                         <td><small class="text-muted"><?= $row['penulis'] ?></small></td>
-                        <td class="text-end pe-4">
-                            <div class="btn-group" role="group">
-                                <a href="manage_portofolio.php?action=edit&id=<?= $row['id_portofolio'] ?>" class="btn btn-sm btn-outline-secondary" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <a href="manage_portofolio.php?action=delete&id=<?= $row['id_portofolio'] ?>" 
+                        <td class="text-end px-4">
+                            <a href="manage_portofolio.php?action=edit&id=<?= $row['id_portofolio'] ?>" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square"></i></a>
+                            <a href="manage_portofolio.php?action=delete&id=<?= $row['id_portofolio'] ?>" 
                                    class="btn btn-sm btn-outline-danger"
-                                   onclick="return confirm('Yakin ingin menghapus?')" title="Hapus">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            </div>
+                                   onclick="return confirm('Yakin ingin menghapus?')" title="Hapus"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
