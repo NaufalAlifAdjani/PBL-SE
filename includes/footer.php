@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="text-end mt-5">
-                    <a href="/PBL-SE/admin/views/login.php" class="btn btn-login">
+                    <a href="https://localhost/PBL-TRY/PBL-SE/admin/views/login.php" class="btn btn-login">
                         Login Admin
                     </a>
                 </div>

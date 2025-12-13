@@ -87,7 +87,7 @@ if ($result_status && pg_num_rows($result_status) > 0) {
                                 $slug = htmlspecialchars($row['slug']);
                                 // Cek slug URL untuk active state di dropdown item (opsional)
                                 $isActiveItem = (isset($_GET['slug']) && $_GET['slug'] == $slug) ? 'active-item' : '';
-                                echo "<li><a class='dropdown-item $isActiveItem' href='/PBL-SE/page.php?slug={$slug}'>{$title}</a></li>";
+                                echo "<li><a class='dropdown-item $isActiveItem' href='https://localhost/PBL-TRY/PBL-SE/page.php?slug={$slug}'>{$title}</a></li>";
                             }
                         } else {
                             echo "<li><a class='dropdown-item' href='#'>Belum ada menu</a></li>";
@@ -97,21 +97,21 @@ if ($result_status && pg_num_rows($result_status) > 0) {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($current_page == 'portofolio.php') ? 'active' : ''; ?>" href="/PBL-SE/portofolio.php">Portofolio</a>
+                    <a class="nav-link <?php echo ($current_page == 'portofolio.php') ? 'active' : ''; ?>" href="https://localhost/PBL-TRY/PBL-SE/portofolio.php">Portofolio</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($current_page == 'personil.php') ? 'active' : ''; ?>" href="/PBL-SE/personil.php">Personil</a>
+                    <a class="nav-link <?php echo ($current_page == 'personil.php') ? 'active' : ''; ?>" href="https://localhost/PBL-TRY/PBL-SE/personil.php">Personil</a>
                 </li>
 
                 <?php if ($is_recruitment_open): ?>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($current_page == 'pendaftaran.php' || $current_page == 'recruitment.php') ? 'active' : ''; ?>" href="/PBL-SE/pendaftaran.php">Recruitment</a>
+                        <a class="nav-link <?php echo ($current_page == 'pendaftaran.php' || $current_page == 'recruitment.php') ? 'active' : ''; ?>" href="https://localhost/PBL-TRY/PBL-SE/pendaftaran.php">Recruitment</a>
                     </li>
                 <?php endif; ?>
 
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>" href="/PBL-SE/blog.php">Blog</a>
+                    <a class="nav-link <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>" href="https://localhost/PBL-TRY/PBL-SE/blog.php">Blog</a>
                 </li>
 
             </ul>

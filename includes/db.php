@@ -4,7 +4,7 @@ $host = "localhost";
 $port = "5432";
 $dbname = "web_se"; // Ganti dengan nama database-mu
 $user = "postgres"; // User default Postgres
-$password = "secret"; // Ganti dengan password-mu
+$password = "passwordbaru"; // Ganti dengan password-mu
 
 // String koneksi
 $conn_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password}";
