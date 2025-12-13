@@ -62,6 +62,75 @@
     padding: 10px 0; border-radius: 8px; font-weight: 600; font-size: 0.95rem;
 }
 
+/* =========================================
+   2.1 FILTER KATEGORI (MODERN PILLS)
+   ========================================= */
+
+/* Container agar tombol tidak nempel */
+.blog-filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px; /* Jarak antar tombol */
+    margin-bottom: 2rem;
+}
+
+/* Style Dasar Tombol (Reset Style Bootstrap) */
+.btn-custom-filter {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Jarak icon dan teks */
+    
+    padding: 12px 30px;
+    border-radius: 50px; /* Bulat Pill */
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Hapus border default/outline */
+    border: 2px solid transparent; 
+    outline: none;
+}
+
+/* --- STATE: INACTIVE (Tidak Diklik) --- 
+   Tampilan: Background Putih, Teks Abu Gelap, Border Tipis.
+   Tujuannya: Bersih & High Contrast dengan background halaman.
+*/
+.btn-custom-filter.inactive {
+    background-color: #ffffff;
+    color: #4b5563; /* Abu-abu gelap (Slate-600) */
+    border-color: #e5e7eb; /* Border abu tipis */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03); /* Bayangan sangat halus */
+}
+
+.btn-custom-filter.inactive:hover {
+    background-color: #f9fafb;
+    color: var(--blog-primary); /* Ungu saat dihover */
+    border-color: #d1d5db;
+    transform: translateY(-2px); /* Efek naik sedikit */
+}
+
+/* --- STATE: ACTIVE (Sedang Diklik) --- 
+   Tampilan: Gradient Ungu, Teks Putih, Glowing.
+   Tujuannya: Menonjol seperti tombol Navbar.
+*/
+.btn-custom-filter.active {
+    background: var(--blog-primary-gradient); /* Pakai variabel global */
+    color: #ffffff !important; /* Wajib putih */
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4); /* Glow Ungu */
+    transform: translateY(-1px);
+}
+
+/* Fix Icon size */
+.btn-custom-filter i {
+    font-size: 1.1em;
+}
 
 /* =========================================
    3. HALAMAN DETAIL (blog_detail_view.php)

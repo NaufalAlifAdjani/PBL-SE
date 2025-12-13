@@ -6,26 +6,10 @@ class PortofolioModel {
         $this->conn = $dbConnection;
     }
 
-    // Ambil data dengan filter (Search, Kategori, Tahun)
-    public function getFiltered($filters = []) {
+    // [MODIFIKASI] Tambahkan parameter $limit dan $offset
+    public function getFiltered($filters = [], $limit = 10, $offset = 0) {
         $query = "SELECT * FROM portofolio";
-        $conditions = [];
-
-        if (!empty($filters['kategori'])) {
-            $kat = pg_escape_string($this->conn, $filters['kategori']);
-            $conditions[] = "kategori = '$kat'";
-        }
-
-        if (!empty($filters['tahun'])) {
-            $thn = pg_escape_string($this->conn, $filters['tahun']);
-            $conditions[] = "tahun = '$thn'";
-        }
-
-        if (!empty($filters['search'])) {
-            $search = pg_escape_string($this->conn, $filters['search']);
-            // PostgreSQL ILIKE agar case-insensitive (huruf besar/kecil dianggap sama)
-            $conditions[] = "(judul ILIKE '%$search%' OR penulis ILIKE '%$search%')";
-        }
+        $conditions = $this->buildConditions($filters); // Pindahkan logika WHERE ke fungsi helper
 
         if (count($conditions) > 0) {
             $query .= " WHERE " . implode(' AND ', $conditions);
@@ -33,9 +17,43 @@ class PortofolioModel {
 
         $query .= " ORDER BY id_portofolio DESC";
         
+        // Tambahkan LIMIT dan OFFSET untuk pagination
+        $query .= " LIMIT $limit OFFSET $offset";
+        
         $result = pg_query($this->conn, $query);
-        // pg_fetch_all mengembalikan array atau false jika kosong
         return pg_fetch_all($result) ?: []; 
+    }
+
+    // [BARU] Hitung total data berdasarkan filter (untuk menentukan jumlah halaman)
+    public function countFiltered($filters = []) {
+        $query = "SELECT COUNT(*) as total FROM portofolio";
+        $conditions = $this->buildConditions($filters);
+
+        if (count($conditions) > 0) {
+            $query .= " WHERE " . implode(' AND ', $conditions);
+        }
+
+        $result = pg_query($this->conn, $query);
+        $row = pg_fetch_assoc($result);
+        return $row['total'];
+    }
+
+    // [HELPER] Memisahkan logika kondisi agar bisa dipakai di getFiltered & countFiltered
+    private function buildConditions($filters) {
+        $conditions = [];
+        if (!empty($filters['kategori'])) {
+            $kat = pg_escape_string($this->conn, $filters['kategori']);
+            $conditions[] = "kategori = '$kat'";
+        }
+        if (!empty($filters['tahun'])) {
+            $thn = pg_escape_string($this->conn, $filters['tahun']);
+            $conditions[] = "tahun = '$thn'";
+        }
+        if (!empty($filters['search'])) {
+            $search = pg_escape_string($this->conn, $filters['search']);
+            $conditions[] = "(judul ILIKE '%$search%' OR penulis ILIKE '%$search%' OR penulis_anggota ILIKE '%$search%')";
+        }
+        return $conditions;
     }
 
     // Ambil list kategori unik untuk dropdown
@@ -68,11 +86,12 @@ class PortofolioModel {
     public function insert($data) {
         $judul = pg_escape_string($this->conn, $data['judul']);
         $penulis = pg_escape_string($this->conn, $data['penulis']);
+        $anggota = pg_escape_string($this->conn, $data['penulis_anggota']);
         $deskripsi = pg_escape_string($this->conn, $data['deskripsi']);
         $link = pg_escape_string($this->conn, $data['link_eksternal']);
         
-        $query = "INSERT INTO portofolio (judul, kategori, tahun, penulis, deskripsi, link_eksternal, gambar) 
-                  VALUES ('$judul', '{$data['kategori']}', '{$data['tahun']}', '$penulis', '$deskripsi', '$link', '{$data['gambar']}')";
+        $query = "INSERT INTO portofolio (judul, kategori, tahun, penulis, penulis_anggota, deskripsi, link_eksternal, gambar) 
+                  VALUES ('$judul', '{$data['kategori']}', '{$data['tahun']}', '$penulis', '$anggota', '$deskripsi', '$link', '{$data['gambar']}')";
         return pg_query($this->conn, $query);
     }
 
@@ -80,12 +99,13 @@ class PortofolioModel {
         $id = $data['id_portofolio'];
         $judul = pg_escape_string($this->conn, $data['judul']);
         $penulis = pg_escape_string($this->conn, $data['penulis']);
+        $anggota = pg_escape_string($this->conn, $data['penulis_anggota']);
         $deskripsi = pg_escape_string($this->conn, $data['deskripsi']);
         $link = pg_escape_string($this->conn, $data['link_eksternal']);
 
         $query = "UPDATE portofolio SET 
                   judul='$judul', kategori='{$data['kategori']}', tahun='{$data['tahun']}', 
-                  penulis='$penulis', deskripsi='$deskripsi', link_eksternal='$link'";
+                  penulis='$penulis', penulis_anggota='$anggota', deskripsi='$deskripsi', link_eksternal='$link'";
 
         if (!empty($data['gambar'])) {
             $query .= ", gambar='{$data['gambar']}'";

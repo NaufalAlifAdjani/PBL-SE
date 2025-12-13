@@ -1,11 +1,11 @@
 <?php
-include_once 'models/GeeksModel.php';
+include_once 'models/RecruitmentModel.php';
 
-class GeeksController {
+class RecruitmentController {
     private $model;
 
     public function __construct($db) {
-        $this->model = new GeeksModel($db);
+        $this->model = new RecruitmentModel($db);
     }
 
     public function index() {
@@ -45,7 +45,7 @@ class GeeksController {
 
         // 4. Load View (Kirim variabel yang sudah matang)
         // Variabel $data_pending, $data_diterima, dll otomatis bisa diakses di view
-        include 'views/manage_geeks_views.php';
+        include 'views/manage_recruitment_views.php';
     }
 }
 ?>

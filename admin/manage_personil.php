@@ -1,12 +1,12 @@
 <?php
 // --- 1. INISIALISASI (Tanpa Output HTML) ---
 include '../includes/db.php'; // Koneksi DB dulu
-require_once __DIR__ . '/models/LogModel.php';
-require_once __DIR__ . '/models/personil_model.php';
-require_once __DIR__ . '/controllers/personil_controller.php';
+require_once __DIR__ . '/models/ActivityLogModel.php';
+require_once __DIR__ . '/models/PersonilModel.php';
+require_once __DIR__ . '/controllers/PersonilController.php';
 
 $action = $_GET['action'] ?? 'index';
-$controller = new personil_controller($conn);
+$controller = new PersonilController($conn);
 
 // --- 2. LOGIKA PROSES (Database Only - Redirects) ---
 // Bagian ini TIDAK BOLEH ada HTML header/footer

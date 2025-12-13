@@ -91,14 +91,16 @@ $current_page = basename($_SERVER['SCRIPT_NAME']);
                     <i class="bi bi-person-vcard-fill"></i> Manage Profile
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link <?php echo ($current_page == 'activity_logs.php') ? 'active' : ''; ?>" href="activity_logs.php">
-                    <i class="bi bi-activity"></i> Activity Logs
-                </a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link <?php echo ($current_page == 'manage_portofolio.php') ? 'active' : ''; ?>" href="manage_portofolio.php">
                 <i class="bi bi-briefcase-fill"></i> Manage Portofolio
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($current_page == 'activity_logs.php') ? 'active' : ''; ?>" href="activity_logs.php">
+                    <i class="bi bi-activity"></i> Activity Logs
                 </a>
             </li>
             <li class="sidebar-footer mt-auto">

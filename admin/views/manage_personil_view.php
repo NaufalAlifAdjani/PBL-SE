@@ -105,7 +105,7 @@ $active_tab = $_GET['tab'] ?? 'dosen';
                                                     <div class="fw-bold text-dark"><?= htmlspecialchars($d['nama_dosen'] ?? ''); ?></div>
                                                     <small class="text-muted"><?= htmlspecialchars($d['email_dosen'] ?? '-'); ?></small>
                                                 </td>
-                                                <td><span class="badge bg-info text-dark"><?= htmlspecialchars($d['jabatan'] ?? '-'); ?></span></td>
+                                                <td><span class="badge bg-success text-white"><?= htmlspecialchars($d['jabatan'] ?? '-'); ?></span></td>
                                                 <td class="text-end px-4">
                                                     <a href="manage_personil.php?action=form&id=<?= $d['id_dosen']; ?>" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square"></i></a>
                                                     <a href="manage_personil.php?action=delete_dosen&id=<?= $d['id_dosen']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus dosen ini?');"><i class="bi bi-trash"></i></a>
@@ -149,8 +149,8 @@ $active_tab = $_GET['tab'] ?? 'dosen';
                                                     </span>
                                                 </td>
                                                 <td class="text-end px-4">
-                                                    <a href="manage_personil.php?action=form_member&id=<?= $m['id_pendaftaran_user']; ?>" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square"></i></a>
-                                                    <a href="manage_personil.php?action=delete_member&id=<?= $m['id_pendaftaran_user']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus member ini?');"><i class="bi bi-trash"></i></a>
+                                                    <a href="manage_personil.php?action=form_member&id=<?= $m['id_pendaftaran_member']; ?>" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square"></i></a>
+                                                    <a href="manage_personil.php?action=delete_member&id=<?= $m['id_pendaftaran_member']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus member ini?');"><i class="bi bi-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endwhile; ?>

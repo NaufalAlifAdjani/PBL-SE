@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../models/PersonilDetailModel.php';
-class PersonilDetailController
+require_once __DIR__ . '/../models/PersonilModel.php';
+class PersonilController
 {
     private $conn;
 
@@ -40,7 +40,7 @@ class PersonilDetailController
         $viewPath = __DIR__ . '/../views/personil_view.php';
 
         // 2. DATA MEMBER (pendaftaran_user)
-        $member = Peruser_model::getMemberList($this->conn);
+        $member = PersonilModel::getMemberList($this->conn);
         if (!$member) {
             die('Query member gagal: ' . pg_last_error($this->conn));
         }
@@ -90,7 +90,7 @@ class PersonilDetailController
 
         $dosen = pg_fetch_assoc($result);
         // 1) Data dosen utama (lengkap) dari model
-        $dosen = peruser_model::getDosenDetailBySlug($this->conn, $slug);
+        $dosen = PersonilModel::getDosenDetailBySlug($this->conn, $slug);
 
         if (!$dosen) {
             echo "<div class='container py-5'>
@@ -121,7 +121,7 @@ class PersonilDetailController
         // 2) Riwayat pendidikan (tabel riwayat_pendidikan)
         $pendidikan = false;
         if ($nip) {
-            $pendidikan = peruser_model::getPendidikanByNip($this->conn, $nip);
+            $pendidikan = PersonilModel::getPendidikanByNip($this->conn, $nip);
             if (!$pendidikan) {
                 $pendidikan = false;
             }
@@ -144,7 +144,7 @@ class PersonilDetailController
         // 3) Publikasi (tabel publikasi)
         $publikasi = false;
         if ($nip) {
-            $publikasi = peruser_model::getPublikasiByNip($this->conn, $nip);
+            $publikasi = PersonilModel::getPublikasiByNip($this->conn, $nip);
             if (!$publikasi) {
                 $publikasi = false;
             }

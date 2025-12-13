@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/LogModel.php';
+require_once __DIR__ . '/ActivityLogModel.php';
 
-class GeeksModel {
+class RecruitmentModel {
     private $db;
 
     public function __construct($dbConnection) {
@@ -11,7 +11,7 @@ class GeeksModel {
     // --- BARU: AMBIL LIST BATCH UNTUK DROPDOWN ---
     public function getListBatch() {
         // Ambil tahun-tahun yang ada di DB, urutkan dari yang terbaru
-        $query = "SELECT DISTINCT batch FROM pendaftaran_user ORDER BY batch DESC";
+        $query = "SELECT DISTINCT batch FROM pendaftaran_member ORDER BY batch DESC";
         return pg_query($this->db, $query);
     }
 
@@ -19,7 +19,7 @@ class GeeksModel {
     public function getAllPendaftar($batchFilter = null) {
         // Jika batch tidak dipilih, ambil batch paling baru secara otomatis
         if ($batchFilter === null) {
-            $qBatch = "SELECT DISTINCT batch FROM pendaftaran_user ORDER BY batch DESC LIMIT 1";
+            $qBatch = "SELECT DISTINCT batch FROM pendaftaran_member ORDER BY batch DESC LIMIT 1";
             $resBatch = pg_query($this->db, $qBatch);
             $rowBatch = pg_fetch_assoc($resBatch);
             $batchFilter = $rowBatch['batch'] ?? date('Y'); // Fallback tahun ini
@@ -28,22 +28,22 @@ class GeeksModel {
         $batchClean = pg_escape_string($this->db, $batchFilter);
 
         // Query Ambil Data Sesuai Batch
-        $query = "SELECT * FROM pendaftaran_user 
+        $query = "SELECT * FROM pendaftaran_member 
                   WHERE batch = '$batchClean'
-                  ORDER BY CASE WHEN status = 'Pending' THEN 1 ELSE 2 END, id_pendaftaran_user DESC";
+                  ORDER BY CASE WHEN status = 'Pending' THEN 1 ELSE 2 END, id_pendaftaran_member DESC";
         
         return pg_query($this->db, $query);
     }
 
     public function getUserById($id) {
         $id = pg_escape_string($this->db, $id);
-        $query = "SELECT * FROM pendaftaran_user WHERE id_pendaftaran_user = '$id'";
+        $query = "SELECT * FROM pendaftaran_member WHERE id_pendaftaran_member = '$id'";
         $result = pg_query($this->db, $query);
         return pg_fetch_assoc($result);
     }
 
     public function updateStatus($id, $status) {
-        $logger = new LogModel($this->db);
+        $logger = new ActivityLogModel($this->db);
         $id = pg_escape_string($this->db, $id);
         $statusClean = pg_escape_string($this->db, $status);
         
@@ -53,13 +53,13 @@ class GeeksModel {
         if ($result) {
             $user = $this->getUserById($id);
             $nama = $user['nama'] ?? 'Unknown';
-            $logger->catat('UPDATE', 'pendaftaran_user', $id, "Mengubah status $nama menjadi: $status");
+            $logger->catat('UPDATE', 'pendaftaran_member', $id, "Mengubah status $nama menjadi: $status");
         }
         return $result;
     }
 
     public function deleteUser($id) {
-        $logger = new LogModel($this->db);
+        $logger = new RecruitmentModel($this->db);
         $user = $this->getUserById($id);
         $nama = $user['nama'] ?? 'Unknown';
         $id = pg_escape_string($this->db, $id);
@@ -68,7 +68,7 @@ class GeeksModel {
         $result = pg_query($this->db, $query);
 
         if ($result) {
-            $logger->catat('DELETE', 'pendaftaran_user', $id, "Menghapus pendaftar: $nama");
+            $logger->catatLogEmail('DELETE', 'pendaftaran_member', $id, "Menghapus pendaftar: $nama");
         }
         return $result;
     }

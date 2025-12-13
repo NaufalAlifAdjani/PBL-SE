@@ -35,29 +35,6 @@ class DashboardModel {
     public function getGeeksCount() {
         return $this->getCount('pendaftaran_user', "WHERE status = 'Diterima'");
     }
-
-        // Tambahkan function ini di dalam class DashboardModel
-    public function getRecentArticles($limit = 5) {
-        // Sesuaikan 'blog_post' dengan nama tabel artikel Anda
-        // Asumsi kolom: id, title, created_at, status
-        $query = "SELECT title, date, author FROM blog ORDER BY date DESC LIMIT $limit";
-        $result = mysqli_query($this->conn, $query);
-        $rows = [];
-        while($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
-
-    public function getRecentMembers($limit = 5) {
-        // Sesuaikan 'members' dengan nama tabel personil/geeks Anda
-        $query = "SELECT nama, divisi FROM personil ORDER BY id DESC LIMIT $limit"; 
-        $result = mysqli_query($this->conn, $query);
-        $rows = [];
-        while($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
+    
 }
 ?>

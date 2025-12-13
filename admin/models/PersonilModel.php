@@ -43,8 +43,8 @@ class PersonilModel
         // 2. LOGIKA UNTUK MEMBER (Diupdate)
         if ($type === 'member') {
             // TAMBAHKAN 'angkatan' di SELECT
-            $sql = "SELECT id_pendaftaran_user, nama, nim, jurusan, portofolio, angkatan 
-                    FROM pendaftaran_user 
+            $sql = "SELECT id_pendaftaran_member, nama, nim, jurusan, portofolio, angkatan 
+                    FROM pendaftaran_member 
                     WHERE status = 'Diterima'";
 
             $params = [];
@@ -79,7 +79,7 @@ class PersonilModel
     // TAMBAHKAN FUNCTION INI DI BAWAH getList
     // Gunanya untuk mengambil daftar tahun (angkatan) yang ada di database agar dropdown filter otomatis terisi
     public function getListAngkatan() {
-        $sql = "SELECT DISTINCT angkatan FROM pendaftaran_user WHERE status='Diterima' ORDER BY angkatan DESC";
+        $sql = "SELECT DISTINCT angkatan FROM pendaftaran_member WHERE status='Diterima' ORDER BY angkatan DESC";
         return pg_query($this->conn, $sql);
     }
 
@@ -386,7 +386,7 @@ class PersonilModel
         $logger = new LogModel($this->conn); // Init Logger
 
         // Ambil data buat log (karena setelah dihapus datanya hilang)
-        $q = pg_query_params($this->conn, "SELECT nama FROM pendaftaran_user WHERE id_pendaftaran_user = $1", [$id]);
+        $q = pg_query_params($this->conn, "SELECT nama FROM pendaftaran_member WHERE id_pendaftaran_member = $1", [$id]);
         $m = pg_fetch_assoc($q);
         $nama_member = $m['nama'] ?? 'Unknown';
 
@@ -396,19 +396,19 @@ class PersonilModel
             die('Delete member gagal: ' . pg_last_error($this->conn));
         } else {
             // LOG ACTIVITY
-            $logger->catat('DELETE', 'pendaftaran_user', $id, "Menghapus member lab: $nama_member");
+            $logger->catat('DELETE', 'pendaftaran_member', $id, "Menghapus member lab: $nama_member");
         }
     }
 
     public function getMemberById($id)
     {
         $sql = "SELECT 
-                id_pendaftaran_user,
+                id_pendaftaran_member,
                 nama,
                 nim,
                 portofolio
-            FROM pendaftaran_user
-            WHERE id_pendaftaran_user = $1
+            FROM pendaftaran_member
+            WHERE id_pendaftaran_member = $1
             LIMIT 1
         ";
         $res = pg_query_params($this->conn, $sql, [$id]);
@@ -423,7 +423,7 @@ class PersonilModel
     {
         $logger = new LogModel($this->conn); // Init Logger
 
-        $sql = "UPDATE pendaftaran_user SET nama = $1, nim = $2, portofolio = $3 WHERE id_pendaftaran_user = $4";
+        $sql = "UPDATE pendaftaran_member SET nama = $1, nim = $2, portofolio = $3 WHERE id_pendaftaran_member = $4";
         $params = [$nama, $nim, $link, $id];
 
         $res = pg_query_params($this->conn, $sql, $params);
@@ -432,7 +432,7 @@ class PersonilModel
             die('Update member gagal: ' . pg_last_error($this->conn));
         } else {
             // LOG ACTIVITY
-            $logger->catat('UPDATE', 'pendaftaran_user', $id, "Mengupdate data member: $nama");
+            $logger->catat('UPDATE', 'pendaftaran_member', $id, "Mengupdate data member: $nama");
         }
     }
 }

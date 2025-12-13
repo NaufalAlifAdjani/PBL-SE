@@ -52,9 +52,9 @@ include 'includes/header_admin.php';
                         </td>
                         <td class="px-4">
                             <?php if ($row['is_published'] == 't'): ?>
-                                <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">Published</span>
+                                <span class="badge bg-success text-white px-3 py-2 rounded-pill">Published</span>
                             <?php else: ?>
-                                <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-pill">Draft</span>
+                                <span class="badge bg-secondary text-secondary px-3 py-2 rounded-pill">Draft</span>
                             <?php endif; ?>
                         </td>
                         <td class="text-end px-4">

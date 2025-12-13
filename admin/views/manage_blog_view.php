@@ -52,7 +52,7 @@
                             <tr>
                                 <td class="px-4">
                                     <h6 class="fw-bold mb-1 text-dark text-decoration-none">
-                                        <?php echo substr(strip_tags($row['isi_konten']), 0, 50) . '...';?>
+                                        <?php echo substr(strip_tags($row['judul']), 0, 50) . '...';?>
                                     </h6>
                                     <small class="text-muted">
                                         <?php echo substr(strip_tags($row['isi_konten']), 0, 30) . '...'; ?>
@@ -91,5 +91,37 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="d-flex justify-content-end mt-3">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                
+                <?php
+                // Fungsi bantu untuk menjaga parameter URL (search & status) saat pindah halaman
+                function build_url($page) {
+                    $params = $_GET;
+                    $params['page'] = $page;
+                    return '?' . http_build_query($params);
+                }
+                ?>
+
+                <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+                    <a class="page-link" href="<?php echo ($page <= 1) ? '#' : build_url($page - 1); ?>">Previous</a>
+                </li>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+                        <a class="page-link" href="<?php echo build_url($i); ?>">
+                            <?php echo $i; ?>
+                        </a>
+                    </li>
+                <?php endfor; ?>
+
+                <li class="page-item <?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
+                    <a class="page-link" href="<?php echo ($page >= $total_pages) ? '#' : build_url($page + 1); ?>">Next</a>
+                </li>
+
+            </ul>
+        </nav>
     </div>
 </div>

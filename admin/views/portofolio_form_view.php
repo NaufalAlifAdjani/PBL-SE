@@ -40,8 +40,16 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-semibold">Penulis / Tim</label>
-                <input type="text" name="penulis" class="form-control" value="<?= htmlspecialchars($data['penulis'] ?? '') ?>" required>
+                <label class="form-label">Penulis Utama</label>
+                <input type="text" name="penulis" class="form-control" value="<?= $data['penulis'] ?? '' ?>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Anggota Tim (Opsional)</label>
+                <input type="text" name="penulis_anggota" class="form-control" 
+                    value="<?= $data['penulis_anggota'] ?? '' ?>" 
+                    placeholder="Contoh: Budi, Siti, Asep">
+                <div class="form-text text-muted">Pisahkan nama anggota dengan koma.</div>
             </div>
 
             <div class="mb-3">
@@ -60,7 +68,7 @@
                 <input type="file" name="gambar" class="form-control" accept="image/*">
             </div>
 
-            <button type="submit" class="btn btn-primary">Simpan Portofolio</button>
+            <button type="submit" class="btn btn-primary-admin">Simpan</button>
         </form>
     </div>
 </div>

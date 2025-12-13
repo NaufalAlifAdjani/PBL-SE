@@ -10,7 +10,7 @@
         
         // --- LOGIC ALERT SUKSES/GAGAL (Setelah Redirect) ---
         const urlParams = new URLSearchParams(window.location.search);
-        const status = urlParams.get('status');
+        const status = urlParams.get('msg_status');
         const msg = urlParams.get('msg');
 
         if (status) {

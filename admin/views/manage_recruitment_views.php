@@ -109,10 +109,10 @@
                                     </td>
 
                                     <td class="text-end pe-4">
-                                        <a href="manage_recruitment.php?action=approve&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-success shadow-sm">
+                                        <a href="manage_recruitment.php?action=approve&id=<?php echo $row['id_pendaftaran_member']; ?>" class="btn btn-sm btn-success shadow-sm">
                                             <i class="bi bi-check-lg"></i> Terima
                                         </a>
-                                        <a href="manage_recruitment.php?action=reject&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-outline-danger shadow-sm" onclick="return confirmAction('Yakin tolak?')">
+                                        <a href="manage_recruitment.php?action=reject&id=<?php echo $row['id_pendaftaran_member']; ?>" class="btn btn-sm btn-outline-danger shadow-sm" onclick="return confirmAction('Yakin tolak?')">
                                             <i class="bi bi-x-lg"></i> Tolak
                                         </a>
                                     </td>
@@ -153,7 +153,7 @@
                                 <td><?php echo htmlspecialchars($row['jurusan']); ?></td>
                                 <td><span class="badge badge-soft-success">Aktif</span></td>
                                 <td class="text-end pe-4">
-                                    <a href="manage_recruitment.php?action=delete&id=<?php echo $row['id_pendaftaran_user']; ?>" class="btn btn-sm btn-light text-danger" onclick="return confirmAction('Hapus member ini?')">
+                                    <a href="manage_recruitment.php?action=delete&id=<?php echo $row['id_pendaftaran_member']; ?>" class="btn btn-sm btn-light text-danger" onclick="return confirm('Hapus member ini?')">
                                         <i class="bi bi-trash"></i> Hapus
                                     </a>
                                 </td>
@@ -188,7 +188,7 @@
                                 <td><?php echo htmlspecialchars($row['nim']); ?></td>
                                 <td><span class="badge bg-secondary">Ditolak</span></td>
                                 <td class="text-end pe-4">
-                                    <a href="manage_recruitment.php?action=delete&id=<?php echo $row['id_pendaftaran_user']; ?>" class="text-danger" onclick="return confirmAction('Hapus permanen?')">
+                                    <a href="manage_recruitment.php?action=delete&id=<?php echo $row['id_pendaftaran_member']; ?>" class="text-danger" onclick="return confirmAction('Hapus permanen?')">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>
