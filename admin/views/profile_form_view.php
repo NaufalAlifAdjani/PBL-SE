@@ -31,7 +31,12 @@ include 'includes/header_admin.php';
                 <div class="col-md-4">
                     <div class="mb-3">
                         <label for="menu_group" class="form-label fw-semibold">Grup Menu</label>
-                        <input type="text" class="form-control" id="menu_group" name="menu_group" value="<?php echo htmlspecialchars($data['menu_group'] ?? 'profile_dropdown'); ?>">
+                        <input type="text" 
+                            class="form-control bg-light" 
+                            id="menu_group" 
+                            name="menu_group" 
+                            value="profile_dropdown" 
+                            readonly>
                     </div>
                     <div class="mb-3">
                         <label for="display_order" class="form-label fw-semibold">Urutan</label>
@@ -51,7 +56,7 @@ include 'includes/header_admin.php';
                 <label class="form-check-label" for="is_published">Publikasikan Halaman</label>
             </div>
 
-            <button type="submit" class="btn btn-primary-admin">Simpan Halaman</button>
+            <button type="submit" class="btn btn-primary-admin">Simpan</button>
         </form>
     </div>
 </div>

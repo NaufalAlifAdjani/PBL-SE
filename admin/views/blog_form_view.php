@@ -16,7 +16,19 @@
                 <label class="form-label fw-bold">Judul Artikel</label>
                 <input type="text" class="form-control" name="judul" value="<?php echo htmlspecialchars($judul); ?>" required>
             </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Jenis Postingan</label>
+                <select class="form-select" name="kategori">
+                    <option value="Artikel" <?php echo ($kategori == 'Artikel') ? 'selected' : ''; ?>>Artikel Blog Biasa</option>
+                    <option value="Produk Inovasi" <?php echo ($kategori == 'Produk Inovasi') ? 'selected' : ''; ?>>⭐ Produk Inovasi (Portofolio)</option>
+                </select>
+            </div>
 
+            <div class="mb-3">
+                <label class="form-label fw-bold">Tags / Kata Kunci</label>
+                <input type="text" class="form-control" name="tags" value="<?php echo htmlspecialchars($tags); ?>" placeholder="Contoh: IoT, Pertanian, AI (Pisahkan koma)">
+                <small class="text-muted">Gunakan koma untuk memisahkan.</small>
+            </div>
             <div class="mb-3">
                 <label class="form-label fw-bold">Isi Konten</label>
                 <textarea class="form-control" id="editor_content" name="isi_konten" rows="10"><?php echo htmlspecialchars($isi_konten); ?></textarea>
@@ -48,8 +60,8 @@
                 </div>
             </div>
 
-            <div class="text-end mt-3">
-                <button type="submit" class="btn btn-primary btn-lg"> Simpan</button>
+            <div class="text-start mt-3">
+                <button type="submit" class="btn btn-primary-admin btn-lg"> Simpan</button>
             </div>
         </form>
     </div>

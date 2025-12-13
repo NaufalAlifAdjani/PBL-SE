@@ -321,7 +321,7 @@ html {
 
 /* Card Publikasi */
 .card-publikasi {
-    background: linear-gradient(135deg, #181028, #4c1d95);
+    background: linear-gradient(135deg, #181028, #4c1d95) !important;
     color: #ffffff;
     border-radius: 20px;
     border: none;

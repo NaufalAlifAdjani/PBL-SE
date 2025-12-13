@@ -209,11 +209,11 @@ body {
 
 /* Style untuk link utama yang sedang aktif */
 .navbar-nav .nav-link.active {
-    background: var(--gradient-btn); /* Menggunakan variabel gradasi ungu kamu */
+    /* background: var(--gradient-btn); Menggunakan variabel gradasi ungu kamu */
     color: #ffffff !important;       /* Teks jadi putih */
     font-weight: 600;
-    border-radius: 50px;             /* Bentuk bulat/capsule */
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); /* Efek glow */
+    /* border-radius: 50px;             Bentuk bulat/capsule */
+    /* box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); Efek glow */
     text-shadow: none;               /* Hilangkan shadow teks default */
     padding: 8px 20px !important;    /* Sedikit lebih lebar */
     transition: all 0.3s ease;
@@ -227,8 +227,8 @@ body {
 
 /* Style tambahan saat hover pada menu aktif (biar makin nyala) */
 .navbar-nav .nav-link.active:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.8);
+    /* transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.8); */
 }
 
 /* Opsional: Style untuk item di dalam Dropdown jika aktif (page.php?slug=...) */
@@ -298,3 +298,27 @@ footer .btn-login { font-size: 0.8rem; padding: 6px 20px; }
     .dropdown-item { color: rgba(255, 255, 255, 0.6); }
     .dropdown-item:hover { background: transparent; color: var(--accent-glow); }
 }
+
+    /* 1. Mengubah warna teks angka biasa menjadi Ungu */
+    .page-link {
+        color: #6f42c1; /* Kode warna ungu */
+    }
+
+    /* 2. Mengubah Background halaman yang sedang AKTIF menjadi Ungu */
+    .page-item.active .page-link {
+        background-color: #6f42c1 !important; /* Background Ungu */
+        border-color: #6f42c1 !important;     /* Border Ungu */
+        color: white !important;              /* Teks Putih */
+    }
+
+    /* 3. Efek saat mouse diarahkan (Hover) */
+    .page-link:hover {
+        color: #4b2c85; /* Ungu lebih gelap saat di-hover */
+        background-color: #e9ecef;
+        border-color: #dee2e6;
+    }
+
+    /* 4. Mengubah warna tombol Previous/Next jika disabled (opsional, biar rapi) */
+    .page-item.disabled .page-link {
+        color: #6c757d;
+    }

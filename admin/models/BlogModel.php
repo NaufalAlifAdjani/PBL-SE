@@ -7,18 +7,39 @@ class BlogModel {
         $this->db = $conn;
     }
 
+    public function countArticles($keyword = null, $status = null) {
+        $query = "SELECT COUNT(*) as total FROM artikel a WHERE 1=1";
+        $params = [];
+        $idx = 1;
+
+        if (!empty($keyword)) {
+            $query .= " AND (a.judul ILIKE $" . $idx . " OR a.isi_konten ILIKE $" . $idx . ")";
+            $params[] = "%" . $keyword . "%";
+            $idx++;
+        }
+
+        if (!empty($status)) {
+            $query .= " AND a.status_artikel = $" . $idx;
+            $params[] = $status;
+            $idx++;
+        }
+
+        $result = pg_query_params($this->db, $query, $params);
+        $row = pg_fetch_assoc($result);
+        return $row['total'];
+    }
+
     // Mendapatkan semua artikel
-    public function getAllArticles($keyword = null, $status = null) {
-        // Query dasar
+    public function getAllArticles($keyword = null, $status = null, $limit = 10, $offset = 0) {
         $query = "SELECT a.*, ad.username
                 FROM artikel a
                 LEFT JOIN admin ad ON a.id_admin = ad.id_admin
                 WHERE 1=1";
 
         $params = [];
-        $idx = 1; // Counter untuk parameter $1, $2, dst
+        $idx = 1;
 
-        // Filter Search (Judul / Konten)
+        // Filter Search
         if (!empty($keyword)) {
             $query .= " AND (a.judul ILIKE $" . $idx . " OR a.isi_konten ILIKE $" . $idx . ")";
             $params[] = "%" . $keyword . "%";
@@ -34,9 +55,12 @@ class BlogModel {
 
         $query .= " ORDER BY a.tgl_diperbarui DESC";
 
-        // Eksekusi query PostgreSQL
+        // Tambahkan LIMIT dan OFFSET untuk pagination
+        $query .= " LIMIT $" . $idx . " OFFSET $" . ($idx + 1);
+        $params[] = $limit;
+        $params[] = $offset;
+
         $result = pg_query_params($this->db, $query, $params);
-        
         return pg_fetch_all($result) ?: [];
     }
 
@@ -56,7 +80,9 @@ class BlogModel {
                     $3::VARCHAR,
                     $4::TEXT,
                     $5::VARCHAR,
-                    $6::VARCHAR
+                    $6::VARCHAR,
+                    $7::VARCHAR,
+                    $8::VARCHAR
                   ) as new_id";
 
         $params = array(
@@ -65,7 +91,9 @@ class BlogModel {
             $data['slug'],
             $data['isi_konten'],
             $data['gambar_artikel'],
-            $data['status_artikel']
+            $data['status_artikel'],
+            $data['kategori'], // Baru
+            $data['tags']      // Baru
         );
 
         $result = pg_query_params($this->db, $query, $params);
@@ -88,8 +116,8 @@ class BlogModel {
 
         $query = "UPDATE artikel
                   SET id_admin = $1, judul = $2, slug = $3, isi_konten = $4,
-                      gambar_artikel = $5, status_artikel = $6, tgl_diperbarui = CURRENT_TIMESTAMP
-                  WHERE id_artikel = $7";
+                      gambar_artikel = $5, status_artikel = $6, kategori = $7, tags = $8, tgl_diperbarui = CURRENT_TIMESTAMP
+                  WHERE id_artikel = $9";
 
         $params = array(
             $data['id_admin'],
@@ -98,6 +126,8 @@ class BlogModel {
             $data['isi_konten'],
             $data['gambar_artikel'],
             $data['status_artikel'],
+            $data['kategori'], // Baru
+            $data['tags'],     // Baru
             $id
         );
 

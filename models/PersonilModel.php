@@ -1,6 +1,6 @@
 <?php
 
-class peruser_model
+class PersonilModel
 {
     // =============================
     // HELPER GENERIC
@@ -40,10 +40,10 @@ class peruser_model
     {
         $sql = "
             SELECT 
-                id_pendaftaran_user AS id,
+                id_pendaftaran_member AS id,
                 nama,
                 nim
-            FROM pendaftaran_user
+            FROM pendaftaran_member
             WHERE status = 'Diterima'
             ORDER BY nama ASC
         ";
@@ -154,12 +154,12 @@ class peruser_model
     public static function getMemberList($conn)
     {
         $sql = "SELECT 
-                id_pendaftaran_user,
+                id_pendaftaran_member,
                 nama,
                 nim,
                 jurusan,
                 portofolio
-            FROM pendaftaran_user
+            FROM pendaftaran_member
             WHERE status = 'Diterima'
             ORDER BY nama ASC
         ";

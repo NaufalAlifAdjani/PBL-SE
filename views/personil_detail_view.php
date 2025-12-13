@@ -140,10 +140,10 @@ $foto    = $dosen['foto_profil'] ?? '';
     </h4>
 
     <?php if ($publikasi && pg_num_rows($publikasi) > 0): ?>
-        <div class="row row-cols-1 row-cols-md-3 g-3">
+        <div class="row row-cols-1 row-cols-md-3 g-3" >
             <?php while ($pub = pg_fetch_assoc($publikasi)): ?>
-                <div class="col">
-                    <div class="card card-purple h-100 shadow">
+                <div class="col" >
+                    <div class="card card-publikasi h-100 shadow">
                         <div class="card-body d-flex flex-column p-4">
                             <div class="fw-bold mb-3" style="font-size: 1.1rem; line-height: 1.4;">
                                 <?= htmlspecialchars($pub['judul'] ?? '-') ?>

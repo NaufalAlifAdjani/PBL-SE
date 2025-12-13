@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../models/personil_model.php';
+require_once __DIR__ . '/../models/PersonilModel.php';
 
-class personil_controller
+class PersonilController
 {
     /** @var resource PostgreSQL connection */
     private $conn;
@@ -209,7 +209,7 @@ class personil_controller
             $status = 'created';
         }
 
-        header('Location: manage_personil.php?status=' . $status);
+        header('Location: manage_personil.php?msg_status=' . $status);
         exit;
     }
 
@@ -241,13 +241,13 @@ class personil_controller
     {
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         if ($id <= 0) {
-            header('Location: manage_personil.php?status=error_param');
+            header('Location: manage_personil.php?msg_status=error_param');
             exit;
         }
 
         $this->model->deleteDosenCascade($id);
 
-        header('Location: manage_personil.php?status=deleted');
+        header('Location: manage_personil.php?msg_status=deleted');
         exit;
     }
 
@@ -258,13 +258,13 @@ class personil_controller
     {
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         if ($id <= 0) {
-            header('Location: manage_personil.php?status=error_param');
+            header('Location: manage_personil.php?msg_status=error_param');
             exit;
         }
 
         $this->model->callDeleteMemberSP($id);
 
-        header('Location: manage_personil.php?status=deleted');
+        header('Location: manage_personil.php?msg_status=deleted');
         exit;
     }
 
@@ -286,7 +286,7 @@ class personil_controller
         }
 
         $member_detail = [
-            'id_member'       => $row['id_pendaftaran_user'],
+            'id_member'       => $row['id_pendaftaran_member'],
             'nama'            => $row['nama'],
             'nim'             => $row['nim'],
             'link_portofolio' => $row['portofolio'],
@@ -317,13 +317,13 @@ class personil_controller
         $link = $_POST['link_portofolio'] ?? '';
 
         if ($id <= 0) {
-            header('Location: manage_personil.php?status=error_param');
+            header('Location: manage_personil.php?msg_status=error_param');
             exit;
         }
 
         $this->model->updateMember($id, $nama, $nim, $link);
 
-        header('Location: manage_personil.php?status=updated');
+        header('Location: manage_personil.php?msg_status=updated');
         exit;
     }
 }

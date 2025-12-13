@@ -1,15 +1,11 @@
 <?php
-include 'includes/header.php';
+// 1. Koneksi DB
+include_once 'includes/db.php';
 
-// Panggil Controller
+// 2. Panggil Controller Baru
 require_once 'controllers/RecruitmentController.php';
 
-// Jalankan Controller
+// 3. Jalankan Controller
 $controller = new RecruitmentController($conn);
-$result = $controller->index();
-
-// Tampilkan View
-include 'views/recruitment_view.php';
-
-include 'includes/footer.php';
+$controller->handleRequest();
 ?>

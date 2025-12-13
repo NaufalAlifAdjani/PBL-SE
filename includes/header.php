@@ -106,7 +106,7 @@ if ($result_status && pg_num_rows($result_status) > 0) {
 
                 <?php if ($is_recruitment_open): ?>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($current_page == 'pendaftaran.php' || $current_page == 'recruitment.php') ? 'active' : ''; ?>" href="/PBL-SE/pendaftaran.php">Recruitment</a>
+                        <a class="nav-link <?php echo ($current_page == 'recruitment.php' || $current_page == 'recruitment.php') ? 'active' : ''; ?>" href="/PBL-SE/recruitment.php">Recruitment</a>
                     </li>
                 <?php endif; ?>
 

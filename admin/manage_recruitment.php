@@ -1,9 +1,9 @@
 <?php
 // --- BAGIAN 1: KONEKSI & FILE PENDUKUNG ---
 include '../includes/db.php';
-include 'models/GeeksModel.php';
+include 'models/RecruitmentModel.php';
 require_once 'services/EmailServices.php'; 
-include 'controllers/GeeksController.php';
+include 'controllers/RecruitmentController.php';
 
 // --- BAGIAN 2: LOGIKA AKSI (MENGGUNAKAN SWITCH CASE) ---
 $action = $_GET['action'] ?? '';
@@ -12,7 +12,7 @@ $id = $_GET['id'] ?? 0;
 // Kita cek id ada dulu, baru masuk switch
 if ($id) {
     // Inisialisasi Model
-    $modelAction = new GeeksModel($conn);
+    $modelAction = new RecruitmentModel($conn);
     $mailer = new EmailServices($modelAction); 
     $user = $modelAction->getUserById($id);
 
@@ -76,6 +76,6 @@ if (isset($_GET['action']) && !isset($_POST['bulk_action']) && !$id) {
 }
 
 // --- BAGIAN 3: TAMPILAN DATA ---
-$controller = new GeeksController($conn);
+$controller = new RecruitmentController($conn);
 $controller->index();
 ?>

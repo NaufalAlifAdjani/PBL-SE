@@ -11,14 +11,24 @@ class BlogController {
     // Di dalam class BlogController method index()
 
     public function index() {
-        // 1. Tangkap input dari URL (Search & Filter)
+        // 1. Tangkap Filter
         $keyword = isset($_GET['q']) ? $_GET['q'] : null;
         $status  = isset($_GET['status']) ? $_GET['status'] : null;
 
-        // 2. Minta data ke Model (Model yang akan query ke DB)
-        $artikel = $this->model->getAllArticles($keyword, $status); 
+        // 2. Konfigurasi Pagination
+        $limit = 5; // Mau tampilkan berapa baris per halaman? (sesuaikan keinginan)
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $page = ($page < 1) ? 1 : $page; // Pastikan tidak ada halaman 0 atau minus
+        $offset = ($page - 1) * $limit;
 
-        // 3. Panggil View (View hanya menampilkan $artikel)
+        // 3. Hitung Total Data (untuk tahu jumlah halaman)
+        $total_data = $this->model->countArticles($keyword, $status);
+        $total_pages = ceil($total_data / $limit);
+
+        // 4. Ambil Data Sesuai Halaman (Kirim limit & offset)
+        $artikel = $this->model->getAllArticles($keyword, $status, $limit, $offset); 
+
+        // 5. Panggil View (Kirim variabel tambahan untuk pagination)
         include 'views/manage_blog_view.php'; 
     }
 
@@ -28,6 +38,8 @@ class BlogController {
         $isi_konten = '';
         $status_artikel = 'Draft';
         $gambar_sekarang = '';
+        $kategori = 'Artikel'; // Default
+        $tags = '';            // Default
         $mode = 'create';
         $id_artikel = 0;
 
@@ -42,6 +54,8 @@ class BlogController {
                 $isi_konten = $artikel['isi_konten'];
                 $status_artikel = $artikel['status_artikel'];
                 $gambar_sekarang = $artikel['gambar_artikel'];
+                $kategori = $artikel['kategori']; // Ambil dari DB
+                $tags = $artikel['tags'];
             } else {
                 header("Location: manage_blog.php"); // Kalau data tidak ada, balik ke list
                 exit;
@@ -70,11 +84,11 @@ class BlogController {
         $hasil = $this->model->deleteArticle($id); // Hapus data dari db
 
         if ($hasil) {
-            header("Location: manage_blog.php?status=deleted"); // Redirect ke list
+            header("Location: manage_blog.php?msg_status=deleted"); // Redirect ke list
             exit;
         } else {
             // Error handling sederhana
-            header("Location: manage_blog.php?status=error");
+            header("Location: manage_blog.php?msg_status=error");
             exit;
         }
     }
@@ -84,6 +98,8 @@ class BlogController {
         $judul_post = $_POST['judul'];
         $isi_konten_post = $_POST['isi_konten'];
         $status_artikel_post = $_POST['status_artikel'];
+        $kategori_post = $_POST['kategori']; // Baru
+        $tags_post = $_POST['tags'];         // Baru
         $id_admin_post = 1;
 
         // Buat slug dari judul
@@ -115,7 +131,9 @@ class BlogController {
             'slug' => $slug_post,
             'isi_konten' => $isi_konten_post,
             'gambar_artikel' => $nama_file_gambar,
-            'status_artikel' => $status_artikel_post
+            'status_artikel' => $status_artikel_post,
+            'kategori' => $kategori_post, // Masukkan array
+            'tags' => $tags_post          // Masukkan array
         ];
 
         // Simpan/update
@@ -134,10 +152,10 @@ class BlogController {
                 $status = 'created';
             }
 
-            header("Location: manage_blog.php?status=" . $status);
+            header("Location: manage_blog.php?msg_status=" . $status);
             exit;
         } else {
-            header("Location: manage_blog.php?status=error");
+            header("Location: manage_blog.php?msg_status=error");
             exit;
         }
     }

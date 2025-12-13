@@ -54,7 +54,7 @@
                         <input type="text" name="search" class="form-control border-start-0" 
                                placeholder="Cari judul/penulis..." 
                                value="<?= htmlspecialchars($filters['search']) ?>">
-                        <button type="submit" class="btn btn-primary">Cari</button>
+                        <button type="submit" class="btn btn-secondary">Cari</button>
                     </div>
                 </div>
             </div>
@@ -72,13 +72,13 @@
                         <th width="10%">Gambar</th>
                         <th width="35%">Judul & Tahun</th>
                         <th width="20%">Kategori</th>
-                        <th width="15%">Penulis</th>
+                        <th width="15%">Tim Penulis</th>
                         <th width="15%" class="text-end pe-4">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
-                    $no = 1;
+                    $no = $offset + 1;
                     if(!empty($portofolios)):
                         foreach ($portofolios as $row) : 
                     ?>
@@ -98,9 +98,21 @@
                             <small class="text-muted"><i class="bi bi-calendar-event me-1"></i><?= $row['tahun'] ?></small>
                         </td>
                         <td>
-                            <span class="badge bg-light text-dark border fw-normal"><?= ucfirst($row['kategori']) ?></span>
+                            <span class="badge bg-success text-white border fw-normal"><?= ucfirst($row['kategori']) ?></span>
                         </td>
-                        <td><small class="text-muted"><?= $row['penulis'] ?></small></td>
+                        <td>
+                            <div class="fw-bold text-dark">
+                                <i class="bi bi-person-fill me-1"></i><?= htmlspecialchars($row['penulis']) ?>
+                            </div>
+                            
+                            <?php if(!empty($row['penulis_anggota'])): ?>
+                                <div class="text-muted small mt-1" 
+                                    title="<?= htmlspecialchars($row['penulis_anggota']) ?>"
+                                    style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; cursor: help;">
+                                    <i class="bi bi-people me-1"></i>Anggota: <?= htmlspecialchars($row['penulis_anggota']) ?>
+                                </div>
+                            <?php endif; ?>
+                        </td>
                         <td class="text-end px-4">
                             <a href="manage_portofolio.php?action=edit&id=<?= $row['id_portofolio'] ?>" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square"></i></a>
                             <a href="manage_portofolio.php?action=delete&id=<?= $row['id_portofolio'] ?>" 
@@ -116,6 +128,50 @@
             </table>
         </div>
     </div>
+    <div class="d-flex justify-content-end mt-3 mb-3">
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination pagination-sm mb-0">
+            <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">Previous</a>
+            </li>
+
+            <?php
+            // Logic untuk menampilkan nomor halaman (agar tidak terlalu panjang jika halaman banyak)
+            $start_num = max(1, $page - 2);
+            $end_num = min($total_pages, $page + 2);
+            
+            // Tampilkan halaman 1 jika jauh
+            if($start_num > 1){
+                echo '<li class="page-item"><a class="page-link" href="?'.http_build_query(array_merge($_GET, ['page' => 1])).'">1</a></li>';
+                if($start_num > 2) echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+            }
+
+            // Loop nomor halaman
+            for ($i = $start_num; $i <= $end_num; $i++): 
+                $active = ($i == $page) ? 'active' : '';
+            ?>
+                <li class="page-item <?= $active ?>">
+                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>">
+                        <?= $i ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
+
+            <?php
+            // Tampilkan halaman terakhir jika jauh
+            if($end_num < $total_pages){
+                if($end_num < $total_pages - 1) echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                echo '<li class="page-item"><a class="page-link" href="?'.http_build_query(array_merge($_GET, ['page' => $total_pages])).'">'.$total_pages.'</a></li>';
+            }
+            ?>
+
+            <li class="page-item <?= ($page >= $total_pages) ? 'disabled' : '' ?>">
+                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
 </div>
 
 <?php include 'includes/footer_admin.php'; ?>

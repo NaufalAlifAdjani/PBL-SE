@@ -33,6 +33,16 @@ class BlogController {
         //buat snippet bersih
         $article['display_date'] = date('d M Y', strtotime($article['tgl_dibuat']));
 
+        // --- TAMBAHAN BARU ---
+        $article['kategori'] = $article['kategori'] ?? 'Artikel';
+        
+        // Ubah string "IoT, Web, AI" menjadi Array ["IoT", "Web", "AI"]
+        if (!empty($article['tags'])) {
+            $article['tags_array'] = array_map('trim', explode(',', $article['tags']));
+        } else {
+            $article['tags_array'] = [];
+        }
+
         // Dianggap diedit HANYA JIKA: tgl_diperbarui tidak kosong dan tgl_diperbarui TIDAK SAMA dengan tgl_dibuat
         $tgl_buat = $article['tgl_dibuat'];
         $tgl_edit = $article['tgl_diperbarui'];
@@ -42,21 +52,47 @@ class BlogController {
         return $article;
     }
 
-    // --- MAIN METHODS ---
+    // BlogController.php
+
     public function index() {
-        // 1. Tangkap keyword dari URL (jika ada)
+        // 1. Tangkap Filter
         $searchKeyword = isset($_GET['q']) ? trim($_GET['q']) : null;
+        $categoryFilter = isset($_GET['cat']) ? trim($_GET['cat']) : null;
+        $tagFilter      = isset($_GET['tag']) ? trim($_GET['tag']) : null;
 
-        // 2. Kirim keyword ke Model
-        $rawArticles = $this->blogModel->getAllArticles($searchKeyword);
+        // --- SETUP PAGINATION ---
+        $limit = 6; // Jumlah artikel per halaman (bisa diganti misal 9 atau 12)
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        if ($page < 1) $page = 1;
+        
+        $offset = ($page - 1) * $limit;
 
-        // Proses setiap artikel untuk view
+        // 2. Panggil Model
+        // Hitung total dulu
+        $totalArticles = $this->blogModel->countArticles($searchKeyword, $categoryFilter, $tagFilter);
+        
+        // Hitung total halaman
+        $totalPages = ceil($totalArticles / $limit);
+
+        // Ambil data sesuai halaman (kirim limit & offset)
+        $rawArticles = $this->blogModel->getAllArticles($searchKeyword, $categoryFilter, $tagFilter, $limit, $offset);
+
+        // Proses view data
         $processedArticles = array_map([$this, 'prepareArticleViewData'], $rawArticles);
 
-        // Gabungkan data Layout + Data Halaman
+        // Gabungkan data
         $data = array_merge($this->getLayoutData(), [
             'articles' => $processedArticles,
-            'search_keyword' => $searchKeyword // 3. Kirim balik keyword ke View agar input tidak hilang
+            'search_keyword' => $searchKeyword,
+            'current_category' => $categoryFilter,
+            'current_tag'      => $tagFilter,
+            // Data Pagination untuk View
+            'pagination' => [
+                'current_page' => $page,
+                'total_pages'  => $totalPages,
+                'has_previous' => ($page > 1),
+                'has_next'     => ($page < $totalPages)
+            ]
         ]);
 
         require 'views/blog_view.php';
@@ -87,7 +123,9 @@ class BlogController {
                 // Gunakan display_date yang sudah kita set ke tgl_dibuat
                 'tgl'       => $processed['display_date'],
                 // Pass status edited ke view detail
-                'is_edited' => $processed['is_edited']
+                'is_edited' => $processed['is_edited'],
+                'kategori'  => $processed['kategori'], // Baru
+                'tags'      => $processed['tags_array'] // Baru
             ];
         }
 

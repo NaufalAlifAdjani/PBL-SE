@@ -6,11 +6,46 @@ class ActivityLogModel {
         $this->conn = $dbConnection;
     }
 
-    // Helper private untuk membangun query filter agar tidak duplikasi kode
+    // =========================================================
+    // BAGIAN 1: FUNGSI PENCATATAN (DARI LogModel)
+    // =========================================================
+    
+    public function catat($aksi, $tabel, $idTarget, $keterangan) {
+        // Cek session
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // 1. Ambil ID Admin & Username dari Session
+        $idAdmin  = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'System';
+
+        // 2. Query Insert
+        $sql = "INSERT INTO activity_logs (id_admin, username, aksi, tabel_target, id_target, keterangan) 
+                VALUES ($1, $2, $3, $4, $5, $6)";
+
+        $params = [
+            $idAdmin,
+            $username,
+            $aksi,        
+            $tabel,       
+            $idTarget,    
+            $keterangan   
+        ];
+
+        // 3. Eksekusi (Silent mode)
+        @pg_query_params($this->conn, $sql, $params);
+    }
+
+    // =========================================================
+    // BAGIAN 2: FUNGSI MENAMPILKAN DATA (DARI ActivityLogModel)
+    // =========================================================
+
+    // Helper private untuk filter
     private function buildWhereClause($filterAksi, $filterTgl) {
         $where = "WHERE 1=1";
         $params = [];
-        $idx = 1; // PostgreSQL param index ($1, $2...)
+        $idx = 1; // PostgreSQL param index
 
         if (!empty($filterAksi)) {
             $where .= " AND l.aksi = $" . $idx++;
@@ -40,8 +75,8 @@ class ActivityLogModel {
         $params = $build['params'];
         $idx = $build['nextIdx'];
 
-        // Tambahkan Limit dan Offset
-        $sql = "SELECT l.*, a.username 
+        // Query dengan JOIN ke admin untuk memastikan data user terbaru (opsional, karena username sudah disimpan di log)
+        $sql = "SELECT l.*, a.username as admin_name 
                 FROM activity_logs l 
                 LEFT JOIN admin a ON l.id_admin = a.id_admin 
                 " . $build['where'] . " 
@@ -52,7 +87,7 @@ class ActivityLogModel {
         $params[] = $offset;
 
         $result = pg_query_params($this->conn, $sql, $params);
-        return $result; // Mengembalikan resource result pg
+        return $result; 
     }
 }
 ?>

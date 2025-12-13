@@ -104,13 +104,33 @@
                                     
                                     <p class="card-text text-muted small mb-3 d-none d-md-block" 
                                        style="font-size: 0.85rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                                        <?= strip_tags($row['deskripsi']) ?>
+                                        <?php 
+                                            $deskripsi = $row['deskripsi'];
+                                            echo htmlspecialchars(strlen($deskripsi) > 40 ? substr($deskripsi, 0, 40) . '...' : $deskripsi); 
+                                        ?>
                                     </p>
 
                                     <div class="mt-auto pt-2 border-top-0 border-md-top">
-                                        <small class="text-secondary d-none d-md-block mb-2 text-truncate" style="font-size: 0.8rem;">
-                                            <i class="bi bi-people-fill me-1"></i> <?= $row['penulis'] ?>
-                                        </small>
+                                        <div class="d-flex align-items-center mb-1" title="Penulis Utama: <?= htmlspecialchars($row['penulis']) ?>" data-bs-toggle="tooltip">
+                                            <i class="bi bi-person-fill text-black me-2"></i>
+                                            <span class="text-dark fw-bold text-truncate" style="font-size: 0.85rem;">
+                                                <?= $row['penulis'] ?>
+                                            </span>
+                                        </div>
+
+                                        <?php if(!empty($row['penulis_anggota'])): ?>
+                                            <div class="d-flex align-items-start text-muted mb-3" 
+                                                title="Anggota: <?= htmlspecialchars($row['penulis_anggota']) ?>" 
+                                                data-bs-toggle="tooltip">
+                                                <i class="bi bi-people me-2 mt-1" style="font-size: 0.8rem;"></i>
+                                                
+                                                <span class="small" style="font-size: 0.8rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3;">
+                                                    <?= $row['penulis_anggota'] ?>
+                                                </span>
+                                            </div>
+                                        <?php else: ?>
+                                            <div class="mb-3"></div>
+                                        <?php endif; ?>
 
                                         <?php if($row['link_eksternal']): ?>
                                             <a href="<?= $row['link_eksternal'] ?>" target="_blank" class="btn btn-outline-primary btn-sm btn-mobile-sm w-100 rounded-pill">
@@ -130,6 +150,36 @@
                     </div>
                 <?php endif; ?>
             </div>
+
+            <?php if ($total_pages > 1): ?>
+            <div class="d-flex justify-content-center mt-5">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        
+                        <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page - 1 ?><?= $keyword ? '&search='.$keyword : '' ?>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; Previous</span>
+                            </a>
+                        </li>
+
+                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                            <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i ?><?= $keyword ? '&search='.$keyword : '' ?>">
+                                    <?= $i ?>
+                                </a>
+                            </li>
+                        <?php endfor; ?>
+
+                        <li class="page-item <?= ($page >= $total_pages) ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page + 1 ?><?= $keyword ? '&search='.$keyword : '' ?>" aria-label="Next">
+                                <span aria-hidden="true">Next &raquo;</span>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

@@ -83,9 +83,9 @@ class ProfileController
 
         // Redirect hasil
         if ($result) {
-            header("Location: manage_profile.php?status=" . $action_status);
+            header("Location: manage_profile.php?msg_status=" . $action_status);
         } else {
-            header("Location: manage_profile.php?status=error");
+            header("Location: manage_profile.php?msg_status=error");
         }
         exit;
     }
@@ -98,12 +98,12 @@ class ProfileController
             $result = $this->model->deleteProfile($id); 
             
             if ($result) {
-                header("Location: manage_profile.php?status=deleted");
+                header("Location: manage_profile.php?msg_status=deleted");
             } else {
-                header("Location: manage_profile.php?status=error");
+                header("Location: manage_profile.php?msg_status=error");
             }
         } else {
-            header("Location: manage_profile.php?status=no_id");
+            header("Location: manage_profile.php?msg_status=no_id");
         }
         exit;
     }
