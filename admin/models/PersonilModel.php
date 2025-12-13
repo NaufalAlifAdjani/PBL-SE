@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/LogModel.php';
+require_once __DIR__ . '/ActivityLogModel.php';
 class PersonilModel
 {
     /** @var resource PostgreSQL connection */
@@ -176,59 +176,9 @@ class PersonilModel
         return pg_fetch_all($res) ?: [];
     }
 
-    /* =========================================
-       SIMPAN DOSEN + RELASI
-       (logika sama kayak di controller lama)
-       ========================================= */
-
-    // public function saveDosen($id_dosen, $nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug)
-    // {
-    //     // --- TAMBAHAN KODE DI SINI ---
-    //     // Jika email kosong, ubah jadi NULL agar tidak kena error unique constraint
-    //     if (empty($email_dosen)) {
-    //         $email_dosen = null;
-    //     }
-    //     // -----------------------------
-
-    //     if ($id_dosen > 0) {
-    //         $sql = "UPDATE dosen
-    //             SET nip = $1,
-    //                 nidn = $2,
-    //                 nama_dosen = $3,
-    //                 jabatan = $4,
-    //                 email_dosen = $5,
-    //                 slug = $6
-    //             WHERE id_dosen = $7
-    //         ";
-    //         $params = [$nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug, $id_dosen];
-            
-    //         // Debugging (opsional, hapus jika sudah fix)
-    //         // var_dump($params); die(); 
-
-    //         $res = pg_query_params($this->conn, $sql, $params);
-    //         if (!$res) {
-    //             die('Update dosen gagal: ' . pg_last_error($this->conn));
-    //         }
-    //         return $id_dosen;
-    //     }
-
-    //     $sql = "INSERT INTO dosen (nip, nidn, nama_dosen, jabatan, email_dosen, slug)
-    //         VALUES ($1, $2, $3, $4, $5, $6)
-    //         RETURNING id_dosen
-    //     ";
-    //     $params = [$nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug];
-        
-    //     $res = pg_query_params($this->conn, $sql, $params);
-    //     if (!$res) {
-    //         die('Insert dosen gagal: ' . pg_last_error($this->conn));
-    //     }
-    //     $row = pg_fetch_assoc($res);
-    //     return (int)$row['id_dosen'];
-    // }
-
-        public function saveDosen($id_dosen, $nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug)
+    public function saveDosen($id_dosen, $nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug, $foto_profil)
     {
-        $logger = new LogModel($this->conn);
+        $logger = new ActivityLogModel($this->conn);
         // --- TAMBAHAN KODE DI SINI ---
         // Jika email kosong, ubah jadi NULL agar tidak kena error unique constraint
         if (empty($email_dosen)) {
@@ -243,10 +193,11 @@ class PersonilModel
                     nama_dosen = $3,
                     jabatan = $4,
                     email_dosen = $5,
-                    slug = $6
-                WHERE id_dosen = $7
+                    slug = $6,
+                    foto_profil = $7
+                WHERE id_dosen = $8
             ";
-            $params = [$nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug, $id_dosen];
+            $params = [$nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug, $foto_profil, $id_dosen];
             
             // Debugging (opsional, hapus jika sudah fix)
             // var_dump($params); die(); 
@@ -264,10 +215,10 @@ class PersonilModel
             return $id_dosen;
         }
 
-        $sql = "INSERT INTO dosen (nip, nidn, nama_dosen, jabatan, email_dosen, slug)
-            VALUES ($1, $2, $3, $4, $5, $6)
+        $sql = "INSERT INTO dosen (nip, nidn, nama_dosen, jabatan, email_dosen, slug, foto_profil)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING id_dosen";
-        $params = [$nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug];
+        $params = [$nip, $nidn, $nama_dosen, $jabatan, $email_dosen, $slug, $foto_profil];
         
         $res = pg_query_params($this->conn, $sql, $params);
         if (!$res) {
@@ -353,7 +304,7 @@ class PersonilModel
 
     public function deleteDosenCascade($id)
     {
-        $logger = new LogModel($this->conn); // Init Logger
+        $logger = new ActivityLogModel($this->conn); // Init Logger
 
         // Ambil nama dulu buat log
         $q = pg_query_params($this->conn, "SELECT nama_dosen, nip FROM dosen WHERE id_dosen = $1", [$id]);
@@ -383,7 +334,7 @@ class PersonilModel
 
     public function callDeleteMemberSP($id)
     {
-        $logger = new LogModel($this->conn); // Init Logger
+        $logger = new ActivityLogModel($this->conn); // Init Logger
 
         // Ambil data buat log (karena setelah dihapus datanya hilang)
         $q = pg_query_params($this->conn, "SELECT nama FROM pendaftaran_member WHERE id_pendaftaran_member = $1", [$id]);
@@ -421,7 +372,7 @@ class PersonilModel
 
     public function updateMember($id, $nama, $nim, $link)
     {
-        $logger = new LogModel($this->conn); // Init Logger
+        $logger = new ActivityLogModel($this->conn); // Init Logger
 
         $sql = "UPDATE pendaftaran_member SET nama = $1, nim = $2, portofolio = $3 WHERE id_pendaftaran_member = $4";
         $params = [$nama, $nim, $link, $id];

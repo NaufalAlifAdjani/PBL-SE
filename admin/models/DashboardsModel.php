@@ -33,7 +33,7 @@ class DashboardModel {
 
     // Khusus menghitung Member SE Geeks yang DITERIMA
     public function getGeeksCount() {
-        return $this->getCount('pendaftaran_user', "WHERE status = 'Diterima'");
+        return $this->getCount('pendaftaran_member', "WHERE status = 'Diterima'");
     }
     
 }

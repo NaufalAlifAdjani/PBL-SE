@@ -21,7 +21,7 @@ if ($result_status && pg_num_rows($result_status) > 0) {
         <h1 class="fw-bold">Software Engineering Lab</h1>
         <p class="lead my-3">We build, test, and refine software solutions that shape the future of technology.</p>
         <?php if ($is_recruitment_open): ?>
-            <a href="pendaftaran.php" class="btn btn-white mt-3 mb-0">Join Us</a>
+            <a href="recruitment.php" class="btn btn-white mt-3 mb-0">Join Us</a>
         <?php endif; ?>
 
     </div>
