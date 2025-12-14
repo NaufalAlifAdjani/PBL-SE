@@ -121,6 +121,29 @@ class PersonilController
         $nama_dosen    = $_POST['nama_dosen']    ?? '';
         $jabatan       = $_POST['jabatan']       ?? '';
         $email_dosen   = $_POST['email_dosen']   ?? '';
+        $foto_lama   = $_POST['foto_lama'] ?? null;
+
+        $foto_profil = $foto_lama;
+        $rootDir = dirname(dirname(__DIR__));
+        $targetDir = $rootDir . '/uploads/personil/';
+
+        if (isset($_FILES['foto_profil']) && $_FILES['foto_profil']['error'] === UPLOAD_ERR_OK) {
+            $tmpName = $_FILES['foto_profil']['tmp_name'];
+            $fileName = $_FILES['foto_profil']['name'];
+            
+            $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+            $newFileName = 'personil_' . time() . '_' . uniqid() . '.' . $ext;
+            
+            // Gabungkan Path + Nama File
+            $finalPath = $targetDir . $newFileName; 
+
+            if (move_uploaded_file($tmpName, $finalPath)) {
+                $foto_profil = $newFileName;
+            } else {
+                echo "Gagal upload. Cek permission folder.";
+                exit;
+            }
+        }
 
             // slug otomatis dari nama
             $slug = $_POST['slug'] ?? '';
@@ -142,7 +165,8 @@ class PersonilController
             $nama_dosen,
             $jabatan,
             $email_dosen,
-            $slug
+            $slug, 
+            $foto_profil
         );
 
         // RIWAYAT PENDIDIKAN
